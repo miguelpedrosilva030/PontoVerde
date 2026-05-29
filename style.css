@@ -1,1 +1,254 @@
+/* ==========================================================================
+   1. VARIÁVEIS DO SISTEMA (Design Tokens) & PALETA DE CORES AGRO
+   ========================================================================== */
+:root {
+    /* Cores Principais (Alto Contraste) */
+    --cor-primaria: #1b4332;       /* Verde Profundo - Representa o Agro e traz solidez */
+    --cor-secundaria: #2a9d8f;     /* Verde Folha/Sustentabilidade - Para destaques e botões */
+    --cor-fundo: #f8f9fa;          /* Areia Claro/Cinza Neutro - Conforto visual e leitura limpa */
+    --cor-texto: #212529;          /* Grafite Escuro - Alto contraste sobre o fundo claro */
+    --cor-branco: #ffffff;         /* Branco Puro - Para cartões e fundos de input */
+    
+    /* Cores de Alerta e Status */
+    --cor-erro: #d90429;           /* Vermelho Vivo - Para as validações estritas de erro */
+    --cor-sucesso: #38b000;        /* Verde Brilhante - Para viabilidade positiva */
 
+    /* Tipografia e Espaçamento */
+    --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --borda-raio: 8px;
+    --transicao: all 0.3s ease;
+}
+
+/* ==========================================================================
+   2. RESET GLOBAL & ACESSIBILIDADE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+    padding: 0;
+}
+
+/* Oculta elementos apenas visualmente, mantendo-os para leitores de tela */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ==========================================================================
+   3. ESTRUTURA SEMÂNTICA (Layout)
+   ========================================================================== */
+header {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 1rem auto;
+}
+
+.badge-agrinho {
+    display: inline-block;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-branco);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Espaçamento confortável entre seções */
+}
+
+section {
+    background-color: var(--cor-branco);
+    padding: 2rem;
+    border-radius: var(--borda-raio);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+    color: var(--cor-primaria);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--cor-fundo);
+    padding-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   4. FORMULÁRIOS, INPUTS E BOTÕES
+   ========================================================================== */
+fieldset {
+    border: 1px solid #e0e0e0;
+    border-radius: var(--borda-raio);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+legend {
+    padding: 0 0.5rem;
+    font-weight: bold;
+    color: var(--cor-primaria);
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.grupo-input:last-child {
+    margin-bottom: 0;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ccc;
+    border-radius: var(--borda-raio);
+    font-size: 1rem;
+    transition: var(--transicao);
+}
+
+/* Estado de Foco para melhor UX */
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--cor-secundaria);
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+}
+
+button {
+    display: block;
+    width: 100%;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-branco);
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: var(--borda-raio);
+    cursor: pointer;
+    transition: var(--transicao);
+}
+
+button:hover {
+    background-color: #218376; /* Tom levemente mais escuro ao passar o mouse */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(42, 157, 143, 0.4);
+}
+
+/* ==========================================================================
+   5. COMPONENTES DINÂMICOS (Sucesso, Erro e Cards)
+   ========================================================================== */
+/* Validação Estrita (JavaScript vai controlar essas classes) */
+.erro-visivel {
+    background-color: #ffe3e3;
+    color: var(--cor-erro);
+    border: 2px solid var(--cor-erro);
+    padding: 1rem;
+    border-radius: var(--borda-raio);
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.erro-oculto, .resultado-oculto {
+    display: none;
+}
+
+.resultado-visivel {
+    display: block;
+    margin-top: 1rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.card-resultado {
+    background-color: var(--cor-fundo);
+    border-left: 5px solid var(--cor-secundaria);
+    padding: 1.5rem;
+    border-radius: 0 var(--borda-raio) var(--borda-raio) 0;
+    margin-top: 1rem;
+}
+
+.card-resultado p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-resultado p:last-child {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+/* Status dinâmicos para o alerta final */
+.status-positivo { color: var(--cor-sucesso); }
+.status-negativo { color: var(--cor-erro); }
+
+/* Links Externos */
+.link-externo {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--cor-secundaria);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: var(--transicao);
+}
+
+.link-externo:hover {
+    border-bottom-color: var(--cor-secundaria);
+}
+
+/* ==========================================================================
+   6. RODAPÉ E ANIMAÇÃO
+   ========================================================================== */
+footer {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 4rem;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
