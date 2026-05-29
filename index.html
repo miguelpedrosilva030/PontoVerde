@@ -17,44 +17,65 @@
     <main>
         
         <section id="contexto" aria-labelledby="titulo-contexto">
-            <h2 id="titulo-contexto">Monitoramento de Custos de Production</h2>
+            <h2 id="titulo-contexto">Monitoramento de Custos de Produção</h2>
             <p>
                 Inspirado nos levantamentos do projeto <strong>Campo Futuro (Sistema FAEP)</strong>, 
-                o PontoVerde ajuda o produtor de leite, aves e suínos no Paraná a entender seus gastos 
-                reais e a descobrir o seu ponto de equilíbrio para evitar prejuízos.
+                o PontoVerde ajuda o produtor rural no Paraná a entender seus gastos 
+                reais e a descobrir o seu ponto de equilíbrio para evitar prejuízos em sua atividade.
             </p>
         </section>
 
         <section id="central-ferramentas">
             <nav class="abas-navegacao">
-                <button class="btn-aba ativa" data-aba="calculadora">Calculadora de Viabilidade</button>
+                <button class="btn-aba ativa" data-aba="tutorial">📖 Como Usar o Site</button>
+                <button class="btn-aba" data-aba="calculadora">Calculadora de Viabilidade</button>
                 <button class="btn-aba" data-aba="produtos">Guia de Insumos & Fornecedores</button>
             </nav>
 
             <hr style="border: 0; border-top: 1px solid #ccc; margin-bottom: 1.5rem;">
 
-            <div id="aba-calculadora" class="conteudo-aba ativa">
+            <div id="aba-tutorial" class="conteudo-aba ativa">
+                <h2>Guia de Uso Rápido</h2>
+                <p>Bem-vindo ao PontoVerde! Siga os passos abaixo para aproveitar ao máximo as nossas ferramentas:</p>
+                
+                <div class="cartao-passo">
+                    <h4>1️⃣ Analise suas Finanças</h4>
+                    <p>Clique na aba <strong>"Calculadora de Viabilidade"</strong>. Insira os seus custos de produção (insumos principais, energia/água, mão de obra) e o preço de venda da sua produção. O sistema calculará o seu ponto de equilíbrio automaticamente.</p>
+                </div>
+
+                <div class="cartao-passo">
+                    <h4>2️⃣ Encontre Fornecedores Próximos</h4>
+                    <p>Clique na aba <strong>"Guia de Insumos & Fornecedores"</strong> e selecione a <strong>Região de Curitiba (RMC)</strong>. O site mostrará as cooperativas e lojas mais perto da sua propriedade para ajudar a economizar no frete.</p>
+                </div>
+
+                <div class="cartao-passo">
+                    <h4>3️⃣ Tire Dúvidas sobre Produtos</h4>
+                    <p>No final do Guia de Insumos, você encontrará o simulador de análise. Digite o nome de um produto e dê uma nota de 0 a 5 baseada na sua expectativa para receber um veredito técnico sobre o custo-benefício.</p>
+                </div>
+            </div>
+
+            <div id="aba-calculadora" class="conteudo-aba">
                 <h2 id="titulo-simulador">Calculadora de Viabilidade Financeira</h2>
                 <form id="formulario-custos" novalidate>
                     <fieldset>
                         <legend>Custos Operacionais Flutuantes</legend>
                         <div class="grupo-input">
-                            <label for="alimentacao">Alimentação Animal / Ração (R$):</label>
+                            <label for="alimentacao">Insumos Principais / Nutrição / Sementes (R$):</label>
                             <input type="number" id="alimentacao" min="0" step="0.01" placeholder="Ex: 5000.00" required>
                         </div>
                         <div class="grupo-input">
-                            <label for="energia">Energia Elétrica e Água (R$):</label>
+                            <label for="energia">Energia Elétrica, Combustível e Água (R$):</label>
                             <input type="number" id="energia" min="0" step="0.01" placeholder="Ex: 850.00" required>
                         </div>
                         <div class="grupo-input">
-                            <label for="mao-obra">Mão de Obra e Insumos (R$):</label>
+                            <label for="mao-obra">Mão de Obra, Manutenção e Serviços (R$):</label>
                             <input type="number" id="mao-obra" min="0" step="0.01" placeholder="Ex: 2300.00" required>
                         </div>
                     </fieldset>
                     <fieldset>
                         <legend>Dados de Mercado (Cotação FAEP)</legend>
                         <div class="grupo-input">
-                            <label for="preco-venda">Preço de Venda Unitário recebido (R$):</label>
+                            <label for="preco-venda">Preço de Venda Unitário recebido (por saca, litro, kg ou arroba) (R$):</label>
                             <input type="number" id="preco-venda" min="0" step="0.01" placeholder="Ex: 2.20" required>
                         </div>
                     </fieldset>
@@ -97,7 +118,7 @@
                 <form id="form-avaliacao" style="margin-top: 1rem;" novalidate>
                     <div class="grupo-input">
                         <label for="nome-produto">Nome do Insumo/Produto:</label>
-                        <input type="text" id="nome-produto" placeholder="Ex: Ração Concentrada de Milho X">
+                        <input type="text" id="nome-produto" placeholder="Ex: Adubo NPK ou Ração Concentrada X">
                     </div>
                     <div class="grupo-input">
                         <label for="nota-produto">Sua Nota de Expectativa (0 a 5 estrelas):</label>
@@ -112,10 +133,10 @@
         </section>
 
         <section id="recursos-senar" aria-labelledby="titulo-recursos">
-            <h2 id="titulo-recursos">Dicas de Gestão e Assistência Técnica</h2>
+            <h2 id="titulo-recursos">Dicas de Gestão e Assistência Técnico-Gerencial</h2>
             <p>
                 Sabia que o SENAR-PR oferece mais de 250 cursos gratuitos e atendimento personalizado 
-                através da <strong>ATeG (Assistência Técnica e Gerencial)</strong> para melhorar a rentabilidade da sua propriedade?
+                através da <strong>ATeG (Assistência Técnica e Gerencial)</strong> para melhorar a rentabilidade de qualquer atividade rural da sua propriedade?
             </p>
             <a href="https://www.sistemafaep.org.br/" target="_blank" rel="noopener noreferrer" class="link-externo">Consultar Cotações Oficiais da FAEP</a>
         </section>
