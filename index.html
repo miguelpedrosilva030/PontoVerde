@@ -1,193 +1,137 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PontoVerde - Gestão e Viabilidade Agrícola</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+Para deixar a entrada do site com um impacto visual e sonoro forte para a banca do Agrinho, o ideal é criar uma Tela de Boas-Vindas (Splash Screen).
 
-    <div id="container-assistente">
-        <div id="balao-assistente">
-            <p id="texto-assistente">Olá! Sou o seu assistente **PontoVerde**. Para começarmos, como posso lhe chamar?</p>
-            <div id="controle-nome">
-                <input type="text" id="nome-usuario" placeholder="Digite seu nome...">
-                <button type="button" id="btn-salvar-nome">Conectar</button>
-            </div>
-        </div>
-        <div id="avatar-ponto">
-            <div class="olho-esquerdo"></div>
-            <div class="olho-direito"></div>
-            <div class="sorriso"></div>
+Essa tela bloqueia o site temporariamente com uma imagem bonita e um botão grande de "Entrar". Como os navegadores modernos bloqueiam sons automáticos por padrão, a música de fundo (com som de viola ou ambiente rural) só começa a tocar exatamente quando o produtor clica nesse botão, garantindo que o áudio funcione perfeitamente.
+
+Aqui está o código completo para adicionar essa abertura chamativa ao seu projeto:
+
+1. No seu index.html
+Adicione este bloco de código logo após a abertura da tag <body> (antes do container do assistente):
+
+HTML
+
+
+    <div id="tela-entrada">
+        <div class="conteudo-entrada">
+            <div class="logo-animada">🌱</div>
+            <h1>Bem-vindo ao PontoVerde</h1>
+            <p>Tecnologia, Gestão e Sustentabilidade para o Produtor Rural</p>
+            <button type="button" id="btn-entrar-site">Entrar na Propriedade</button>
         </div>
     </div>
 
-    <header>
-        <h1>PontoVerde</h1>
-        <p>Conectando Campo e Cidade através da Tecnologia e Gestão Inteligente</p>
-        <span class="badge-agrinho">Concurso Agrinho 2026</span>
-    </header>
+    <audio id="musica-fundo" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+2. No seu style.css
+Adicione estas regras no final do arquivo para criar o visual do tema rural, usando um fundo verde degradê ou uma imagem da sua preferência:
 
-    <main>
+CSS
+
+
+/* ==========================================================================
+   TELA DE ENTRADA (THEME RURAL)
+   ========================================================================== */
+#tela-entrada {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1b4332 0%, #0d1f16 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000; /* Fica por cima de absolutamente tudo */
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+    text-align: center;
+    color: #ffffff;
+    padding: 1rem;
+}
+
+.conteudo-entrada {
+    max-width: 500px;
+    animation: agitarEntrada 1s ease-out;
+}
+
+.logo-animada {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    animation: pulsarPlanta 2s infinite ease-in-out;
+}
+
+#tela-entrada h1 {
+    font-size: 2.8rem;
+    font-family: 'Georgia', serif; /* Estilo mais rústico/tradicional */
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+#tela-entrada p {
+    font-size: 1.2rem;
+    color: #b7e4c7;
+    margin-bottom: 2rem;
+}
+
+#btn-entrar-site {
+    background-color: #2a9d8f;
+    color: #ffffff;
+    font-size: 1.3rem;
+    padding: 1.2rem 2.5rem;
+    border: 2px solid #ffffff;
+    border-radius: 30px; /* Botão arredondado e elegante */
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+#btn-entrar-site:hover {
+    background-color: #52b788;
+    transform: scale(1.05);
+}
+
+/* Telas ocultas após o clique */
+#tela-entrada.ocultar {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* ANIMAÇÕES VISUAIS */
+@keyframes pulsarPlanta {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes agitarEntrada {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+3. No seu script.js
+Adicione este pequeno bloco de código no final ou no início do seu arquivo JavaScript para controlar o sumiço da tela e ativar a música:
+
+JavaScript
+
+
+/* ==========================================================================
+   X. CONTROLE DA TELA DE ABERTURA E MÚSICA DE FUNDO
+   ========================================================================== */
+const telaEntrada = document.querySelector('#tela-entrada');
+const btnEntrarSite = document.querySelector('#btn-entrar-site');
+const audioFundo = document.querySelector('#musica-fundo');
+
+if (btnEntrarSite && telaEntrada && audioFundo) {
+    btnEntrarSite.addEventListener('click', () => {
+        // 1. Desvanece a tela de entrada rústica
+        telaEntrada.classList.add('ocultar');
         
-        <section id="contexto">
-            <h2>Monitoramento de Custos de Produção</h2>
-            <p>
-                Inspirado nos levantamentos do projeto <strong>Campo Futuro (Sistema FAEP)</strong>, 
-                o PontoVerde ajuda o produtor rural no Paraná a entender seus gastos 
-                reais e a descobrir o seu ponto de equilíbrio para evitar prejuízos.
-            </p>
-        </section>
+        // 2. Inicia a música de fundo rural de forma limpa
+        audioFundo.volume = 0.4; // Define o som como música de fundo suave (40% do volume)
+        audioFundo.play().catch(error => {
+            console.log("O navegador bloqueou a reprodução automática de áudio:", error);
+        });
+    });
+}
+🌾 O impacto gerado:
+Suspense profissional: Quando o avaliador abrir o sistema, verá uma tela escura em tons de verde folha com uma planta pulsando.
 
-        <section id="central-ferramentas">
-            <nav class="abas-navegacao">
-                <button class="btn-aba ativa" data-aba="tutorial">📖 Como Usar o Site</button>
-                <button class="btn-aba" data-aba="calculadora">Calculadora de Viabilidade</button>
-                <button class="btn-aba" data-aba="produtos">Guia de Insumos & Fornecedores</button>
-            </nav>
-
-            <hr style="border: 0; border-top: 1px solid #ccc; margin-bottom: 1.5rem;">
-
-            <div id="aba-tutorial" class="conteudo-aba ativa">
-                <h2>Guia de Uso Rápido</h2>
-                <p>Siga os passos abaixo para aproveitar ao máximo as nossas ferramentas:</p>
-                
-                <div class="cartao-passo">
-                    <h4>1️⃣ Analise suas Finanças</h4>
-                    <p>Clique na aba <strong>"Calculadora de Viabilidade"</strong>. Insira os seus custos de produção e o preço de venda do seu produto para calcular o seu ponto de equilíbrio.</p>
-                </div>
-
-                <div class="cartao-passo">
-                    <h4>2️⃣ Encontre Fornecedores Próximos</h4>
-                    <p>Clique na aba <strong>"Guia de Insumos & Fornecedores"</strong>. O site mostrará as cooperativas e lojas mais perto da sua propriedade para ajudar a economizar no frete.</p>
-                </div>
-
-                <div class="cartao-passo">
-                    <h4>3️⃣ Simule a Qualidade de um Insumo</h4>
-                    <p>No final do Guia de Insumos, selecione a reputação de um produto que você deseja comprar para receber um diagnóstico técnico sobre o risco ou viabilidade.</p>
-                </div>
-            </div>
-
-            <div id="aba-calculadora" class="conteudo-aba">
-                <h2>Calculadora de Viabilidade Financeira</h2>
-                <form id="formulario-custos" novalidate>
-                    <fieldset>
-                        <legend>Custos Operacionais Flutuantes</legend>
-                        <div class="grupo-input">
-                            <label for="alimentacao">Insumos Principais / Nutrição / Sementes (R$):</label>
-                            <input type="number" id="alimentacao" min="0" step="0.01" placeholder="Ex: 5000.00" required>
-                        </div>
-                        <div class="grupo-input">
-                            <label for="energia">Energia Elétrica, Combustível e Água (R$):</label>
-                            <input type="number" id="energia" min="0" step="0.01" placeholder="Ex: 850.00" required>
-                        </div>
-                        <div class="grupo-input">
-                            <label for="mao-obra">Mão de Obra, Manutenção e Serviços (R$):</label>
-                            <input type="number" id="mao-obra" min="0" step="0.01" placeholder="Ex: 2300.00" required>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Dados de Mercado (Cotação FAEP)</legend>
-                        <div class="grupo-input">
-                            <label for="preco-venda">Preço de Venda Unitário recebido (R$):</label>
-                            <input type="number" id="preco-venda" min="0" step="0.01" placeholder="Ex: 2.20" required>
-                        </div>
-                    </fieldset>
-                    <button type="button" id="btn-calcular">Analisar Viabilidade</button>
-                </form>
-
-                <div id="mensagem-erro" class="erro-oculto"></div>
-                <div id="resultado-calculo" class="resultado-oculto">
-                    <h3>Análise do Ponto de Equilíbrio</h3>
-                    <article class="card-resultado">
-                        <p id="res-custo-total">Custo Operacional Total: R$ 0,00</p>
-                        <p id="res-ponto-equilibrio">Meta de Vendas Necessária: 0 unidades</p>
-                        <p id="res-alerta-status">Status de Viabilidade: Aguardando dados...</p>
-                    </article>
-                </div>
-            </div>
-
-            <div id="aba-produtos" class="conteudo-aba">
-                <h2>Guia de Fornecedores & Ampla Vitrine de Insumos</h2>
-                <p>Selecione a sua região para encontrar lojas físicas, cooperativas parceiras e uma grande variedade de produtos essenciais para compra.</p>
-                
-                <div class="cartao-localidade" style="background: #e9f5ed; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #2a9d8f;">
-                    <label for="regiao-produtor" style="font-weight: bold; color: #1b4332;">📍 Filtrar por Região no Paraná:</label>
-                    <select id="regiao-produtor" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 2px solid #ccc; margin-top: 0.5rem; font-size: 1rem;">
-                        <option value="todos">Mostrar Todos os Produtos Disponíveis</option>
-                        <option value="sul">Região de Curitiba (RMC)</option>
-                        <option value="campos-gerais">Campos Gerais</option>
-                        <option value="oeste">Oeste Paranaense</option>
-                        <option value="norte">Norte Paranaense</option>
-                    </select>
-                </div>
-
-                <h3>Opções de Produtos para Compra</h3>
-                <div id="lista-insumos-tech">
-                    </div>
-
-                <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
-
-                <h3>Simulador de Qualidade de Insumos:</h3>
-                <form id="form-avaliacao" style="margin-top: 1rem;" novalidate>
-                    <div class="grupo-input">
-                        <label for="nome-produto">Nome do Insumo/Produto:</label>
-                        <input type="text" id="nome-produto" placeholder="Ex: Calcário Ensacado, Semente X">
-                    </div>
-                    <div class="grupo-input">
-                        <label for="nota-produto">Qual é a reputação de mercado deste item?</label>
-                        <select id="nota-produto" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 2px solid #ccc; font-size: 1rem;">
-                            <option value="">-- Escolha uma alternativa --</option>
-                            <option value="5">⭐⭐⭐⭐⭐ Excelente (Muito recomendado)</option>
-                            <option value="4">⭐⭐⭐⭐ Bom (Garante estabilidade)</option>
-                            <option value="3">⭐⭐⭐ Regular (Custo-benefício comum)</option>
-                            <option value="2">⭐⭐ Ruim (Histórico de baixo rendimento)</option>
-                        </select>
-                    </div>
-                    <button type="button" id="btn-avaliar">Analisar Viabilidade do Insumo</button>
-                </form>
-                
-                <div id="resultado-produto" class="resultado-oculto" style="margin-top: 1rem;"></div>
-            </div>
-        </section>
-
-        <section id="recursos-senar">
-            <h2>Dicas de Gestão e Assistência Técnico-Gerencial</h2>
-            <p>O SENAR-PR oferece treinamentos e atendimento personalizado através da <strong>ATeG (Assistência Técnica e Gerencial)</strong> para melhorar os resultados econômicos da sua propriedade rural.</p>
-            <a href="https://www.sistemafaep.org.br/" target="_blank" rel="noopener noreferrer" class="link-externo">Consultar Cotações Oficiais da FAEP</a>
-        </section>
-
-        <section id="avaliacao-plataforma">
-            <h2>⭐ Avalie o Nosso Site</h2>
-            <p>Sua opinião é fundamental para melhorarmos a ferramenta para o Concurso Agrinho. Como você avalia sua experiência de 0 a 10?</p>
-            
-            <div class="container-estrelas-site">
-                <select id="nota-site" style="width: auto; padding: 0.8rem; border-radius: 8px; border: 2px solid #ccc; font-size: 1.1rem; margin-right: 1rem;">
-                    <option value="">Selecione...</option>
-                    <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ 10 - Excelente</option>
-                    <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐ 9 - Muito Bom</option>
-                    <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐ 8 - Bom</option>
-                    <option value="7">⭐⭐⭐⭐⭐⭐⭐ 7 - Satisfatório</option>
-                    <option value="6">⭐⭐⭐⭐⭐⭐ 6 - Mediano</option>
-                    <option value="5">⭐⭐⭐⭐⭐ 5 - Regular</option>
-                    <option value="4">⭐⭐⭐⭐ 4 - Ruim</option>
-                    <option value="3">⭐⭐⭐ 3 - Muito Ruim</option>
-                    <option value="2">⭐⭐ 2 - Péssimo</option>
-                    <option value="1">⭐ 1 - Inaceitável</option>
-                    <option value="0">❌ 0 - Totalmente Inútil</option>
-                </select>
-                <button type="button" id="btn-enviar-nota-site" style="display: inline-block; width: auto; padding: 0.8rem 1.5rem;">Enviar Avaliação</button>
-            </div>
-            <div id="feedback-nota-site" class="resultado-oculto" style="margin-top: 1rem; font-weight: bold; color: var(--cor-sucesso);"></div>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2026 PontoVerde - Desenvolvido para o Concurso Agrinho. Tecnologia a serviço do campo.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+Sonoridade ativa: No momento em que ele clicar em "Entrar na Propriedade", a tela some com uma transição suave e a música de fundo começa a tocar imediatamente, criando uma atmosfera imersiva do campo.
