@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PontoVerde - Gestão e Viabilidade Agrícola</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <header>
+        <h1>PontoVerde</h1>
+        <p>Conectando Campo e Cidade através da Tecnologia e Gestão Inteligente</p>
+        <span class="badge-agrinho">Concurso Agrinho 2026</span>
+    </header>
+
+    <main>
+        
+        <section id="contexto" aria-labelledby="titulo-contexto">
+            <h2 id="titulo-contexto">Monitoramento de Custos de Produção</h2>
+            <p>
+                Inspirado nos levantamentos do projeto <strong>Campo Futuro (Sistema FAEP)</strong>, 
+                o PontoVerde ajuda o produtor de leite, aves e suínos no Paraná a entender seus gastos 
+                reais e a descobrir o seu ponto de equilíbrio para evitar prejuízos.
+            </p>
+        </section>
+
+        <section id="simulador" aria-labelledby="titulo-simulador">
+            <h2 id="titulo-simulador">Calculadora de Viabilidade Financeira</h2>
+            <p>Insira abaixo os custos operacionais da sua propriedade para calcular o ponto de equilíbrio.</p>
+            
+            <form id="formulario-custos" novalidate>
+                <fieldset>
+                    <legend>Custos Operacionais Flutuantes</legend>
+                    
+                    <div class="grupo-input">
+                        <label for="alimentacao">Alimentação Animal / Ração (R$):</label>
+                        <input type="number" id="alimentacao" min="0" step="0.01" placeholder="Ex: 5000.00" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label for="energia">Energia Elétrica e Água (R$):</label>
+                        <input type="number" id="energia" min="0" step="0.01" placeholder="Ex: 850.00" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label for="mao-obra">Mão de Obra e Insumos (R$):</label>
+                        <input type="number" id="mao-obra" min="0" step="0.01" placeholder="Ex: 2300.00" required>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Dados de Mercado (Cotação FAEP)</legend>
+                    
+                    <div class="grupo-input">
+                        <label for="preco-venda">Preço de Venda Unitário recebido (R$):</label>
+                        <input type="number" id="preco-venda" min="0" step="0.01" placeholder="Ex: 2.20 por litro/quilo" required>
+                    </div>
+                </fieldset>
+
+                <button type="button" id="btn-calcular">Analisar Viabilidade</button>
+            </form>
+        </section>
+
+        <section id="painel-resultados" aria-live="polite">
+            <h2 class="sr-only">Resultados da Análise</h2>
+            <div id="mensagem-erro" class="erro-oculto"></div>
+            
+            <div id="resultado-calculo" class="resultado-oculto">
+                <h3>Análise do Ponto de Equilíbrio</h3>
+                <article class="card-resultado">
+                    <p id="res-custo-total">Custo Operacional Total: R$ 0,00</p>
+                    <p id="res-ponto-equilibrio">Meta de Vendas Necessária: 0 unidades</p>
+                    <p id="res-alerta-status">Status de Viabilidade: Aguardando dados...</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="recursos-senar" aria-labelledby="titulo-recursos">
+            <h2 id="titulo-recursos">Dicas de Gestão e Assistência Técnica</h2>
+            <p>
+                Sabia que o SENAR-PR oferece mais de 250 cursos gratuitos e atendimento personalizado 
+                através da <strong>ATeG (Assistência Técnica e Gerencial)</strong> para melhorar a rentabilidade da sua propriedade?
+            </p>
+            <a href="https://www.sistemafaep.org.br/" target="_blank" rel="noopener noreferrer" class="link-externo">Consultar Cotações Oficiais da FAEP</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PontoVerde - Desenvolvido para o Concurso Agrinho. Tecnologia a serviço do campo.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
