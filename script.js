@@ -1,13 +1,13 @@
 /* ==========================================================================
-   1. CONTROLE DE ABAS (Alternância de Telas)
+   1. CONTROLE DE ABAS (Alternância Dinâmica de Telas)
    ========================================================================== */
 const botoesAbas = document.querySelectorAll('.btn-aba');
 const conteudosAbas = document.querySelectorAll('.conteudo-aba');
 
 botoesAbas.forEach(botao => {
     botao.addEventListener('click', () => {
-        botoesAbas.forEach(b => b.classList.remove('active', 'ativa'));
-        conteudosAbas.forEach(c => c.classList.remove('active', 'ativa'));
+        botoesAbas.forEach(b => b.classList.remove('ativa'));
+        conteudosAbas.forEach(c => c.classList.remove('ativa'));
         
         botao.classList.add('ativa');
         const abaAlvo = botao.getAttribute('data-aba');
@@ -17,28 +17,28 @@ botoesAbas.forEach(botao => {
 
 
 /* ==========================================================================
-   2. BANCO DE DADOS LOCAL: FOCO NA REGIÃO DE CURITIBA (RMC) E OUTRAS
+   2. BANCO DE DADOS LOCAL: FORNECE INSUMOS AGRÍCOLAS E PECUÁRIOS GERAIS
    ========================================================================== */
 const listaInsumosTech = document.querySelector('#lista-insumos-tech');
 const seletorRegiao = document.querySelector('#regiao-produtor');
 
 const bancoInsumosELojas = [
     { 
-        nome: "Kit de Medicamentos e Vacinas Sanidade Forte", 
+        nome: "Defensivos Biológicos e Protetores de Cultivo", 
         regiao: "sul",
-        loja: "Distribuidora Veterinária Pinhais & RMC",
+        loja: "Distribuidora e Soluções Agro Pinhais & RMC",
         endereco: "Marginal da BR-277, Km 4 - Pinhais (Região de Curitiba)/PR",
         distanciaSimulada: 12,
-        descricao: "Segurança sanitária completa para aves e suínos, aprovada pelas normas técnicas da ADAPAR.",
+        descricao: "Proteção biológica integrada de alta eficiência técnica para lavouras e cultivos diversos.",
         statusInsumo: "Item Indispensável"
     },
     { 
-        nome: "Ração Concentrada MaxLeite RMC 22%", 
+        nome: "Adubo Organomineral de Alta Performance", 
         regiao: "sul",
         loja: "Agropecuária Central Contenda / Lapa",
         endereco: "Av. Governador Moisés Lupion, 320 - Contenda/PR",
         distanciaSimulada: 18,
-        descricao: "Ração balanceada para gado de leite focada na agricultura familiar da região sul da RMC.",
+        descricao: "Fertilizante balanceado focado na recuperação do solo e aumento de produtividade da região.",
         statusInsumo: "Excelente Custo-Benefício"
     },
     { 
@@ -47,25 +47,25 @@ const bancoInsumosELojas = [
         loja: "EletroAgro Soluções Sustentáveis Curitiba",
         endereco: "Av. das Torres, 4500 - São José dos Pinhais/PR",
         distanciaSimulada: 9,
-        descricao: "Placas solares de alta eficiência para reduzir o custo de energia dos resfriadores de leite e ordenhas automáticas.",
+        descricao: "Placas solares de alta eficiência para reduzir o custo de energia de galpões, bombas de irrigação e maquinários.",
         statusInsumo: "Retorno Financeiro Rápido"
     },
     { 
-        nome: "Ração Concentrada Pro-Leite 22%", 
+        nome: "Fertilizante Foliar Quelatado Premium", 
         regiao: "campos-gerais",
-        loja: "Cooperativa Castrolanda - Unidade Castro",
+        loja: "Cooperativa Foco Agrícola - Unidade Castro",
         endereco: "PR-340, Km 12 - Castro/PR",
         distanciaSimulada: 140,
-        descricao: "Ração de altíssima qualidade técnica para vacas em lactação. Otimiza a conversão alimentar.",
+        descricao: "Nutrição vegetal de rápida absorção para ganho de vigor em lavouras e pastagens.",
         statusInsumo: "Alta Eficiência Certificada"
     },
     { 
-        nome: "Suplemento Mineral NutriSuíno Crescimento", 
+        nome: "Suplemento de Nutrição Concentrado de Alta Qualidade", 
         regiao: "oeste",
         loja: "Agro Comercial Cascavel & Cooperativas",
         endereco: "Av. Brasil, 4500 - Cascavel/PR",
         distanciaSimulada: 480,
-        descricao: "Fortificado com vitaminas para aceleração saudável do ganho de peso em suínos.",
+        descricao: "Composição enriquecida com minerais essenciais para máxima conversão e produtividade.",
         statusInsumo: "Alta Eficiência Certificada"
     }
 ];
@@ -95,7 +95,7 @@ function renderizarGuiaInsumos() {
                 <div class="container-loja">
                     <p><strong>🏬 Onde encontrar:</strong> ${item.loja}</p>
                     <p><strong>📍 Endereço:</strong> ${item.endereco}</p>
-                    <p><span class="badge-distancia">Aprox. ${item.distanciaSimulada} km de você</span> • Loja Técnica Homologada</p>
+                    <p><span class="badge-distancia">Aprox. ${item.distanciaSimulada} km de você</span> • Fornecedor Técnico Homologado</p>
                 </div>
             </article>
         `;
@@ -103,11 +103,11 @@ function renderizarGuiaInsumos() {
 }
 
 seletorRegiao.addEventListener('change', renderizarGuiaInsumos);
-renderizarGuiaInsumos(); // Carregamento inicial
+renderizarGuiaInsumos();
 
 
 /* ==========================================================================
-   3. SIMULADOR DE AVALIAÇÃO DE PRODUTOS (DÚVIDAS DO PRODUTOR)
+   3. SIMULADOR DE AVALIAÇÃO DE PRODUTOS
    ========================================================================== */
 const btnAvaliar = document.querySelector('#btn-avaliar');
 const inputNomeProduto = document.querySelector('#nome-produto');
@@ -119,9 +119,8 @@ if (btnAvaliar) {
         const nome = inputNomeProduto.value.trim();
         const nota = parseInt(inputNotaProduto.value);
 
-        // Validação Estrita
         if (nome === "" || isNaN(nota) || nota < 0 || nota > 5) {
-            painelResultadoProduto.innerHTML = `<p class="status-negativo">Erro: Digite o nome do produto e escolha uma nota de 0 a 5.</p>`;
+            painelResultadoProduto.innerHTML = `<p class="status-negativo">Erro: Digite o nome do produto e escolha uma nota válida de 0 a 5.</p>`;
             painelResultadoProduto.className = "resultado-visivel";
             return;
         }
@@ -130,10 +129,10 @@ if (btnAvaliar) {
         let classeVeredito = "";
 
         if (nota >= 4) {
-            veredito = `<strong>Análise Técnica do ${nome}:</strong> Alta Viabilidade! Produtos com essa pontuação reduzem custos operacionais no longo prazo e têm bom histórico nas cooperativas do Paraná.`;
+            veredito = `<strong>Análise Técnica do ${nome}:</strong> Alta Viabilidade! Insumos com essa classificação reduzem custos de produção no longo prazo e contam com bom histórico de distribuição técnica nas cooperativas do Paraná.`;
             classeVeredito = "tag-bom";
         } else {
-            veredito = `<strong>Análise Técnica do ${nome}:</strong> Alerta de Risco! Notas baixas indicam que o insumo pode render menos, forçando você a gastar mais quilos ou mais energia para ter o mesmo resultado.`;
+            veredito = `<strong>Análise Técnica do ${nome}:</strong> Alerta de Risco! Avaliações baixas indicam que o insumo pode render menos, forçando você a gastar uma quantidade maior para atingir o mesmo resultado.`;
             classeVeredito = "tag-regular";
         }
 
@@ -149,7 +148,7 @@ if (btnAvaliar) {
 
 
 /* ==========================================================================
-   4. CÁLCULO DA CALCULADORA PRINCIPAL (VALIDAÇÃO ESTRITA)
+   4. CÁLCULO DA CALCULADORA PRINCIPAL
    ========================================================================== */
 const inputAlimentacao = document.querySelector('#alimentacao');
 const inputEnergia = document.querySelector('#energia');
@@ -170,7 +169,6 @@ if (btnCalcular) {
         const custoMaoObra = parseFloat(inputMaoObra.value);
         const precoVendaUnitario = parseFloat(inputPrecoVenda.value);
 
-        // Validação Estrita Obrigatória renderizada na tela
         if (
             isNaN(custoAlimentacao) || custoAlimentacao < 0 || 
             isNaN(custoEnergia) || custoEnergia < 0 || 
@@ -185,7 +183,6 @@ if (btnCalcular) {
 
         painelErro.className = "erro-oculto";
         
-        // Regras de negócio e cálculos
         const custoOperacionalTotal = custoAlimentacao + custoEnergia + custoMaoObra;
         const pontoEquilibrioVolume = Math.ceil(custoOperacionalTotal / precoVendaUnitario);
 
