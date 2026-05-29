@@ -8,7 +8,8 @@
     --cor-texto: #212529;          
     --cor-branco: #ffffff;         
     --cor-erro: #d90429;           
-    --cor-sucesso: #38b000;        
+    --cor-sucesso: #38b000;
+    --cor-ouro: #ffb703;        
     --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --borda-raio: 8px;
     --transicao: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -18,7 +19,7 @@
 body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; padding-bottom: 2rem; }
 
 /* ==========================================================================
-   2. TELA DE ENTRADA (TRATOR E FAZENDA NO FUNDO)
+   2. TELA DE BLOQUEIO AGRICULTURA
    ========================================================================== */
 #tela-entrada {
     position: fixed;
@@ -26,8 +27,9 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(27, 67, 50, 0.85) 0%, rgba(13, 31, 22, 0.9) 100%), 
-                url('https://cbpce.org.br/wp-content/uploads/2024/04/Fundo-Agricultura-Sustentavel.jpg');
+    /* Fundo realístico de plantação sustentável paranaense */
+    background: linear-gradient(135deg, rgba(27, 67, 50, 0.9) 0%, rgba(13, 31, 22, 0.93) 100%), 
+                url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -38,24 +40,87 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
     transition: opacity 0.8s ease, visibility 0.8s ease;
     text-align: center;
     color: #ffffff;
-    padding: 1rem;
+    padding: 1.5rem;
 }
 
-.conteudo-entrada { max-width: 500px; animation: agitarEntrada 1s ease-out; }
-.logo-animada { font-size: 5rem; margin-bottom: 1rem; animation: pulsarPlanta 2s infinite ease-in-out; }
-#tela-entrada h1 { font-size: 2.8rem; font-family: 'Georgia', serif; margin-bottom: 0.5rem; text-shadow: 2px 2px 6px rgba(0,0,0,0.8); }
-#tela-entrada p { font-size: 1.2rem; color: #b7e4c7; margin-bottom: 2rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.7); }
+.conteudo-entrada { 
+    max-width: 550px; 
+    background: rgba(255, 255, 255, 0.08);
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    animation: agitarEntrada 1s ease-out; 
+}
+
+.logo-animada { 
+    font-size: 4.5rem; 
+    margin-bottom: 0.5rem; 
+    animation: pulsarPlanta 2s infinite ease-in-out; 
+}
+
+#tela-entrada h1 { 
+    font-size: 3.2rem; 
+    font-family: 'Georgia', serif; 
+    color: var(--cor-ouro);
+    margin-bottom: 0.2rem; 
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6); 
+}
+
+.subtitulo-agro {
+    font-size: 1.1rem;
+    color: #b7e4c7;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.linha-decorativa {
+    height: 3px;
+    width: 80px;
+    background-color: var(--cor-ouro);
+    margin: 0 auto 1.5rem auto;
+    border-radius: 2px;
+}
+
+.frase-efeito {
+    font-size: 1.1rem;
+    color: #f1f5f9;
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+}
 
 #btn-entrar-site {
-    background-color: #2a9d8f; color: #ffffff; font-size: 1.4rem; padding: 1rem 3.5rem;
-    border: 2px solid #ffffff; border-radius: 30px; cursor: pointer; font-weight: bold;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: transform 0.2s, background-color 0.3s;
+    background-color: var(--cor-ouro); 
+    color: var(--cor-primaria); 
+    font-size: 1.25rem; 
+    padding: 1.1rem 3rem;
+    border: none; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 20px rgba(255, 183, 3, 0.3); 
+    transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+    width: auto;
+    margin: 0 auto;
 }
-#btn-entrar-site:hover { background-color: #52b788; transform: scale(1.05); }
+
+#btn-entrar-site:hover { 
+    background-color: #ffe066; 
+    transform: scale(1.04);
+    box-shadow: 0 8px 25px rgba(255, 183, 3, 0.5); 
+}
+
 #tela-entrada.ocultar { opacity: 0; visibility: hidden; }
 
 /* ==========================================================================
-   3. ANIMATED CHAT ASSISTENTE (COM SUPORTE A MOVIMENTO DINÂMICO)
+   3. CHAT ASSISTENTE (COM BOTÃO DE FECHAR ATIVO)
    ========================================================================== */
 #container-assistente {
     position: fixed;
@@ -70,7 +135,6 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
     transition: var(--transicao); 
 }
 
-/* Força o assistente a ir para o centro absoluto da tela */
 #container-assistente.centro-foco {
     bottom: 50%;
     right: 50%;
@@ -79,10 +143,30 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
 }
 
 #balao-assistente {
-    background: var(--cor-branco); border: 2px solid var(--cor-secundaria); padding: 1rem;
+    position: relative;
+    background: var(--cor-branco); border: 2px solid var(--cor-secundaria); padding: 1.5rem 1rem 1rem 1rem;
     border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); margin-bottom: 10px;
     font-size: 0.95rem; max-height: 360px; overflow-y: auto; width: 100%;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+/* Estilo do Botão de Fechar Chat (X) */
+#btn-fechar-chat {
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: auto;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+}
+#btn-fechar-chat:hover { color: var(--cor-erro); background: none; }
 
 #controle-nome { display: flex; gap: 5px; margin-top: 8px; }
 #nome-usuario { padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; width: 65%; }
@@ -149,6 +233,6 @@ footer { background-color: var(--cor-primaria); color: var(--cor-branco); text-a
 
 /* ANIMAÇÕES VISUAIS */
 @keyframes flutuar { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-@keyframes pulsarPlanta { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-@keyframes agitarEntrada { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulsarPlanta { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+@keyframes agitarEntrada { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
