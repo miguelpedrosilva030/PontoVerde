@@ -1,27 +1,24 @@
 /* ==========================================================================
-   1. VARIÁVEIS DO SISTEMA & PALETA DE CORES AGRO
+   1. VARIÁVEIS E CORES DO SISTEMA AGRO
    ========================================================================== */
 :root {
-    --cor-primaria: #1b4332;       /* Verde Profundo */
-    --cor-secundaria: #2a9d8f;     /* Verde Destaques */
-    --cor-fundo: #f8f9fa;          /* Cinza Neutro */
-    --cor-texto: #212529;          /* Grafite Escuro */
+    --cor-primaria: #1b4332;       
+    --cor-secundaria: #2a9d8f;     
+    --cor-fundo: #f8f9fa;          
+    --cor-texto: #212529;          
     --cor-branco: #ffffff;         
     --cor-erro: #d90429;           
     --cor-sucesso: #38b000;        
     --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --borda-raio: 8px;
-    --transicao: all 0.3s ease;
+    --transicao: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* ==========================================================================
-   2. RESET GLOBAL & ACESSIBILIDADE
-   ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; padding-bottom: 2rem; }
 
 /* ==========================================================================
-   3. TELA DE ENTRADA (RURAL SPLASH SCREEN)
+   2. TELA DE ENTRADA (TRATOR E FAZENDA NO FUNDO)
    ========================================================================== */
 #tela-entrada {
     position: fixed;
@@ -29,7 +26,11 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #1b4332 0%, #0d1f16 100%);
+    background: linear-gradient(135deg, rgba(27, 67, 50, 0.85) 0%, rgba(13, 31, 22, 0.9) 100%), 
+                url('https://cbpce.org.br/wp-content/uploads/2024/04/Fundo-Agricultura-Sustentavel.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,18 +43,19 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
 
 .conteudo-entrada { max-width: 500px; animation: agitarEntrada 1s ease-out; }
 .logo-animada { font-size: 5rem; margin-bottom: 1rem; animation: pulsarPlanta 2s infinite ease-in-out; }
-#tela-entrada h1 { font-size: 2.8rem; font-family: 'Georgia', serif; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-#tela-entrada p { font-size: 1.2rem; color: #b7e4c7; margin-bottom: 2rem; }
+#tela-entrada h1 { font-size: 2.8rem; font-family: 'Georgia', serif; margin-bottom: 0.5rem; text-shadow: 2px 2px 6px rgba(0,0,0,0.8); }
+#tela-entrada p { font-size: 1.2rem; color: #b7e4c7; margin-bottom: 2rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.7); }
+
 #btn-entrar-site {
-    background-color: #2a9d8f; color: #ffffff; font-size: 1.3rem; padding: 1.2rem 2.5rem;
-    border: 2px solid #ffffff; border-radius: 30px; cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.2s, background-color 0.3s;
+    background-color: #2a9d8f; color: #ffffff; font-size: 1.4rem; padding: 1rem 3.5rem;
+    border: 2px solid #ffffff; border-radius: 30px; cursor: pointer; font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: transform 0.2s, background-color 0.3s;
 }
 #btn-entrar-site:hover { background-color: #52b788; transform: scale(1.05); }
 #tela-entrada.ocultar { opacity: 0; visibility: hidden; }
 
 /* ==========================================================================
-   4. DESIGN DO ASSISTENTE VIRTUAL ANIMADO & CHAT
+   3. ANIMATED CHAT ASSISTENTE (COM SUPORTE A MOVIMENTO DINÂMICO)
    ========================================================================== */
 #container-assistente {
     position: fixed;
@@ -65,20 +67,21 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
     z-index: 9999;
     max-width: 320px;
     width: 100%;
+    transition: var(--transicao); 
+}
+
+/* Força o assistente a ir para o centro absoluto da tela */
+#container-assistente.centro-foco {
+    bottom: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
+    max-width: 400px;
 }
 
 #balao-assistente {
-    background: var(--cor-branco);
-    border: 2px solid var(--cor-secundaria);
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-    position: relative;
-    max-height: 360px;
-    overflow-y: auto;
-    width: 100%;
+    background: var(--cor-branco); border: 2px solid var(--cor-secundaria); padding: 1rem;
+    border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); margin-bottom: 10px;
+    font-size: 0.95rem; max-height: 360px; overflow-y: auto; width: 100%;
 }
 
 #controle-nome { display: flex; gap: 5px; margin-top: 8px; }
@@ -87,18 +90,20 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
 .pensando { font-style: italic; color: #666; }
 
 #avatar-ponto {
-    width: 60px; height: 60px; background-color: var(--cor-sucesso); border-radius: 50%;
-    position: relative; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    width: 65px; height: 65px; background-color: var(--cor-sucesso); border-radius: 50%;
+    position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     animation: flutuar 3s infinite ease-in-out; cursor: pointer; border: 3px solid var(--cor-branco);
+    transition: transform 0.2s;
 }
+#avatar-ponto:hover { transform: scale(1.1); }
 
-.olho-esquerdo, .olho-direito { width: 8px; height: 8px; background: var(--cor-primaria); border-radius: 50%; position: absolute; top: 20px; }
-.olho-esquerdo { left: 16px; }
-.olho-direito { right: 16px; }
-.sorriso { width: 20px; height: 10px; border-bottom: 3px solid var(--cor-primaria); border-radius: 0 0 10px 10px; position: absolute; bottom: 16px; left: 20px; }
+.olho-esquerdo, .olho-direito { width: 8px; height: 8px; background: var(--cor-primaria); border-radius: 50%; position: absolute; top: 22px; }
+.olho-esquerdo { left: 18px; }
+.olho-direito { right: 18px; }
+.sorriso { width: 22px; height: 11px; border-bottom: 3px solid var(--cor-primaria); border-radius: 0 0 11px 11px; position: absolute; bottom: 16px; left: 22px; }
 
 /* ==========================================================================
-   5. COMPONENTES E CORPO DO SITE
+   4. LAYOUT DO SITE
    ========================================================================== */
 header { background-color: var(--cor-primaria); color: var(--cor-branco); text-align: center; padding: 3rem 1rem; }
 header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
@@ -142,7 +147,7 @@ button:hover { background-color: #218376; }
 
 footer { background-color: var(--cor-primaria); color: var(--cor-branco); text-align: center; padding: 2rem 1rem; margin-top: 4rem; }
 
-/* KEYFRAMES */
+/* ANIMAÇÕES VISUAIS */
 @keyframes flutuar { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
 @keyframes pulsarPlanta { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 @keyframes agitarEntrada { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
