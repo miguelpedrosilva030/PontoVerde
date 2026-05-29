@@ -1,30 +1,125 @@
 /* ==========================================================================
-   1. ASSISTENTE PESSOAL INTELIGENTE (Bolinha Interativa)
+   1. CONTROLE DA TELA DE ABERTURA E MÚSICA DE FUNDO
+   ========================================================================== */
+const telaEntrada = document.querySelector('#tela-entrada');
+const btnEntrarSite = document.querySelector('#btn-entrar-site');
+const audioFundo = document.querySelector('#musica-fundo');
+
+if (btnEntrarSite && telaEntrada && audioFundo) {
+    btnEntrarSite.addEventListener('click', () => {
+        // 1. Oculta a Splash Screen com efeito suave
+        telaEntrada.classList.add('ocultar');
+        
+        // 2. Toca a música "Café Coado" local como som de fundo controlado
+        audioFundo.volume = 0.4; 
+        audioFundo.play().catch(error => {
+            console.log("O áudio precisou de interação inicial:", error);
+        });
+    });
+}
+
+/* ==========================================================================
+   2. ASSISTENTE PESSOAL INTERATIVO (CHAT AGRÍCOLA & TEMPO DE LEITURA)
    ========================================================================== */
 const btnSalvarNome = document.querySelector('#btn-salvar-nome');
 const inputNomeUsuario = document.querySelector('#nome-usuario');
 const textoAssistente = document.querySelector('#texto-assistente');
 const controleNome = document.querySelector('#controle-nome');
+const controleDuvidas = document.querySelector('#controle-duvidas');
+const btnPerguntar = document.querySelector('#btn-perguntar');
+const campoPergunta = document.querySelector('#campo-pergunta');
+const btnAvancarLeitura = document.querySelector('#btn-avancar-leitura');
+const avatarPonto = document.querySelector('#avatar-ponto');
 
 let nomeDoProdutor = "";
+let aguardandoLeitura = false;
 
 if (btnSalvarNome) {
     btnSalvarNome.addEventListener('click', () => {
         const nomeInformado = inputNomeUsuario.value.trim();
         if (nomeInformado === "") {
-            textoAssistente.innerHTML = "Por favor, me diga seu nome para podermos conversar de forma personalizada!";
+            textoAssistente.innerHTML = "Por favor, digite seu nome para começarmos.";
             return;
         }
         
         nomeDoProdutor = nomeInformado;
-        // Transforma o diálogo tornando o assistente pessoal do produtor
-        textoAssistente.innerHTML = `Prazer em conhecer você, **${nomeDoProdutor}**! 👋 Eu sou o seu assistente pessoal **PontoVerde**. Estou aqui para lhe ajudar a organizar as finanças e escolher os melhores insumos. Pode navegar pelas abas acima!`;
-        controleNome.style.display = "none"; // Oculta os campos de input de nome
+        // Texto livre de marcações ou asteriscos para leitura fácil
+        textoAssistente.innerHTML = "Prazer em conhecer você, " + nomeDoProdutor + "! Eu sou o seu assistente PontoVerde. Estou pronto para conversar sobre plantio, colheita, gado, mercado paranaense e custos de produção. O que você quer saber hoje?";
+        
+        controleNome.style.display = "none"; 
+        controleDuvidas.style.display = "block";
+    });
+}
+
+function buscarRespostaAgro(pergunta) {
+    const texto = pergunta.toLowerCase();
+
+    if (texto.includes("ponto de equilibrio") || texto.includes("equilibrio") || texto.includes("meta")) {
+        return "O ponto de equilíbrio é a meta mínima que sua propriedade precisa vender para empatar o jogo, ou seja, pagar todos os custos operacionais. Tudo o que você vender acima desse valor vira lucro limpo. Use a nossa calculadora na aba ao lado para descobrir o seu valor exato.";
+    }
+    if (texto.includes("custo") || texto.includes("gasto") || texto.includes("caro") || texto.includes("economizar")) {
+        return "No campo, existem os custos fixos (como terra e impostos) e flutuantes (como sementes, adubo e diesel). Uma ótima forma de economizar é comprar insumos em cooperativas locais da sua região para diminuir o frete. Dê uma olhada na nossa aba Guia de Fornecedores para ver opções de mercado parceiras.";
+    }
+    if (texto.includes("senar") || texto.includes("ateg") || texto.includes("ajuda") || texto.includes("assistencia") || texto.includes("curso")) {
+        return "O SENAR do Paraná tem o programa ATeG, que significa Assistência Técnico-Gerencial. Eles enviam um técnico especializado de forma gratuita até a sua propriedade para acompanhar a sua produção todo mês e te ajudar a lucrar mais. Vale a pena entrar em contato com o Sindicato Rural da sua cidade.";
+    }
+    if (texto.includes("adubo") || texto.includes("fertilizante") || texto.includes("calcario") || texto.includes("solo")) {
+        return "A nutrição do solo é a base de tudo. Antes de comprar adubo, faça uma análise de solo para saber exatamente o que a terra precisa. Usar calcário para corrigir a acidez costuma ser o primeiro passo barato e eficiente para fazer qualquer plantação render mais.";
+    }
+    if (texto.includes("safra") || texto.includes("clima") || texto.includes("chuva") || texto.includes("tempo")) {
+        return "Fique sempre atento ao calendário oficial de plantio do Paraná e ao zoneamento climático. Planejar a época certa evita que você perca insumos caros com secas ou geadas repentinas.";
+    }
+    if (texto.includes("obrigado") || texto.includes("valeu") || texto.includes("obrigada")) {
+        return "De nada, " + (nomeDoProdutor || "companheiro") + "! Minha missão é ajudar quem trabalha na terra. Se tiver mais dúvidas sobre lavoura, criação ou contas, estarei por aqui.";
+    }
+
+    return "Entendi a sua dúvida! No setor agropecuário, cada detalhe importa para a sua margem de lucro. Recomendo usar a nossa Calculadora de Viabilidade para checar a saúde dos seus números e olhar nosso Guia de Insumos para simular as melhores compras.";
+}
+
+if (btnPerguntar) {
+    btnPerguntar.addEventListener('click', () => {
+        const pergunta = campoPergunta.value.trim();
+        if (pergunta === "") return;
+
+        resetarEstadoLeitura();
+        textoAssistente.className = "pensando";
+        textoAssistente.innerHTML = "Processando dados agrícolas, aguarde...";
+        campoPergunta.value = "";
+
+        setTimeout(() => {
+            textoAssistente.className = "";
+            textoAssistente.innerHTML = buscarRespostaAgro(pergunta);
+            aguardandoLeitura = true;
+            btnAvancarLeitura.style.display = "block";
+        }, 1200);
+    });
+}
+
+function resetarEstadoLeitura() {
+    aguardandoLeitura = false;
+    btnAvancarLeitura.style.display = "none";
+}
+
+if (btnAvancarLeitura) {
+    btnAvancarLeitura.addEventListener('click', () => {
+        textoAssistente.innerHTML = "Estou pronto para a próxima pergunta, " + (nomeDoProdutor || "amigo") + ". Do que você precisa agora?";
+        resetarEstadoLeitura();
+    });
+}
+
+if (avatarPonto) {
+    avatarPonto.addEventListener('click', () => {
+        if (aguardandoLeitura) {
+            textoAssistente.innerHTML = "Perfeito! Pode mandar a sua próxima dúvida.";
+            resetarEstadoLeitura();
+        } else {
+            textoAssistente.innerHTML = "Estou ouvindo! Digite sua pergunta na caixinha para conversarmos.";
+        }
     });
 }
 
 /* ==========================================================================
-   2. CONTROLE DE ABAS
+   3. CONTROLE DE ABAS (Navegação Interna)
    ========================================================================== */
 const botoesAbas = document.querySelectorAll('.btn-aba');
 const conteudosAbas = document.querySelectorAll('.conteudo-aba');
@@ -41,7 +136,7 @@ botoesAbas.forEach(botao => {
 });
 
 /* ==========================================================================
-   3. EXPANSÃO DO BANCO DE DADOS DA VITRINE DE PRODUTOS PARA COMPRA
+   4. VITRINE DE PRODUTOS EXPANDIDA (Banco de Dados Local)
    ========================================================================== */
 const listaInsumosTech = document.querySelector('#lista-insumos-tech');
 const seletorRegiao = document.querySelector('#regiao-produtor');
@@ -72,15 +167,6 @@ const bancoInsumosELojas = [
         endereco: "Rodovia do Calcário, Km 10 - Almirante Tamandaré/PR",
         distanciaSimulada: 22,
         descricao: "Corretivo de acidez de solo de alta qualidade, essencial para o plantio na RMC.",
-        statusInsumo: "Disponível para Compra"
-    },
-    { 
-        nome: "Painel Solar Fotovoltaico Agro RMC", 
-        regiao: "sul",
-        loja: "EletroAgro Soluções Sustentáveis Curitiba",
-        endereco: "Av. das Torres, 4500 - São José dos Pinhais/PR",
-        distanciaSimulada: 9,
-        descricao: "Reduza os custos de energia elétrica de galpões, bombas de irrigação ou maquinários.",
         statusInsumo: "Disponível para Compra"
     },
     { 
@@ -133,7 +219,7 @@ seletorRegiao.addEventListener('change', renderizarGuiaInsumos);
 renderizarGuiaInsumos();
 
 /* ==========================================================================
-   4. SIMULADOR DE QUALIDADE DE INSUMOS
+   5. SIMULADOR DE QUALIDADE DE INSUMOS DOS USUÁRIOS
    ========================================================================== */
 const btnAvaliar = document.querySelector('#btn-avaliar');
 const inputNomeProduto = document.querySelector('#nome-produto');
@@ -157,16 +243,16 @@ if (btnAvaliar) {
         const usuarioAtual = nomeDoProdutor ? nomeDoProdutor : "Produtor";
 
         if (nota === 5) {
-            veredito = `<strong>Olá ${usuarioAtual}!</strong> A análise técnica do "${nome}" indica classificação Excelente! O investimento é altamente seguro, gera excelente conversão e evita o desperdício de recursos.`;
+            veredito = "Olá " + usuarioAtual + "! A análise técnica do " + nome + " indica classificação Excelente! O investimento é altamente seguro, gera excelente conversão e evita o desperdício de recursos.";
             classeVeredito = "tag-bom";
         } else if (nota === 4) {
-            veredito = `<strong>Olá ${usuarioAtual}!</strong> A análise do "${nome}" indica classificação Boa. Produto confiável amplamente utilizado no Paraná, garantindo estabilidade financeira.`;
+            veredito = "Olá " + usuarioAtual + "! A análise do " + nome + " indica classificação Boa. Produto confiável amplamente utilizado no Paraná, garantindo estabilidade financeira.";
             classeVeredito = "tag-bom";
         } else if (nota === 3) {
-            veredito = `<strong>Atenção ${usuarioAtual}!</strong> O item "${nome}" possui classificação Regular. Funciona, mas fique de olho no preço de compra para a margem não ficar apertada.`;
+            veredito = "Atenção " + usuarioAtual + "! O item " + nome + " possui classificação Regular. Funciona, mas fique de olho no preço de compra para a margem não ficar apertada.";
             classeVeredito = "tag-regular";
         } else {
-            veredito = `<strong>Alerta ${usuarioAtual}!</strong> O item "${nome}" apresenta classificação de Baixo Retorno. Exige maior dosagem ou aplicação, o que eleva seus custos e prejudica o lucro.`;
+            veredito = "Alerta " + usuarioAtual + "! O item " + nome + " apresenta classificação de Baixo Retorno. Exige maior dosagem ou aplicação, o que eleva seus custos e prejudica o lucro.";
             classeVeredito = "tag-regular";
         }
 
@@ -181,7 +267,7 @@ if (btnAvaliar) {
 }
 
 /* ==========================================================================
-   5. CÁLCULO DA CALCULADORA PRINCIPAL
+   6. CÁLCULO DA CALCULADORA PRINCIPAL
    ========================================================================== */
 const inputAlimentacao = document.querySelector('#alimentacao');
 const inputEnergia = document.querySelector('#energia');
@@ -217,10 +303,10 @@ if (btnCalcular) {
         txtPontoEquilibrio.textContent = `Meta de Vendas Mínima: ${pontoEquilibrioVolume.toLocaleString('pt-BR')} unidades para cobrir o custo.`;
         
         if (pontoEquilibrioVolume > 4000) {
-            txtAlertaStatus.textContent = `${usuarioAtual}, a meta para cobrir despesas está elevada. Verifique os fornecedores locais na aba ao lado para reduzir custos com frete.`;
+            txtAlertaStatus.textContent = usuarioAtual + ", a meta para cobrir despesas está elevada. Verifique os fornecedores locais na aba ao lado para reduzir custos com frete.";
             txtAlertaStatus.className = "status-negativo";
         } else {
-            txtAlertaStatus.textContent = `Parabéns ${usuarioAtual}! Seus custos estão equilibrados e a propriedade apresenta excelente projeção de retorno financeiro.`;
+            txtAlertaStatus.textContent = "Status: Produção Viável e Saudável! Seus custos estão equilibrados e a propriedade apresenta excelente projeção de retorno financeiro, " + usuarioAtual + ".";
             txtAlertaStatus.className = "status-positivo";
         }
         
@@ -229,7 +315,7 @@ if (btnCalcular) {
 }
 
 /* ==========================================================================
-   6. AVALIAÇÃO DA PLATAFORMA (0 A 10 ESTRELAS)
+   7. AVALIAÇÃO DA PLATAFORMA (0 A 10 ESTRELAS)
    ========================================================================== */
 const btnEnviarNotaSite = document.querySelector('#btn-enviar-nota-site');
 const seletorNotaSite = document.querySelector('#nota-site');
@@ -247,7 +333,7 @@ if (btnEnviarNotaSite) {
 
         const usuarioAtual = nomeDoProdutor ? nomeDoProdutor : "Produtor";
         feedbackNotaSite.style.color = "var(--cor-sucesso)";
-        feedbackNotaSite.innerHTML = `Obrigado pelo feedback, ${usuarioAtual}! Você avaliou o PontoVerde com nota ${nota}/10. Isso nos ajuda muito no Concurso Agrinho! 🌾✨`;
+        feedbackNotaSite.innerHTML = "Obrigado pelo feedback, " + usuarioAtual + "! Você avaliou o PontoVerde com nota " + nota + "/10. Isso nos ajuda muito no Concurso Agrinho!";
         feedbackNotaSite.className = "resultado-visivel";
     });
 }
