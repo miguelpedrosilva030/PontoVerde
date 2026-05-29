@@ -10,15 +10,19 @@
 
     <div id="tela-entrada">
         <div class="conteudo-entrada">
-            <div class="logo-animada">🌱</div>
-            <h1>Bem-vindo ao PontoVerde</h1>
-            <p>Tecnologia, Gestão e Sustentabilidade para o Produtor Rural</p>
-            <button type="button" id="btn-entrar-site">Entrar</button>
+            <div class="logo-animada">🚜🌾</div>
+            <h1>PontoVerde</h1>
+            <p class="subtitulo-agro">Tecnologia, Gestão e Sustentabilidade para o Produtor Rural</p>
+            <div class="linha-decorativa"></div>
+            <p class="frase-efeito">O futuro da sua colheita começa com uma gestão inteligente de custos.</p>
+            <button type="button" id="btn-entrar-site">Entrar na Propriedade</button>
         </div>
     </div>
 
     <div id="container-assistente">
         <div id="balao-assistente">
+            <button type="button" id="btn-fechar-chat" title="Fechar assistente e navegar livremente">&times;</button>
+            
             <div id="chat-texto-container">
                 <p id="texto-assistente">Olá! Sou o seu assistente PontoVerde. Para começarmos, como posso chamar você?</p>
             </div>
@@ -38,7 +42,7 @@
                 <button type="button" id="btn-avancar-leitura" style="display: none; margin-top: 10px; background-color: #2a9d8f; font-size: 0.85rem; padding: 0.5rem; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Entendi! Pode continuar</button>
             </div>
         </div>
-        <div id="avatar-ponto" title="Clique em mim para ver tudo o que posso fazer por você!">
+        <div id="avatar-ponto" title="Clique em mim para abrir ou fechar as orientações!">
             <div class="olho-esquerdo"></div>
             <div class="olho-direito"></div>
             <div class="sorriso"></div>
@@ -116,7 +120,7 @@
                     <h3>Análise do Ponto de Equilíbrio</h3>
                     <article class="card-resultado">
                         <p id="res-custo-total">Custo Operacional Total: R$ 0,00</p>
-                        <p id="res-ponto-equilibrio">Meta de Vendas Necessary: 0 unidades</p>
+                        <p id="res-ponto-equilibrio">Meta de Vendas Necessária: 0 unidades</p>
                         <p id="res-alerta-status">Status de Viabilidade: Aguardando dados...</p>
                     </article>
                 </div>
