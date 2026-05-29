@@ -3,56 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Viabilidade Agrinho 2026</title>
+    <title>PontoVerde - Gestão e Viabilidade Agrícola</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
 
     <header>
-        <h1>Calculadora de Viabilidade Econômica</h1>
-        <p>Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</p>
+        <h1>PontoVerde</h1>
+        <p>Conectando Campo e Cidade através da Tecnologia e Gestão Inteligente</p>
+        <span class="badge-agrinho">Concurso Agrinho 2026</span>
     </header>
 
     <main>
-        <section class="container-calculadora">
-            <h2>Simulador de Custos e Ponto de Equilíbrio</h2>
-            <p class="instrucao">Insira os dados financeiros da sua produção nos campos abaixo para analisar a viabilidade do lote ou safra.</p>
-
-            <form id="form-calculadora">
-                
-                <article class="grupo-input">
-                    <label for="custo-fixo">Custos Fixos Totais (R$):</label>
-                    <span class="dica-campo">Ex: Mão de obra, depreciação de máquinas, impostos...</span>
-                    <input type="number" id="custo-fixo" step="0.01" placeholder="Ex: 1500.00" required>
-                </article>
-
-                <article class="grupo-input">
-                    <label for="custo-variavel">Custos Variáveis Totais (R$):</label>
-                    <span class="dica-campo">Ex: Ração, energia elétrica, insumos, sementes...</span>
-                    <input type="number" id="custo-variavel" step="0.01" placeholder="Ex: 3200.00" required>
-                </article>
-
-                <article class="grupo-input">
-                    <label for="receita-estimada">Receita Bruta Estimada (R$):</label>
-                    <span class="dica-campo">Quanto espera arrecadar com a venda da produção...</span>
-                    <input type="number" id="receita-estimada" step="0.01" placeholder="Ex: 6000.00" required>
-                </article>
-
-                <button type="submit" id="btn-calcular">Analisar Viabilidade</button>
-            </form>
-
-            <div id="mensagem-erro" style="display: none;"></div>
-
-            <section id="resultado-container" style="display: none;"></section>
-
+        
+        <section id="contexto" aria-labelledby="titulo-contexto">
+            <h2 id="titulo-contexto">Monitoramento de Custos de Production</h2>
+            <p>
+                Inspirado nos levantamentos do projeto <strong>Campo Futuro (Sistema FAEP)</strong>, 
+                o PontoVerde ajuda o produtor de leite, aves e suínos no Paraná a entender seus gastos 
+                reais e a descobrir o seu ponto de equilíbrio para evitar prejuízos.
+            </p>
         </section>
+
+        <section id="central-ferramentas">
+            <nav class="abas-navegacao">
+                <button class="btn-aba ativa" data-aba="calculadora">Calculadora de Viabilidade</button>
+                <button class="btn-aba" data-aba="produtos">Guia de Insumos & Fornecedores</button>
+            </nav>
+
+            <hr style="border: 0; border-top: 1px solid #ccc; margin-bottom: 1.5rem;">
+
+            <div id="aba-calculadora" class="conteudo-aba ativa">
+                <h2 id="titulo-simulador">Calculadora de Viabilidade Financeira</h2>
+                <form id="formulario-custos" novalidate>
+                    <fieldset>
+                        <legend>Custos Operacionais Flutuantes</legend>
+                        <div class="grupo-input">
+                            <label for="alimentacao">Alimentação Animal / Ração (R$):</label>
+                            <input type="number" id="alimentacao" min="0" step="0.01" placeholder="Ex: 5000.00" required>
+                        </div>
+                        <div class="grupo-input">
+                            <label for="energia">Energia Elétrica e Água (R$):</label>
+                            <input type="number" id="energia" min="0" step="0.01" placeholder="Ex: 850.00" required>
+                        </div>
+                        <div class="grupo-input">
+                            <label for="mao-obra">Mão de Obra e Insumos (R$):</label>
+                            <input type="number" id="mao-obra" min="0" step="0.01" placeholder="Ex: 2300.00" required>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Dados de Mercado (Cotação FAEP)</legend>
+                        <div class="grupo-input">
+                            <label for="preco-venda">Preço de Venda Unitário recebido (R$):</label>
+                            <input type="number" id="preco-venda" min="0" step="0.01" placeholder="Ex: 2.20" required>
+                        </div>
+                    </fieldset>
+                    <button type="button" id="btn-calcular">Analisar Viabilidade</button>
+                </form>
+
+                <div id="mensagem-erro" class="erro-oculto"></div>
+                <div id="resultado-calculo" class="resultado-oculto">
+                    <h3>Análise do Ponto de Equilíbrio</h3>
+                    <article class="card-resultado">
+                        <p id="res-custo-total">Custo Operacional Total: R$ 0,00</p>
+                        <p id="res-ponto-equilibrio">Meta de Vendas Necessária: 0 unidades</p>
+                        <p id="res-alerta-status">Status de Viabilidade: Aguardando dados...</p>
+                    </article>
+                </div>
+            </div>
+
+            <div id="aba-produtos" class="conteudo-aba">
+                <h2>Guia de Insumos e Fornecedores Próximos</h2>
+                <p>Selecione a sua região para encontrar lojas físicas, cooperativas parceiras e simular a análise de produtos.</p>
+                
+                <div class="cartao-localidade" style="background: #e9f5ed; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #2a9d8f;">
+                    <label for="regiao-produtor" style="font-weight: bold; color: #1b4332;">📍 Selecione a sua Região no Paraná:</label>
+                    <select id="regiao-produtor" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 2px solid #ccc; margin-top: 0.5rem; font-size: 1rem;">
+                        <option value="todos">Mostrar Todas as Regiões</option>
+                        <option value="sul">Região de Curitiba (RMC)</option>
+                        <option value="campos-gerais">Campos Gerais (Castro/Ponta Grossa)</option>
+                        <option value="oeste">Oeste Paranaense (Cascavel/Toledo)</option>
+                        <option value="norte">Norte Paranaense (Londrina/Maringá)</option>
+                    </select>
+                </div>
+
+                <h3>Insumos Recomendados e Onde Encontrar</h3>
+                <div id="lista-insumos-tech">
+                    </div>
+
+                <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
+
+                <h3>Tem dúvidas sobre um produto? Simule a análise dele:</h3>
+                <form id="form-avaliacao" style="margin-top: 1rem;" novalidate>
+                    <div class="grupo-input">
+                        <label for="nome-produto">Nome do Insumo/Produto:</label>
+                        <input type="text" id="nome-produto" placeholder="Ex: Ração Concentrada de Milho X">
+                    </div>
+                    <div class="grupo-input">
+                        <label for="nota-produto">Sua Nota de Expectativa (0 a 5 estrelas):</label>
+                        <input type="number" id="nota-produto" min="0" max="5" placeholder="Ex: 4">
+                    </div>
+                    <button type="button" id="btn-avaliar">Analisar Viabilidade do Insumo</button>
+                </form>
+                
+                <div id="resultado-produto" class="resultado-oculto" style="margin-top: 1rem;">
+                    </div>
+            </div>
+        </section>
+
+        <section id="recursos-senar" aria-labelledby="titulo-recursos">
+            <h2 id="titulo-recursos">Dicas de Gestão e Assistência Técnica</h2>
+            <p>
+                Sabia que o SENAR-PR oferece mais de 250 cursos gratuitos e atendimento personalizado 
+                através da <strong>ATeG (Assistência Técnica e Gerencial)</strong> para melhorar a rentabilidade da sua propriedade?
+            </p>
+            <a href="https://www.sistemafaep.org.br/" target="_blank" rel="noopener noreferrer" class="link-externo">Consultar Cotações Oficiais da FAEP</a>
+        </section>
+
     </main>
 
     <footer>
-        <p>&copy; 2026 - Projeto Desenvolvido para o Concurso Agrinho (Categoria Programação)</p>
-        <p>Conectando a tecnologia do Ensino Médio com o futuro sustentável do campo.</p>
+        <p>&copy; 2026 PontoVerde - Desenvolvido para o Concurso Agrinho. Tecnologia a serviço do campo.</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
