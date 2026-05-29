@@ -1,283 +1,128 @@
-/* ==========================================================================
-   1. VARIÁVEIS DO SISTEMA & PALETA DE CORES AGRO
-   ========================================================================== */
+/* VARIABLES & PALETA AGRO */
 :root {
-    --cor-primaria: #1b4332;       /* Verde Profundo */
-    --cor-secundaria: #2a9d8f;     /* Verde Destaques */
-    --cor-fundo: #f8f9fa;          /* Cinza Neutro */
-    --cor-texto: #212529;          /* Grafite Escuro */
-    --cor-branco: #ffffff;         
-    
-    --cor-erro: #d90429;           
-    --cor-sucesso: #38b000;        
-
+    --cor-primaria: #1b4332;
+    --cor-secundaria: #2a9d8f;
+    --cor-fundo: #f8f9fa;
+    --cor-texto: #212529;
+    --cor-branco: #ffffff;
+    --cor-erro: #d90429;
+    --cor-sucesso: #38b000;
     --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --borda-raio: 8px;
     --transicao: all 0.3s ease;
 }
 
-/* ==========================================================================
-   2. RESET GLOBAL & ACESSIBILIDADE
-   ========================================================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; padding-bottom: 2rem; }
 
-body {
-    font-family: var(--fonte-principal);
-    background-color: var(--cor-fundo);
-    color: var(--cor-texto);
-    line-height: 1.6;
-}
-
-/* ==========================================================================
-   3. ESTRUTURA E LAYOUT
-   ========================================================================== */
-header {
-    background-color: var(--cor-primaria);
-    color: var(--cor-branco);
-    text-align: center;
-    padding: 3rem 1rem;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.badge-agrinho {
-    display: inline-block;
-    background-color: var(--cor-secundaria);
-    color: var(--cor-branco);
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 0.85rem;
-}
-
-main {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+/* DESIGN DO ASSISTENTE VIRTUAL ANIMADO */
+#container-assistente {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    align-items: flex-end;
+    z-index: 9999;
+    max-width: 300px;
 }
 
-section {
-    background-color: var(--cor-branco);
-    padding: 2rem;
-    border-radius: var(--borda-raio);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-section h2 {
-    color: var(--cor-primaria);
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--cor-fundo);
-    padding-bottom: 0.5rem;
-}
-
-/* ==========================================================================
-   4. COMPONENTE DE ABAS (TABS NAV)
-   ========================================================================== */
-.abas-navegacao {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-}
-
-.btn-aba {
-    background-color: #e0e0e0;
-    color: var(--cor-texto);
-    border: none;
-    padding: 0.8rem 1.2rem;
-    font-size: 0.95rem;
-    font-weight: bold;
-    border-radius: var(--borda-raio) var(--borda-raio) 0 0;
-    cursor: pointer;
-    transition: var(--transicao);
-}
-
-.btn-aba:hover {
-    background-color: #d0d0d0;
-}
-
-.btn-aba.ativa {
-    background-color: var(--cor-primaria);
-    color: var(--cor-branco);
-}
-
-.conteudo-aba {
-    display: none;
-}
-
-.conteudo-aba.ativa {
-    display: block;
-    animation: fadeIn 0.4s ease;
-}
-
-/* ==========================================================================
-   5. CARTÕES DO TUTORIAL
-   ========================================================================== */
-.cartao-passo {
-    background-color: var(--cor-fundo);
-    border-left: 4px solid var(--cor-primaria);
-    padding: 1rem 1.2rem;
-    margin-top: 1rem;
-    border-radius: 4px;
-}
-
-.cartao-passo h4 {
-    color: var(--cor-primaria);
-    margin-bottom: 0.3rem;
-}
-
-.cartao-passo p {
-    font-size: 0.95rem;
-    color: #495057;
-}
-
-/* ==========================================================================
-   6. FORMULÁRIOS, INPUTS E CARDS
-   ========================================================================== */
-fieldset {
-    border: 1px solid #e0e0e0;
-    border-radius: var(--borda-raio);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-legend {
-    padding: 0 0.5rem;
-    font-weight: bold;
-    color: var(--cor-primaria);
-}
-
-.grupo-input {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1.2rem;
-}
-
-label {
-    font-weight: 600;
-}
-
-input[type="number"], input[type="text"] {
-    width: 100%;
-    padding: 0.8rem;
-    border: 2px solid #ccc;
-    border-radius: var(--borda-raio);
-    font-size: 1rem;
-    transition: var(--transicao);
-}
-
-input:focus {
-    outline: none;
-    border-color: var(--cor-secundaria);
-    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
-}
-
-button {
-    display: block;
-    width: 100%;
-    background-color: var(--cor-secundaria);
-    color: var(--cor-branco);
-    border: none;
+#balao-assistente {
+    background: var(--cor-branco);
+    border: 2px solid var(--cor-secundaria);
     padding: 1rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: var(--borda-raio);
-    cursor: pointer;
-    transition: var(--transicao);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    position: relative;
 }
 
+#controle-nome { display: flex; gap: 5px; margin-top: 8px; }
+#nome-usuario { padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px; width: 60%; }
+#btn-salvar-nome { padding: 0.4rem 0.8rem; font-size: 0.85rem; width: auto; display: inline-block; }
+
+#avatar-ponto {
+    width: 60px;
+    height: 60px;
+    background-color: var(--cor-sucesso);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    animation: flutuar 3s ease-in-out infinite;
+    cursor: pointer;
+    border: 3px solid var(--cor-branco);
+}
+
+/* Rostinho do Ponto Verde */
+.olho-esquerdo, .olho-direito {
+    width: 8px;
+    height: 8px;
+    background: var(--cor-primaria);
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+}
+.olho-esquerdo { left: 16px; }
+.olho-direito { right: 16px; }
+.sorriso {
+    width: 20px;
+    height: 10px;
+    border-bottom: 3px solid var(--cor-primaria);
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+}
+
+@keyframes flutuar {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* LAYOUT E COMPONENTES */
+header { background-color: var(--cor-primaria); color: var(--cor-branco); text-align: center; padding: 3rem 1rem; }
+header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.badge-agrinho { display: inline-block; background-color: var(--cor-secundaria); color: var(--cor-branco); padding: 0.4rem 1rem; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
+
+main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 2rem; }
+section { background-color: var(--cor-branco); padding: 2rem; border-radius: var(--borda-raio); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
+section h2 { color: var(--cor-primaria); margin-bottom: 1rem; border-bottom: 2px solid var(--cor-fundo); padding-bottom: 0.5rem; }
+
+.abas-navegacao { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.btn-aba { background-color: #e0e0e0; color: var(--cor-texto); border: none; padding: 0.8rem 1.2rem; font-size: 0.95rem; font-weight: bold; border-radius: var(--borda-raio) var(--borda-raio) 0 0; cursor: pointer; transition: var(--transicao); }
+.btn-aba.ativa { background-color: var(--cor-primaria); color: var(--cor-branco); }
+
+.conteudo-aba { display: none; }
+.conteudo-aba.ativa { display: block; animation: fadeIn 0.4s ease; }
+
+.cartao-passo { background-color: var(--cor-fundo); border-left: 4px solid var(--cor-primaria); padding: 1rem 1.2rem; margin-top: 1rem; border-radius: 4px; }
+fieldset { border: 1px solid #e0e0e0; border-radius: var(--borda-raio); padding: 1.5rem; margin-bottom: 1.5rem; }
+legend { padding: 0 0.5rem; font-weight: bold; color: var(--cor-primaria); }
+.grupo-input { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
+
+input[type="number"], input[type="text"], select { width: 100%; padding: 0.8rem; border: 2px solid #ccc; border-radius: var(--borda-raio); font-size: 1rem; }
+button { display: block; width: 100%; background-color: var(--cor-secundaria); color: var(--cor-branco); border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: var(--borda-raio); cursor: pointer; transition: var(--transicao); }
 button:hover { background-color: #218376; }
 
-/* ==========================================================================
-   7. FEEDBACKS DINÂMICOS, LOJAS E BADGES
-   ========================================================================== */
-.erro-visivel {
-    background-color: #ffe3e3;
-    color: var(--cor-erro);
-    border: 2px solid var(--cor-erro);
-    padding: 1rem;
-    border-radius: var(--borda-raio);
-    margin-top: 1rem;
-    font-weight: bold;
-}
-
+.erro-visivel { background-color: #ffe3e3; color: var(--cor-erro); border: 2px solid var(--cor-erro); padding: 1rem; border-radius: var(--borda-raio); margin-top: 1rem; font-weight: bold; }
 .erro-oculto, .resultado-oculto { display: none; }
 .resultado-visivel { display: block; animation: fadeIn 0.5s ease; }
 
-.card-resultado {
-    background-color: var(--cor-fundo);
-    border-left: 5px solid var(--cor-secundaria);
-    padding: 1.5rem;
-    border-radius: 0 var(--borda-raio) var(--borda-raio) 0;
-    margin-top: 1rem;
-}
+.card-resultado { background-color: var(--cor-fundo); border-left: 5px solid var(--cor-secundaria); padding: 1.5rem; margin-top: 1rem; }
+.card-insumo { background: var(--cor-fundo); border-left: 5px solid var(--cor-secundaria); padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--borda-raio); }
+.container-loja { background: #ffffff; border: 1px solid #e0e0e0; border-radius: var(--borda-raio); padding: 1rem; margin-top: 0.8rem; }
 
-.card-insumo {
-    background: var(--cor-fundo);
-    border-left: 5px solid var(--cor-secundaria);
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border-radius: var(--borda-raio);
-}
-
-.container-loja {
-    background: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: var(--borda-raio);
-    padding: 1rem;
-    margin-top: 0.8rem;
-}
-
-.tag-indicacao {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin-top: 0.5rem;
-}
-
+.tag-indicacao { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-top: 0.5rem; }
 .tag-bom { background-color: #d8f3dc; color: var(--cor-sucesso); }
 .tag-regular { background-color: #fefae0; color: #b58282; }
 .status-positivo { color: var(--cor-sucesso); font-weight: bold; }
 .status-negativo { color: var(--cor-erro); font-weight: bold; }
+.badge-distancia { display: inline-block; background-color: var(--cor-primaria); color: var(--cor-branco); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+.link-externo { display: inline-block; margin-top: 1rem; color: var(--cor-secundaria); text-decoration: none; font-weight: bold; }
 
-.badge-distancia {
-    display: inline-block;
-    background-color: var(--cor-primaria);
-    color: var(--cor-branco);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: bold;
-}
-
-.link-externo {
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--cor-secundaria);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-footer {
-    background-color: var(--cor-primaria);
-    color: var(--cor-branco);
-    text-align: center;
-    padding: 2rem 1rem;
-    margin-top: 4rem;
-}
+footer { background-color: var(--cor-primaria); color: var(--cor-branco); text-align: center; padding: 2rem 1rem; margin-top: 4rem; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
