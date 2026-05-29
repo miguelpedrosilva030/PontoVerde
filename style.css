@@ -1,19 +1,16 @@
 /* ==========================================================================
-   1. VARIÁVEIS DO SISTEMA (Design Tokens) & PALETA DE CORES AGRO
+   1. VARIÁVEIS DO SISTEMA & PALETA DE CORES AGRO
    ========================================================================== */
 :root {
-    /* Cores Principais (Alto Contraste) */
-    --cor-primaria: #1b4332;       /* Verde Profundo - Representa o Agro e traz solidez */
-    --cor-secundaria: #2a9d8f;     /* Verde Folha/Sustentabilidade - Para destaques e botões */
-    --cor-fundo: #f8f9fa;          /* Areia Claro/Cinza Neutro - Conforto visual e leitura limpa */
-    --cor-texto: #212529;          /* Grafite Escuro - Alto contraste sobre o fundo claro */
-    --cor-branco: #ffffff;         /* Branco Puro - Para cartões e fundos de input */
+    --cor-primaria: #1b4332;       /* Verde Profundo - Solidez e Terra */
+    --cor-secundaria: #2a9d8f;     /* Verde Folha/Sustentabilidade - Destaques */
+    --cor-fundo: #f8f9fa;          /* Areia Claro/Cinza Neutro - Conforto Visual */
+    --cor-texto: #212529;          /* Grafite Escuro - Alto Contraste */
+    --cor-branco: #ffffff;         /* Branco Puro - Cartões */
     
-    /* Cores de Alerta e Status */
-    --cor-erro: #d90429;           /* Vermelho Vivo - Para as validações estritas de erro */
-    --cor-sucesso: #38b000;        /* Verde Brilhante - Para viabilidade positiva */
+    --cor-erro: #d90429;           /* Vermelho - Validação de Erro */
+    --cor-sucesso: #38b000;        /* Verde Brilhante - Sucesso e Viabilidade */
 
-    /* Tipografia e Espaçamento */
     --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --borda-raio: 8px;
     --transicao: all 0.3s ease;
@@ -33,23 +30,10 @@ body {
     background-color: var(--cor-fundo);
     color: var(--cor-texto);
     line-height: 1.6;
-    padding: 0;
-}
-
-/* Oculta elementos apenas visualmente, mantendo-os para leitores de tela */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
 }
 
 /* ==========================================================================
-   3. ESTRUTURA SEMÂNTICA (Layout)
+   3. ESTRUTURA E LAYOUT
    ========================================================================== */
 header {
     background-color: var(--cor-primaria);
@@ -61,14 +45,6 @@ header {
 header h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    letter-spacing: 1px;
-}
-
-header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 0 auto 1rem auto;
 }
 
 .badge-agrinho {
@@ -87,7 +63,7 @@ main {
     padding: 0 1rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem; /* Espaçamento confortável entre seções */
+    gap: 2rem;
 }
 
 section {
@@ -105,7 +81,46 @@ section h2 {
 }
 
 /* ==========================================================================
-   4. FORMULÁRIOS, INPUTS E BOTÕES
+   4. COMPONENTE DE ABAS (TABS NAV)
+   ========================================================================== */
+.abas-navegacao {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-aba {
+    background-color: #e0e0e0;
+    color: var(--cor-texto);
+    border: none;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: var(--borda-raio) var(--borda-raio) 0 0;
+    cursor: pointer;
+    transition: var(--transicao);
+}
+
+.btn-aba:hover {
+    background-color: #d0d0d0;
+}
+
+.btn-aba.ativa {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.conteudo-aba {
+    display: none;
+}
+
+.conteudo-aba.ativa {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+/* ==========================================================================
+   5. FORMULÁRIOS, INPUTS E CARDS
    ========================================================================== */
 fieldset {
     border: 1px solid #e0e0e0;
@@ -127,16 +142,11 @@ legend {
     margin-bottom: 1.2rem;
 }
 
-.grupo-input:last-child {
-    margin-bottom: 0;
-}
-
 label {
     font-weight: 600;
-    font-size: 0.95rem;
 }
 
-input[type="number"] {
+input[type="number"], input[type="text"] {
     width: 100%;
     padding: 0.8rem;
     border: 2px solid #ccc;
@@ -145,8 +155,7 @@ input[type="number"] {
     transition: var(--transicao);
 }
 
-/* Estado de Foco para melhor UX */
-input[type="number"]:focus {
+input:focus {
     outline: none;
     border-color: var(--cor-secundaria);
     box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
@@ -166,38 +175,23 @@ button {
     transition: var(--transicao);
 }
 
-button:hover {
-    background-color: #218376; /* Tom levemente mais escuro ao passar o mouse */
-}
-
-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(42, 157, 143, 0.4);
-}
+button:hover { background-color: #218376; }
 
 /* ==========================================================================
-   5. COMPONENTES DINÂMICOS (Sucesso, Erro e Cards)
+   6. FEEDBACKS DINÂMICOS & LOJAS
    ========================================================================== */
-/* Validação Estrita (JavaScript vai controlar essas classes) */
 .erro-visivel {
     background-color: #ffe3e3;
     color: var(--cor-erro);
     border: 2px solid var(--cor-erro);
     padding: 1rem;
     border-radius: var(--borda-raio);
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     font-weight: bold;
 }
 
-.erro-oculto, .resultado-oculto {
-    display: none;
-}
-
-.resultado-visivel {
-    display: block;
-    margin-top: 1rem;
-    animation: fadeIn 0.5s ease;
-}
+.erro-oculto, .resultado-oculto { display: none; }
+.resultado-visivel { display: block; animation: fadeIn 0.5s ease; }
 
 .card-resultado {
     background-color: var(--cor-fundo);
@@ -207,45 +201,60 @@ button:focus {
     margin-top: 1rem;
 }
 
-.card-resultado p {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+.card-insumo {
+    background: var(--cor-fundo);
+    border-left: 5px solid var(--cor-secundaria);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: var(--borda-raio);
 }
 
-.card-resultado p:last-child {
-    margin-bottom: 0;
+.container-loja {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--borda-raio);
+    padding: 1rem;
+    margin-top: 0.8rem;
+}
+
+.tag-indicacao {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.tag-bom { background-color: #d8f3dc; color: var(--cor-sucesso); }
+.tag-regular { background-color: #fefae0; color: #b58282; }
+.status-positivo { color: var(--cor-sucesso); font-weight: bold; }
+.status-negativo { color: var(--cor-erro); font-weight: bold; }
+
+.badge-distancia {
+    display: inline-block;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
     font-weight: bold;
 }
 
-/* Status dinâmicos para o alerta final */
-.status-positivo { color: var(--cor-sucesso); }
-.status-negativo { color: var(--cor-erro); }
-
-/* Links Externos */
 .link-externo {
     display: inline-block;
     margin-top: 1rem;
     color: var(--cor-secundaria);
     text-decoration: none;
     font-weight: bold;
-    border-bottom: 2px solid transparent;
-    transition: var(--transicao);
 }
 
-.link-externo:hover {
-    border-bottom-color: var(--cor-secundaria);
-}
-
-/* ==========================================================================
-   6. RODAPÉ E ANIMAÇÃO
-   ========================================================================== */
 footer {
     background-color: var(--cor-primaria);
     color: var(--cor-branco);
     text-align: center;
     padding: 2rem 1rem;
     margin-top: 4rem;
-    font-size: 0.9rem;
 }
 
 @keyframes fadeIn {
