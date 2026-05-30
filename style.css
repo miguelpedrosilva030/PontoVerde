@@ -1,6 +1,3 @@
-/* ==========================================================================
-   1. VARIÁVEIS E CORES DO SISTEMA AGRO
-   ========================================================================== */
 :root {
     --cor-primaria: #1b4332;       
     --cor-secundaria: #2a9d8f;     
@@ -15,309 +12,110 @@
     --transicao: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; padding-bottom: 0; }
+body.dark-mode {
+    --cor-fundo: #0d1f16;
+    --cor-texto: #e9f5ed;
+    --cor-branco: #143224;
+    --cor-primaria: #40916c;
+    --cor-secundaria: #52b788;
+}
 
-/* ==========================================================================
-   2. TELA DE BLOQUEIO AGRICULTURA
-   ========================================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); color: var(--cor-texto); transition: background-color 0.3s, color 0.3s; }
+
+/* TELA DE BLOQUEIO */
 #tela-entrada {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(27, 67, 50, 0.9) 0%, rgba(13, 31, 22, 0.93) 100%), 
-                url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1920&q=80');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100000;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-    text-align: center;
-    color: #ffffff;
-    padding: 1.5rem;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(27, 67, 50, 0.93) 0%, rgba(13, 31, 22, 0.96) 100%);
+    display: flex; justify-content: center; align-items: center; z-index: 100000;
+    transition: opacity 0.8s ease, visibility 0.8s ease; text-align: center; color: #ffffff; padding: 1.5rem;
 }
-
 .conteudo-entrada { 
-    max-width: 550px; 
-    background: rgba(255, 255, 255, 0.08);
-    padding: 3rem 2rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    animation: agitarEntrada 1s ease-out; 
+    max-width: 550px; background: rgba(255, 255, 255, 0.08); padding: 3rem 2rem; border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(8px); box-shadow: 0 15px 35px rgba(0,0,0,0.4);
 }
-
-.logo-animada { 
-    font-size: 4.5rem; 
-    margin-bottom: 0.5rem; 
-    animation: pulsarPlanta 2s infinite ease-in-out; 
-}
-
-#tela-entrada h1 { 
-    font-size: 3.2rem; 
-    font-family: 'Georgia', serif; 
-    color: var(--cor-ouro);
-    margin-bottom: 0.2rem; 
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6); 
-}
-
-.subtitulo-agro {
-    font-size: 1.1rem;
-    color: #b7e4c7;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 1.5rem;
-}
-
-.linha-decorativa {
-    height: 3px;
-    width: 80px;
-    background-color: var(--cor-ouro);
-    margin: 0 auto 1.5rem auto;
-    border-radius: 2px;
-}
-
-.frase-efeito {
-    font-size: 1.1rem;
-    color: #f1f5f9;
-    font-style: italic;
-    margin-bottom: 2.5rem;
-    line-height: 1.5;
-}
-
-#btn-entrar-site {
-    background-color: var(--cor-ouro); 
-    color: var(--cor-primaria); 
-    font-size: 1.25rem; 
-    padding: 1.1rem 3rem;
-    border: none; 
-    border-radius: 30px; 
-    cursor: pointer; 
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 6px 20px rgba(255, 183, 3, 0.3); 
-    transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
-    display: inline-block;
-    width: auto;
-}
-
-#btn-entrar-site:hover { 
-    background-color: #ffe066; 
-    transform: scale(1.04);
-    box-shadow: 0 8px 25px rgba(255, 183, 3, 0.5); 
-}
-
+.logo-animada { font-size: 4.5rem; margin-bottom: 0.5rem; animation: pulsarPlanta 2s infinite ease-in-out; }
+#tela-entrada h1 { font-size: 3.2rem; color: var(--cor-ouro); }
+.subtitulo-agro { font-size: 1.1rem; color: #b7e4c7; font-weight: 600; text-transform: uppercase; margin-bottom: 1.5rem; }
+.linha-decorativa { height: 3px; width: 80px; background-color: var(--cor-ouro); margin: 0 auto 1.5rem auto; }
+.frase-efeito { font-size: 1.1rem; color: #f1f5f9; font-style: italic; margin-bottom: 2.5rem; }
+#btn-entrar-site { background-color: var(--cor-ouro); color: var(--cor-primaria); font-size: 1.25rem; padding: 1.1rem 3rem; border: none; border-radius: 30px; cursor: pointer; font-weight: bold; width: auto; }
+#btn-entrar-site:hover { background-color: #ffe066; transform: scale(1.04); }
 #tela-entrada.ocultar { opacity: 0; visibility: hidden; }
 
-/* ==========================================================================
-   3. CHAT ASSISTENTE (CORRIGIDO PARA FECHAR PERFEITAMENTE)
-   ========================================================================== */
-#container-assistente {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    z-index: 9999;
-    max-width: 320px;
-    width: 100%;
-    transition: var(--transicao); 
+/* BARRA DE COTAÇÕES */
+.barra-cotacoes {
+    background-color: var(--cor-primaria); color: #fff; padding: 0.6rem 1rem;
+    display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; font-size: 0.85rem; font-weight: bold; border-bottom: 2px solid var(--cor-ouro);
 }
+.alta { color: #52b788; margin-left: 4px; }
+.baixa { color: #ff8787; margin-left: 4px; }
+#btn-alternar-tema { width: auto; padding: 0.3rem 0.8rem; font-size: 0.8rem; background-color: var(--cor-secundaria); border-radius: 4px; margin-left: auto; cursor: pointer;}
 
-#container-assistente.centro-foco {
-    bottom: 50%;
-    right: 50%;
-    transform: translate(50%, 50%);
-    max-width: 400px;
-}
-
-#balao-assistente {
-    position: relative;
-    background: var(--cor-branco); border: 2px solid var(--cor-secundaria); padding: 1.5rem 1rem 1rem 1rem;
-    border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); margin-bottom: 10px;
-    font-size: 0.95rem; max-height: 360px; overflow-y: auto; width: 100%;
-}
-
-/* BOTÃO X DO ASSISTENTE - CORRIGIDO INTEGRALMENTE */
-#btn-fechar-chat {
-    position: absolute !important;
-    top: 5px !important;
-    right: 10px !important;
-    background: none !important;
-    border: none !important;
-    color: #cc0000 !important;
-    font-size: 1.6rem !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    width: auto !important;
-    height: auto !important;
-    padding: 0 !important;
-    line-height: 1 !important;
-    z-index: 100500 !important;
-    display: inline-block !important;
-}
-#btn-fechar-chat:hover { color: #ff0000 !important; transform: scale(1.1); }
-
+/* ASSISTENTE IA */
+#container-assistente { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; align-items: flex-end; z-index: 9999; max-width: 320px; width: 100%; }
+#container-assistente.centro-foco { bottom: 50%; right: 50%; transform: translate(50%, 50%); max-width: 400px; }
+#balao-assistente { position: relative; background: var(--cor-branco); border: 2px solid var(--cor-secundaria); padding: 1.8rem 1rem 1rem 1rem; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); margin-bottom: 10px; font-size: 0.95rem; }
+#btn-fechar-chat { position: absolute; top: 4px; right: 10px; background: none; border: none; color: #cc0000; font-size: 1.6rem; font-weight: bold; cursor: pointer; width: auto; }
 #controle-nome { display: flex; gap: 5px; margin-top: 8px; }
-#nome-usuario { padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; width: 65%; }
-#btn-salvar-nome { padding: 0.5rem 0.8rem; font-size: 0.85rem; width: auto; display: inline-block; }
-.pensando { font-style: italic; color: #666; }
+#nome-usuario { padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; width: 65%; color:#333; background:#fff; }
+#btn-salvar-nome { padding: 0.5rem 0.8rem; font-size: 0.85rem; width: auto; }
+#avatar-ponto { width: 65px; height: 65px; background-color: var(--cor-sucesso); border-radius: 50%; position: relative; cursor: pointer; border: 3px solid var(--cor-branco); animation: flutuar 3s infinite ease-in-out; }
+.olho-esquerdo, .olho-direito { width: 8px; height: 8px; background: #1b4332; border-radius: 50%; position: absolute; top: 22px; }
+.olho-esquerdo { left: 18px; } .olho-direito { right: 18px; }
+.sorriso { width: 22px; height: 11px; border-bottom: 3px solid #1b4332; border-radius: 0 0 11px 11px; position: absolute; bottom: 16px; left: 22px; }
 
-#avatar-ponto {
-    width: 65px; height: 65px; background-color: var(--cor-sucesso); border-radius: 50%;
-    position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    animation: flutuar 3s infinite ease-in-out; cursor: pointer; border: 3px solid var(--cor-branco);
-    transition: transform 0.2s;
-}
-#avatar-ponto:hover { transform: scale(1.1); }
-
-.olho-esquerdo, .olho-direito { width: 8px; height: 8px; background: var(--cor-primaria); border-radius: 50%; position: absolute; top: 22px; }
-.olho-esquerdo { left: 18px; }
-.olho-direito { right: 18px; }
-.sorriso { width: 22px; height: 11px; border-bottom: 3px solid var(--cor-primaria); border-radius: 0 0 11px 11px; position: absolute; bottom: 16px; left: 22px; }
-
-/* ==========================================================================
-   4. LAYOUT DO SITE E ELEMENTOS PRINCIPAIS
-   ========================================================================== */
-header { background-color: var(--cor-primaria); color: var(--cor-branco); text-align: center; padding: 3rem 1rem; }
-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-.badge-agrinho { display: inline-block; background-color: var(--cor-secundaria); color: var(--cor-branco); padding: 0.4rem 1rem; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
-
-main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 2rem; }
+/* ESTRUTURA E LAYOUT */
+header { background-color: var(--cor-primaria); color: #fff; text-align: center; padding: 3rem 1rem; }
+.badge-agrinho { display: inline-block; background-color: var(--cor-secundaria); color: #fff; padding: 0.4rem 1rem; border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin-top: 10px;}
+main { max-width: 850px; margin: 2rem auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 2rem; }
 section { background-color: var(--cor-branco); padding: 2rem; border-radius: var(--borda-raio); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
-section h2 { color: var(--cor-primaria); margin-bottom: 1rem; border-bottom: 2px solid var(--cor-fundo); padding-bottom: 0.5rem; }
+section h2 { color: var(--cor-secundaria); margin-bottom: 1rem; border-bottom: 2px solid var(--cor-fundo); padding-bottom: 0.5rem; }
 
+/* TABELA DE COTAÇÃO CEASA */
+.overflow-tabela { width: 100%; overflow-x: auto; border-radius: 6px; border: 1px solid #ccc; }
+.tabela-preco-agro { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; background: var(--cor-branco); }
+.tabela-preco-agro th { background-color: var(--cor-primaria); color: #fff; padding: 12px; font-weight: bold; }
+.tabela-preco-agro td { padding: 12px; border-bottom: 1px solid #eee; color: var(--cor-texto); }
+.tabela-preco-agro tr:hover { background-color: rgba(42, 157, 143, 0.08); }
+
+/* GUIA DE USO */
+.passos-guia { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
+.passo-item { background: var(--cor-fundo); padding: 1rem; border-radius: 6px; border-left: 4px solid var(--cor-ouro); }
+
+/* ABAS */
 .abas-navegacao { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-.btn-aba { background-color: #e0e0e0; color: var(--cor-texto); border: none; padding: 0.8rem 1.2rem; font-size: 0.95rem; font-weight: bold; border-radius: var(--borda-raio) var(--borda-raio) 0 0; cursor: pointer; transition: var(--transicao); }
-.btn-aba.ativa { background-color: var(--cor-primaria); color: var(--cor-branco); }
-
+.btn-aba { background-color: #e0e0e0; color: #333; border: none; padding: 0.8rem 1.2rem; font-size: 0.95rem; font-weight: bold; border-radius: var(--borda-raio) var(--borda-raio) 0 0; cursor: pointer; transition: var(--transicao); }
+.btn-aba.ativa { background-color: var(--cor-primaria); color: #fff; }
 .conteudo-aba { display: none; }
 .conteudo-aba.ativa { display: block; animation: fadeIn 0.4s ease; }
 
-.cartao-passo { background-color: var(--cor-fundo); border-left: 4px solid var(--cor-primaria); padding: 1rem 1.2rem; margin-top: 1rem; border-radius: 4px; }
-fieldset { border: 1px solid #e0e0e0; border-radius: var(--borda-raio); padding: 1.5rem; margin-bottom: 1.5rem; }
-legend { padding: 0 0.5rem; font-weight: bold; color: var(--cor-primaria); }
+fieldset { border: 1px solid #ccc; border-radius: var(--borda-raio); padding: 1.5rem; margin-bottom: 1.5rem; }
+legend { padding: 0 0.5rem; font-weight: bold; color: var(--cor-secundaria); }
 .grupo-input { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
+input[type="number"], input[type="text"], select { width: 100%; padding: 0.8rem; border: 2px solid #ccc; border-radius: var(--borda-raio); font-size: 1rem; color: #333; background-color: #fff; }
+button { display: block; width: 100%; background-color: var(--cor-secundaria); color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: var(--borda-raio); cursor: pointer; }
+button:hover { background-color: var(--cor-primaria); }
 
-input[type="number"], input[type="text"], select { width: 100%; padding: 0.8rem; border: 2px solid #ccc; border-radius: var(--borda-raio); font-size: 1rem; }
-button { display: block; width: 100%; background-color: var(--cor-secundaria); color: var(--cor-branco); border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: var(--borda-raio); cursor: pointer; transition: var(--transicao); }
-button:hover { background-color: #218376; }
-
-.erro-visivel { background-color: #ffe3e3; color: var(--cor-erro); border: 2px solid var(--cor-erro); padding: 1rem; border-radius: var(--borda-raio); margin-top: 1rem; font-weight: bold; }
-.erro-oculto, .resultado-oculto { display: none; }
-.resultado-visivel { display: block; animation: fadeIn 0.5s ease; }
-
+/* RESULTADOS E VITRINES */
 .card-resultado { background-color: var(--cor-fundo); border-left: 5px solid var(--cor-secundaria); padding: 1.5rem; margin-top: 1rem; }
-.card-insumo { background: var(--cor-fundo); border-left: 5px solid var(--cor-secundaria); padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--borda-raio); }
-.container-loja { background: #ffffff; border: 1px solid #e0e0e0; border-radius: var(--borda-raio); padding: 1rem; margin-top: 0.8rem; }
-
-.tag-indicacao { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-top: 0.5rem; }
-.tag-bom { background-color: #d8f3dc; color: var(--cor-sucesso); }
-.tag-regular { background-color: #fefae0; color: #b58282; }
+.card-insumo { background: var(--cor-fundo); border-left: 5px solid var(--cor-primaria); padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--borda-raio); }
+.container-loja { background: var(--cor-branco); border: 1px solid #ccc; padding: 1rem; margin-top: 0.8rem; border-radius: 6px; }
+.badge-distancia { background-color: var(--cor-primaria); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
 .status-positivo { color: var(--cor-sucesso); font-weight: bold; }
 .status-negativo { color: var(--cor-erro); font-weight: bold; }
-.badge-distancia { display: inline-block; background-color: var(--cor-primaria); color: var(--cor-branco); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
-.link-externo { display: inline-block; margin-top: 1rem; color: var(--cor-secundaria); text-decoration: none; font-weight: bold; }
+.erro-oculto, .resultado-oculto { display: none; }
+.erro-visivel, .resultado-visivel { display: block; animation: fadeIn 0.5s ease; }
 
-/* ==========================================================================
-   5. NOVO RODAPÉ ORGANIZADO COM AVALIAÇÃO À ESQUERDA
-   ========================================================================== */
-footer { 
-    background-color: var(--cor-primaria); 
-    color: var(--cor-branco); 
-    padding: 2.5rem 2rem; 
-    margin-top: 5rem; 
-}
+/* RODAPÉ */
+footer { background-color: #112a1f; color: #fff; padding: 2.5rem 2rem; margin-top: 5rem; }
+.container-rodape { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+#avaliacao-plataforma { flex: 1; min-width: 280px; }
+.container-estrelas-site select { padding: 0.5rem; font-size: 0.9rem; border-radius: 6px; width: 160px; color: #333; }
+.container-estrelas-site button { width: auto; display: inline-block; padding: 0.5rem 1.2rem; font-size: 0.9rem; background-color: var(--cor-secundaria); }
+.creditos-rodape { flex: 1; min-width: 280px; text-align: right; font-size: 0.9rem; color: #b7e4c7; }
 
-.container-rodape {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-/* Caixa de Avaliação Alinhada na Esquerda */
-#avaliacao-plataforma {
-    flex: 1;
-    min-width: 280px;
-    text-align: left;
-}
-
-#avaliacao-plataforma h4 {
-    font-size: 1.1rem;
-    color: var(--cor-ouro);
-    margin-bottom: 0.6rem;
-}
-
-.container-estrelas-site {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.container-estrelas-site select {
-    padding: 0.5rem;
-    font-size: 0.9rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #333;
-    width: 160px;
-}
-
-.container-estrelas-site button {
-    width: auto;
-    padding: 0.5rem 1.2rem;
-    font-size: 0.9rem;
-    background-color: var(--cor-secundaria);
-    border-radius: 6px;
-}
-
-#feedback-nota-site {
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
-
-/* Texto de Créditos Alinhado no Canto Direito */
-.creditos-rodape {
-    flex: 1;
-    min-width: 280px;
-    text-align: right;
-    font-size: 0.9rem;
-    color: #b7e4c7;
-}
-
-/* Responsividade do Rodapé */
-@media (max-width: 768px) {
-    .container-rodape {
-        flex-direction: column;
-        text-align: center;
-    }
-    #avaliacao-plataforma, .creditos-rodape {
-        text-align: center;
-    }
-    .container-estrelas-site {
-        justify-content: center;
-    }
-}
-
-/* ANIMAÇÕES VISUAIS */
 @keyframes flutuar { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-@keyframes pulsarPlanta { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-@keyframes agitarEntrada { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes pulsarPlanta { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
