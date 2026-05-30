@@ -3,357 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PontoVerde - Inteligência e Gestão Agrícola</title>
+    <title>PontoVerde - Agrinho 2026</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="tela-entrada">
-        <div class="conteudo-entrada">
-            <div class="logo-animada">🚜🌾</div>
-            <h1>PontoVerde</h1>
-            <p class="subtitulo-agro">Tecnologia, Gestão e Sustentabilidade para o Produtor Rural</p>
-            <div class="linha-decorativa"></div>
-            <p class="frase-efeito">O futuro da sua colheita começa com uma gestão inteligente de custos.</p>
-            <button type="button" id="btn-entrar-site">Entrar na Propriedade</button>
-        </div>
-    </div>
-
-    <div id="container-assistente">
-        <div id="balao-assistente">
-            <button type="button" id="btn-fechar-chat" title="Fechar assistente">&times;</button>
-            <div id="chat-texto-container">
-                <p id="texto-assistente">Olá! Sou a Inteligência Artificial do PontoVerde. Para começarmos o monitoramento da sua safra, como posso chamar você?</p>
-            </div>
-            <div id="controle-nome">
-                <input type="text" id="nome-usuario" placeholder="Digite seu nome...">
-                <button type="button" id="btn-salvar-nome">Conectar IA</button>
-            </div>
-            <div id="controle-duvidas" style="display: none; margin-top: 10px;">
-                <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-                <label for="campo-pergunta" style="font-size: 0.8rem; font-weight: bold; display: block; margin-bottom: 5px;">Consulte a IA sobre cotações ou melhor momento de plantio:</label>
-                <div style="display: flex; gap: 5px;">
-                    <input type="text" id="campo-pergunta" placeholder="Ex: Soja, Alface, Flores, Tomate...">
-                    <button type="button" id="btn-perguntar" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; width: auto;">Consultar</button>
-                </div>
-            </div>
-        </div>
-        <div id="avatar-ponto" title="Clique para abrir ou fechar a IA">
-            <div class="olho-esquerdo"></div>
-            <div class="olho-direito"></div>
-            <div class="sorriso"></div>
-        </div>
-    </div>
-
-    <div class="barra-cotacoes">
-        <div class="item-cotacao" id="cot-soja">🌾 Soja (60kg): R$ 135,40 <span class="alta">+0.4%</span></div>
-        <div class="item-cotacao" id="cot-milho">🌽 Milho (60kg): R$ 58,20 <span class="baixa">-0.2%</span></div>
-        <div class="item-cotacao" id="cot-leite">🥛 Leite (Litro): R$ 2,15 <span class="alta">+1.1%</span></div>
-        <button type="button" id="btn-alternar-tema" title="Alternar Modo Escuro">🌙 Modo Escuro</button>
-    </div>
-
-    <header>
-        <h1>PontoVerde</h1>
-        <p>Plataforma Integrada de Apoio ao Produtor Paranaense</p>
-        <span class="badge-agrinho">Concurso Agrinho 2026</span>
+    <header class="topo-site">
+        <h1>🌱 PontoVerde</h1>
+        <p>Tecnologia e Sustentabilidade para a Agricultura Familiar</p>
     </header>
 
-    <main>
-        <section id="guia-uso-rapido">
-            <h2>📋 Guia de Uso Rápido</h2>
-            <p>Siga estes passos simples para planejar sua safra de ponta a ponta:</p>
-            <div class="passos-guia">
-                <div class="passo-item">
-                    <strong>1️⃣ Planeje Época Ideal e Preços:</strong>
-                    <p>Navegue pelas abas "Calendário Agrícola" e "Cotação CEASA" para saber quando plantar e o preço atualizado de venda dos hortis e grãos.</p>
-                </div>
-                <div class="passo-item">
-                    <strong>2️⃣ Analise suas Finanças:</strong>
-                    <p>Vá em "Calculadora de Viabilidade", jogue os custos da sua lavoura e veja de forma automatizada o ponto de equilíbrio, projeção de lucro (ganhos) ou riscos de prejuízo.</p>
-                </div>
-                <div class="passo-item">
-                    <strong>3️⃣ Compre com Economia:</strong>
-                    <p>Consulte o "Guia de Insumos" para achar os fornecedores e use o "Simulador de Qualidade" para verificar as notas técnicas do mercado.</p>
-                </div>
+    <nav class="menu-navegacao">
+        <button onclick="mudarAba('clima')" id="btn-clima" class="btn-ativo">🌤️ Clima & Alertas</button>
+        <button onclick="mudarAba('mercado')" id="btn-mercado">📊 Mercado & Preços</button>
+        <button onclick="mudarAba('financas')" id="btn-financas">🧮 Calculadora & Eco</button>
+        <button onclick="mudarAba('pragas')" id="btn-pragas">🪲 Diagnóstico IA</button>
+        <button onclick="mudarAba('guias')" id="btn-guias">📋 Guia do Produtor</button>
+    </nav>
+
+    <main class="conteudo-principal">
+
+        <section id="aba-clima" class="secao-site">
+            <div class="alerta-vermelho-box">
+                <p>⚠️ <strong>ALERTA DE GEADA (Foco Paraná):</strong> Queda brusca de temperatura prevista para a madrugada na região. Risco de geada moderada. Recomendado cobrir os canteiros de folhosas imediatamente!</p>
             </div>
-        </section>
 
-        <section id="central-ferramentas">
-            <nav class="abas-navegacao">
-                <button class="btn-aba ativa" data-aba="calculadora">📊 Calculadora de Viabilidade</button>
-                <button class="btn-aba" data-aba="calendario">📅 Calendário Agrícola</button>
-                <button class="btn-aba" data-aba="ceasa">🍅 Cotação CEASA-PR</button>
-                <button class="btn-aba" data-aba="produtos">🏬 Guia de Insumos</button>
-                <button class="btn-aba" data-aba="simulador-insumo">🔬 Simulador de Insumos</button>
-            </nav>
-
-            <hr style="border: 0; border-top: 1px solid #ccc; margin-bottom: 1.5rem;">
-
-            <div id="aba-calculadora" class="conteudo-aba ativa">
-                <h2>Calculadora de Viabilidade Financeira</h2>
-                <form id="formulario-custos" novalidate>
-                    <fieldset>
-                        <legend>Custos Operacionais Flutuantes</legend>
-                        <div class="grupo-input">
-                            <label for="alimentacao">Insumos Principais / Nutrição / Sementes (R$):</label>
-                            <input type="number" id="alimentacao" placeholder="Ex: 90.00">
-                        </div>
-                        <div class="grupo-input">
-                            <label for="energia">Energia Elétrica, Combustível e Água (R$):</label>
-                            <input type="number" id="energia" placeholder="Ex: 0.00">
-                        </div>
-                        <div class="grupo-input">
-                            <label for="mao-obra">Mão de Obra, Manutenção e Serviços (R$):</label>
-                            <input type="number" id="mao-obra" placeholder="Ex: 0.00">
-                        </div>
-                    </fieldset>
-                    
-                    <fieldset>
-                        <legend>Dados de Mercado (Cotação FAEP / CEASA)</legend>
-                        <div class="grupo-input">
-                            <label for="preco-venda">Preço de Venda Unitário recebido (R$):</label>
-                            <input type="number" id="preco-venda" placeholder="Ex: 2.00">
-                        </div>
-                        <div class="grupo-input">
-                            <label for="quantidade-venda">Quantidade Total Produzida/Planejada para Venda:</label>
-                            <input type="number" id="quantidade-venda" placeholder="Ex: 60">
-                        </div>
-                    </fieldset>
-                    <button type="button" id="btn-calcular">Analisar Viabilidade</button>
-                </form>
-
-                <div id="mensagem-erro" class="erro-oculto"></div>
-                
-                <div id="resultado-calculo" class="resultado-oculto">
-                    <h3>Análise do Ponto de Equilíbrio</h3>
-                    <article class="card-resultado">
-                        <p id="res-custo-total">Custo Operacional Total: R$ 0,00</p>
-                        <p id="res-faturamento">Faturamento Bruto Esperado: R$ 0,00</p>
-                        <p id="res-ponto-equilibrio">Meta de Vendas Mínima: 0 unidades</p>
-                        <hr style="border:0; border-top: 1px dashed #ccc; margin: 10px 0;">
-                        <p id="res-ganhos" class="status-positivo">Ganhos Reais (Lucro Líquido): R$ 0,00</p>
-                        <p id="res-prejuizos" class="status-negativo">Prejuízo Calculado: R$ 0,00</p>
-                        <hr style="border:0; border-top: 1px dashed #ccc; margin: 10px 0;">
-                        <p id="res-alerta-status">Status: Aguardando processamento...</p>
-                    </article>
+            <h2>🌤️ Monitoramento Climatológico</h2>
+            <div class="card-clima">
+                <h3>Paraná - Monitoramento Regional</h3>
+                <div class="tempo-atual">
+                    <span class="graus">26°C</span>
+                    <p>☀️ Ensolarado com poucas nuvens</p>
+                </div>
+                <hr>
+                <div class="detalhes-clima">
+                    <p>💧 <strong>Umidade do Ar:</strong> 58%</p>
+                    <p>💨 <strong>Ventos:</strong> 14 km/h — <span class="dica-verde">Ideal para manejo nas primeiras horas do dia.</span></p>
                 </div>
             </div>
 
-            <div id="aba-calendario" class="conteudo-aba">
-                <h2>📅 Momento Perfeito de Plantar e Colher</h2>
-                <p>Confira a janela ideal de manejo no estado do Paraná para evitar perdas climáticas:</p>
-                <div class="overflow-tabela" style="margin-top: 1.5rem;">
-                    <table class="tabela-preco-agro">
-                        <thead>
-                            <tr>
-                                <th>Cultura</th>
-                                <th>Momento Perfeito de Plantar</th>
-                                <th>Período de Colheita</th>
-                                <th>Exigência Climática</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>🌾 Soja</td>
-                                <td>Setembro a Dezembro</td>
-                                <td>Janeiro a Abril</td>
-                                <td>Alta umidade e calor</td>
-                            </tr>
-                            <tr>
-                                <td>🌽 Milho Safrinha</td>
-                                <td>Janeiro a Março</td>
-                                <td>Junho a Agosto</td>
-                                <td>Atenção ao risco de geada</td>
-                            </tr>
-                            <tr>
-                                <td>🥬 Alface / Folhosas</td>
-                                <td>Ano Todo (Melhor Março a Outubro)</td>
-                                <td>30 a 50 dias após plantio</td>
-                                <td>Cultivo protegido no inverno</td>
-                            </tr>
-                            <tr>
-                                <td>🍅 Tomate</td>
-                                <td>Agosto a Novembro</td>
-                                <td>Novembro a Março</td>
-                                <td>Evitar excesso de chuvas no fruto</td>
-                            </tr>
-                            <tr>
-                                <td>🥕 Cenoura</td>
-                                <td>Ano Todo (Melhor Abril a Julho)</td>
-                                <td>90 a 110 dias após plantio</td>
-                                <td>Solos soltos e bem drenados</td>
-                            </tr>
-                            <tr>
-                                <td>💐 Flores & Ornamentais</td>
-                                <td>Março a Maio (Outono)</td>
-                                <td>Variável por espécie</td>
-                                <td>Controle rigoroso de irrigação</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="aba-ceasa" class="conteudo-aba">
-                <h2>📊 Cotação de Preços Atacado — CEASA Paraná</h2>
-                <p>Valores de referência coletados nos grandes mercados atacadistas do estado:</p>
-                
-                <div style="margin: 1rem 0;">
-                    <input type="text" id="busca-ceasa" placeholder="🔍 Digite para pesquisar um vegetal ou planta da tabela...">
-                </div>
-
-                <div class="overflow-tabela">
-                    <table class="tabela-preco-agro" id="tabela-dados-ceasa">
-                        <thead>
-                            <tr>
-                                <th>Produto / Variedade</th>
-                                <th>Unidade Comercial</th>
-                                <th>Média Curitiba (R$)</th>
-                                <th>Média Cascavel (R$)</th>
-                                <th>Tendência</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="linha-busca">
-                                <td>Tomate Longa Vida Extra Aa</td>
-                                <td>Caixa 20 kg</td>
-                                <td>R$ 90,00</td>
-                                <td>R$ 95,00</td>
-                                <td class="status-positivo">Estável</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Alface Crespa Grande</td>
-                                <td>Caixa 7 kg</td>
-                                <td>R$ 50,00</td>
-                                <td>R$ 52,00</td>
-                                <td class="status-positivo">Alta ↑</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Alface Lisa Hidropônica</td>
-                                <td>Caixa 7 kg</td>
-                                <td>R$ 55,00</td>
-                                <td>R$ 58,00</td>
-                                <td class="status-positivo">Estável</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Batata Comum Especial</td>
-                                <td>Saco 25 kg</td>
-                                <td>R$ 150,00</td>
-                                <td>R$ 155,00</td>
-                                <td class="status-negativo">Baixa ↓</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Cenoura Ninfas Extra A</td>
-                                <td>Caixa 20 kg</td>
-                                <td>R$ 85,00</td>
-                                <td>R$ 88,00</td>
-                                <td class="status-positivo">Alta ↑</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Abóbora Kabotiá</td>
-                                <td>Saco 20 kg</td>
-                                <td>R$ 45,00</td>
-                                <td>R$ 48,00</td>
-                                <td class="status-positivo">Estável</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Mandioca / Aipim Primeira</td>
-                                <td>Caixa 20 kg</td>
-                                <td>R$ 80,00</td>
-                                <td>R$ 82,00</td>
-                                <td class="status-positivo">Estável</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Brócolis Quatro Estações</td>
-                                <td>Dúzia</td>
-                                <td>R$ 40,00</td>
-                                <td>R$ 43,00</td>
-                                <td class="status-negativo">Baixa ↓</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Alstroemeria (Corte)</td>
-                                <td>Maço c/ 12</td>
-                                <td>R$ 18,00</td>
-                                <td>R$ 20,00</td>
-                                <td class="status-positivo">Estável</td>
-                            </tr>
-                            <tr class="linha-busca">
-                                <td>Mini-Anthurium (Vaso)</td>
-                                <td>Caixa c/ 15</td>
-                                <td>R$ 120,00</td>
-                                <td>R$ 125,00</td>
-                                <td class="status-positivo">Alta ↑</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="aba-produtos" class="conteudo-aba">
-                <h2>Guia de Fornecedores & Ampla Vitrine de Insumos</h2>
-                <p>Selecione a sua região para encontrar lojas físicas, cooperativas parceiras e insumos disponíveis.</p>
-                
-                <div class="cartao-localidade">
-                    <label for="regiao-produtor" style="font-weight: bold;">📍 Filtrar por Região no Paraná:</label>
-                    <select id="regiao-produtor" style="margin-top: 0.5rem;">
-                        <option value="todos">Mostrar Todos os Produtos Disponíveis</option>
-                        <option value="sul">Região de Curitiba (RMC)</option>
-                        <option value="campos-gerais">Campos Gerais (Castro/Ponta Grossa)</option>
-                        <option value="oeste">Oeste Paranaense (Cascavel/Toledo)</option>
+            <div class="card-subsecao">
+                <h3>💧 Simulador de Irrigação Inteligente</h3>
+                <p>Selecione os dados da sua propriedade para calcular a rega ideal economizando água:</p>
+                <div class="formulario-inline">
+                    <select id="irrigacao-cultura">
+                        <option value="tomate">Tomateiro</option>
+                        <option value="folhosas">Alface / Folhosas</option>
+                        <option value="frutas">Morango</option>
                     </select>
+                    <select id="irrigacao-solo">
+                        <option value="argiloso">Solo Argiloso (Retém mais água)</option>
+                        <option value="arenoso">Solo Arenoso (Seca rápido)</option>
+                    </select>
+                    <button onclick="calcularIrrigacao()" class="btn-acao">Calcular Tempo</button>
                 </div>
-                
-                <div id="lista-insumos-tech" style="margin-top: 1.5rem;"></div>
+                <div id="resultado-irrigacao" class="resultado-box aba-escondida"></div>
+            </div>
+        </section>
+
+        <section id="aba-mercado" class="secao-site aba-escondida">
+            <h2>📊 Cotações CEASA - Curitiba & Venda Direta</h2>
+            <p class="data-coleta">📅 Última Atualização: <strong>29/05/2026</strong></p>
+            
+            <div class="filtros-container">
+                <input type="text" id="busca-produto" placeholder="🔍 Digite o nome do produto..." oninput="filtrarTabelaCeasa()">
+                <select id="filtro-categoria" onchange="filtrarTabelaCeasa()">
+                    <option value="todos">🌾 Todas as Categorias</option>
+                    <option value="frutas">🍎 Frutas</option>
+                    <option value="hortalicas">🥦 Hortaliças</option>
+                    <option value="graos">🌽 Grãos</option>
+                </select>
             </div>
 
-            <div id="aba-simulador-insumo" class="conteudo-aba">
-                <h2>Simulador de Qualidade de Insumos</h2>
-                <p>Avalie a reputação e o custo-benefício de um insumo antes de fechar com o revendedor.</p>
-                
-                <div style="margin-top: 1.5rem;">
-                    <div class="grupo-input">
-                        <label for="nome-insumo-simulado">Nome do Insumo/Produto:</label>
-                        <input type="text" id="nome-insumo-simulado" placeholder="Ex: Adubo Nitrogenado Marca X">
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Unidade</th>
+                            <th>Situação</th>
+                            <th>Mínimo</th>
+                            <th>Média</th>
+                            <th>Máximo</th>
+                            <th>Var %</th>
+                            <th>Procedência</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela-ceasa"></tbody>
+                </table>
+            </div>
+
+            <div class="card-subsecao">
+                <h3>📦 Mercado do Produtor (Venda Direta Sem Intermediários)</h3>
+                <p>Ofertas da semana enviadas por produtores da região para venda direta a mercados e feiras:</p>
+                <div class="vitrine-cards">
+                    <div class="card-produto-vitrine">
+                        <h4>Sítio São José (Ibaiti)</h4>
+                        <p><strong>Produto:</strong> Tomate Saladete AA</p>
+                        <p><strong>Disponível:</strong> 50 caixas</p>
+                        <span class="preco-tag">R$ 130,00 / cx</span>
+                        <span class="badge-economia">Abaixo da CEASA</span>
                     </div>
-                    <div class="grupo-input">
-                        <label for="reputacao-insumo">Como você avalia a reputação ou qualidade deste produto?</label>
-                        <select id="reputacao-insumo">
-                            <option value="">-- Escolha uma alternativa --</option>
-                            <option value="5">⭐⭐⭐⭐⭐ Excelente (Muito recomendado no mercado)</option>
-                            <option value="4">⭐⭐⭐⭐ Bom (Apresenta bons resultados práticos)</option>
-                            <option value="3">⭐⭐⭐ Regular (Funciona, mas o custo-benefício é comum)</option>
-                            <option value="2">⭐⭐ Ruim (Histórico de baixo rendimento ou preço alto)</option>
-                        </select>
+                    <div class="card-produto-vitrine">
+                        <h4>Chácara Primavera</h4>
+                        <p><strong>Produto:</strong> Morango Tipo 1</p>
+                        <p><strong>Disponível:</strong> 15 caixas</p>
+                        <span class="preco-tag">R$ 28,00 / cx</span>
+                        <span class="badge-economia">Preço Direto</span>
                     </div>
-                    <button type="button" id="btn-analisar-insumo">Analisar Viabilidade do Insumo</button>
-                    
-                    <div id="resultado-simulador-insumo" class="resultado-oculto" style="margin-top: 1.5rem;"></div>
                 </div>
             </div>
         </section>
+
+        <section id="aba-financas" class="secao-site aba-escondida">
+            <h2>🧮 Gestão Financeira e Ecológica</h2>
+            
+            <div class="duas-colunas">
+                <div class="coluna-card">
+                    <h3>💰 Lucro e Viabilidade</h3>
+                    <label>Custo total de produção (R$):</label>
+                    <input type="number" id="custo-producao" placeholder="Ex: 5000">
+                    
+                    <label>Preço estimado de venda por caixa (R$):</label>
+                    <input type="number" id="preco-venda" placeholder="Ex: 150">
+                    
+                    <label>Quantidade de caixas produzidas:</label>
+                    <input type="number" id="qtd-produzida" placeholder="Ex: 60">
+                    
+                    <button onclick="calcularFinancas()" class="btn-acao">Analisar Resultado</button>
+                    <div id="resultado-financeiro" class="resultado-box aba-escondida"></div>
+                </div>
+
+                <div class="coluna-card">
+                    <h3>🔋 Nota de Sustentabilidade</h3>
+                    <p>Responda rápido para calcular o impacto ecológico da sua propriedade:</p>
+                    
+                    <label>Faz rotação de culturas na terra?</label>
+                    <select id="eco-rotacao"><option value="sim">Sim</option><option value="nao">Não</option></select>
+
+                    <label>Usa adubação orgânica ou compostagem?</label>
+                    <select id="eco-organico"><option value="sim">Sim</option><option value="nao">Não</option></select>
+
+                    <label>Utiliza alguma fonte de energia renovável (Solar)?</label>
+                    <select id="eco-solar"><option value="sim">Sim</option><option value="nao">Não</option></select>
+
+                    <button onclick="calcularSustentabilidade()" class="btn-acao-eco">Gerar Nota Verde</button>
+                    <div id="resultado-eco" class="resultado-box-eco aba-escondida"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="aba-pragas" class="secao-site aba-escondida">
+            <h2>🪲 Diagnóstico de Pragas por Foto (Simulador IA)</h2>
+            <p>Utilize a nossa Inteligência Artificial para identificar doenças na folha da planta instantaneamente.</p>
+            
+            <div class="container-upload-ia">
+                <div class="caixa-upload">
+                    <p>📸 Simule o envio da foto da folha afetada</p>
+                    <button onclick="simularAnaliseIA()" class="btn-acao">Simular Envio de Foto</button>
+                </div>
+                <div id="resultado-ia" class="resultado-box aba-escondida">
+                    <h4>Análise Concluída pelo Sistema PontoVerde IA:</h4>
+                    <p>❌ <strong>Problema Detectado:</strong> Início de Requeima (míldio) no Tomateiro.</p>
+                    <p>💡 <strong>Ação Recomendada:</strong> Aumentar o espaçamento entre plantas para melhorar a circulação do ar e aplicar defensivo natural à base de calda bordalesa.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="aba-guias" class="secao-site aba-escondida">
+            <h2>📋 Manual de Uso e Recursos Úteis</h2>
+            
+            <div class="passos-tutorial">
+                <div class="passo-card">
+                    <h3>1️⃣ Planeje com o Clima e CEASA</h3>
+                    <p>Monitore os alertas de clima para proteger as plantas e consulte os preços da CEASA antes de colher para garantir a melhor margem de venda.</p>
+                </div>
+                <div class="passo-card">
+                    <h3>2️⃣ Use as Calculadoras Inteligentes</h3>
+                    <p>Alimente a calculadora financeira para projetar lucros e teste a Calculadora Ecológica para ver se a sua propriedade está adequada às normas do Agrinho.</p>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="duas-colunas">
+                <div class="mini-card">
+                    <h4>♻️ Logística Reversa (Embalagens)</h4>
+                    <p>Lembre-se de realizar a <strong>tríplice lavagem</strong> das embalagens de defensivos. Ponto de devolução regional: Cooperativa Central de Recebimento Regional.</p>
+                </div>
+                <div class="mini-card">
+                    <h4>🏦 Crédito Rural Simplificado</h4>
+                    <p>Pequeno produtor familiar tem direito a taxas reduzidas através do <strong>PRONAF B</strong>. Procure a agência do IDR-Paraná da sua cidade para emitir o CAF.</p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer>
-        <div class="container-rodape">
-            <div id="avaliacao-plataforma">
-                <h4>⭐ Avalie o Nosso Site</h4>
-                <div class="container-estrelas-site">
-                    <select id="nota-site">
-                        <option value="">Selecione...</option>
-                        <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ 10 - Excelente</option>
-                        <option value="5">⭐⭐⭐⭐⭐ 5 - Regular</option>
-                        <option value="0">❌ 0 - Ruim</option>
-                    </select>
-                    <button type="button" id="btn-enviar-nota-site">Enviar</button>
+    <div class="chatbot-container">
+        <div class="chatbot-header" onclick="toggleChatbot()">
+            <span>🤖 Assistente PontoVerde IA</span>
+            <span id="chat-icone-janela">🔼</span>
+        </div>
+        <div id="chatbot-corpo" class="chatbot-corpo chat-escondido">
+            <div class="chat-mensagens" id="chat-mensagens">
+                <div class="msg-ia">
+                    <strong>PontoVerde IA:</strong> Olá! Sou a Inteligência Artificial do PontoVerde. Como posso ajudar na sua propriedade hoje? Clique em uma das dúvidas frequentes abaixo:
                 </div>
-                <div id="feedback-nota-site" class="resultado-oculto"></div>
             </div>
-            <div class="creditos-rodape">
-                <p>&copy; 2026 PontoVerde - Desenvolvido para o Concurso Agrinho. Tecnologia e gestão simplificada no campo.</p>
+            <div class="chat-opcoes">
+                <button onclick="perguntarChatbot(1)">🌤️ Como vejo o alerta de geada?</button>
+                <button onclick="perguntarChatbot(2)">📊 De quando são os dados da CEASA?</button>
+                <button onclick="perguntarChatbot(3)">💰 Como calcular meu lucro?</button>
+                <button onclick="perguntarChatbot(4)">🌿 Minha folha está doente, o que eu faço?</button>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
