@@ -8,21 +8,21 @@ const textoAssistente = document.querySelector('#texto-assistente');
 
 if (btnEntrarSite && telaEntrada) {
     btnEntrarSite.addEventListener('click', () => {
-        // 1. Esconde a splash screen com o trator
+        // Esconde a tela agro com desvanecimento suave
         telaEntrada.classList.add('ocultar');
         
-        // 2. Animação: O assistente vai automaticamente para o centro da tela ganhar o foco
+        // Coloca o assistente bem focado e centralizado na tela
         if (containerAssistente) {
             containerAssistente.classList.add('centro-foco');
         }
         
-        // 3. Modifica a fala inicial do assistente chamando a atenção
+        // Atualiza a primeira saudação
         textoAssistente.innerHTML = "Olá, produtor! Seja bem-vindo à nossa propriedade digital. Para que eu possa te atender de forma personalizada, digite o seu nome abaixo para começarmos:";
     });
 }
 
 /* ==========================================================================
-   2. ASSISTENTE PESSOAL - SALVAR NOME, RETORNAR POSIÇÃO E AJUDA AUTOMÁTICA
+   2. ASSISTENTE PESSOAL - ABAS, PERGUNTAS E BOTÃO DE FECHAR CHAT (NOVO!)
    ========================================================================== */
 const btnSalvarNome = document.querySelector('#btn-salvar-nome');
 const inputNomeUsuario = document.querySelector('#nome-usuario');
@@ -32,9 +32,43 @@ const btnPerguntar = document.querySelector('#btn-perguntar');
 const campoPergunta = document.querySelector('#campo-pergunta');
 const btnAvancarLeitura = document.querySelector('#btn-avancar-leitura');
 const avatarPonto = document.querySelector('#avatar-ponto');
+const balaoAssistente = document.querySelector('#balao-assistente');
+const btnFecharChat = document.querySelector('#btn-fechar-chat');
 
 let nomeDoProdutor = "";
 let aguardandoLeitura = false;
+
+// Funcionalidade para Fechar/Ocultar o balão de chat (Liberar a tela)
+if (btnFecharChat && balaoAssistente) {
+    btnFecharChat.addEventListener('click', () => {
+        balaoAssistente.style.display = "none";
+        // Caso o usuário feche enquanto estiver no centro, remove o foco para liberar
+        if (containerAssistente) {
+            containerAssistente.classList.remove('centro-foco');
+        }
+    });
+}
+
+// Reabrir ou fechar o balão ao clicar diretamente no Avatar redondo
+if (avatarPonto && balaoAssistente) {
+    avatarPonto.addEventListener('click', () => {
+        if (balaoAssistente.style.display === "none") {
+            balaoAssistente.style.display = "block";
+            // Se o nome já foi salvo, traz a apresentação de ferramentas integrada
+            if (nomeDoProdutor !== "") {
+                resetarEstadoLeitura();
+                textoAssistente.innerHTML = gerarTextoApresentacaoCompleta();
+                aguardandoLeitura = true;
+                btnAvancarLeitura.style.display = "block";
+            }
+        } else {
+            balaoAssistente.style.display = "none";
+            if (containerAssistente) {
+                containerAssistente.classList.remove('centro-foco');
+            }
+        }
+    });
+}
 
 if (btnSalvarNome) {
     btnSalvarNome.addEventListener('click', () => {
@@ -46,36 +80,24 @@ if (btnSalvarNome) {
         
         nomeDoProdutor = nomeInformado;
         
-        // Assistente fala o nome do produtor e pergunta se ele quer ajuda
-        textoAssistente.innerHTML = "Registro feito com sucesso, " + nomeDoProdutor + "! Agora, você precisa da minha ajuda para gerenciar sua propriedade hoje? Se quiser ver o que o site oferece, basta clicar em mim aqui no cantinho inferior!";
+        // Pergunta se precisa de ajuda citando o nome do produtor rural
+        textoAssistente.innerHTML = "Registro feito com sucesso, " + nomeDoProdutor + "! Agora, você precisa da minha ajuda para gerenciar sua propriedade hoje? Se quiser fechar minhas dicas para mexer livremente no site, clique no (X) acima!";
         
-        // 4. Animação: O assistente volta automaticamente para o seu canto original (remove a classe de foco)
+        // Remove a centralização e volta o robô para o canto inferior direito
         if (containerAssistente) {
             containerAssistente.classList.remove('centro-foco');
         }
 
-        // Esconde os campos de nome e exibe as dúvidas
         controleNome.style.display = "none"; 
         controleDuvidas.style.display = "block";
     });
 }
 
-// Resposta automática com tudo o que o site tem a oferecer para consumo e compra ideal
 function gerarTextoApresentacaoCompleta() {
     return "Olá " + (nomeDoProdutor || "produtor") + "! O PontoVerde foi feito para te dar total controle de mercado. Aqui você encontra: <br><br>" +
            "<strong>1. Calculadora de Viabilidade:</strong> Descubra a meta exata de vendas para cobrir as contas da fazenda.<br>" +
            "<strong>2. Guia de Insumos:</strong> Encontre as cooperativas e lojas mais próximas da sua região no Paraná para poupar no frete.<br>" +
            "<strong>3. Simulador de Produtos:</strong> Escolha a alternativa ideal para consumo com preço acessível e descubra o diagnóstico técnico antes de comprar.";
-}
-
-// Evento ao clicar no avatar do assistente "PontoVerde"
-if (avatarPonto) {
-    avatarPonto.addEventListener('click', () => {
-        resetarEstadoLeitura();
-        textoAssistente.innerHTML = gerarTextoApresentacaoCompleta();
-        aguardandoLeitura = true;
-        btnAvancarLeitura.style.display = "block";
-    });
 }
 
 function buscarRespostaAgro(pergunta) {
@@ -224,7 +246,7 @@ renderizarGuiaInsumos();
 
 /* ==========================================================================
    5. SIMULADOR DE QUALIDADE DE INSUMOS
-   ========================================================================== */
+   ========================================================================= */
 const btnAvaliar = document.querySelector('#btn-avaliar');
 const inputNomeProduto = document.querySelector('#nome-produto');
 const inputNotaProduto = document.querySelector('#nota-produto');
@@ -307,7 +329,7 @@ if (btnCalcular) {
             txtAlertaStatus.textContent = usuarioAtual + ", a meta para cobrir despesas está elevada. Verifique os fornecedores locais na aba ao lado para reduzir custos com frete.";
             txtAlertaStatus.className = "status-negativo";
         } else {
-            txtAlertaStatus.textContent = "Status: Production Viável e Saudável! Retorno financeiro positivo projetado, " + usuarioAtual + ".";
+            txtAlertaStatus.textContent = "Status: Produção Viável e Saudável! Retorno financeiro positivo projetado, " + usuarioAtual + ".";
             txtAlertaStatus.className = "status-positivo";
         }
         
