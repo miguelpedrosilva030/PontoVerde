@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. TELA DE ABERTURA E MODO ESCURO
+   1. TELA DE ABERTURA E CONFIGURAÇÕES DE TEMA
    ========================================================================== */
 const telaEntrada = document.querySelector('#tela-entrada');
 const btnEntrarSite = document.querySelector('#btn-entrar-site');
@@ -22,7 +22,7 @@ if (btnAlternarTema) {
 }
 
 /* ==========================================================================
-   2. INTELIGÊNCIA ARTIFICIAL: COTAÇÕES E MOMENTO DE PLANTIO
+   2. INTELEGÊNCIA ARTIFICIAL: PLANTIO PERFEITO E COTAÇÕES CEASA/FAEP
    ========================================================================== */
 const btnSalvarNome = document.querySelector('#btn-salvar-nome');
 const inputNomeUsuario = document.querySelector('#nome-usuario');
@@ -55,7 +55,7 @@ if (btnSalvarNome) {
         const nomeInformado = inputNomeUsuario.value.trim();
         if (nomeInformado === "") return;
         nomeDoProdutor = nomeInformado;
-        textoAssistente.innerHTML = `Conexão estabelecida, <strong>${nomeDoProdutor}</strong>! Oi sou o PontoVerde eu ajudarei você em tudo. Pode pergunte sobre soja, alface, batata, cenoura ou plantas de corte!`;
+        textoAssistente.innerHTML = `Conexão de IA ativa, <strong>${nomeDoProdutor}</strong>! Pergunte o preço atual de qualquer vegetal ou qual é o momento ideal de plantar.`;
         containerAssistente.classList.remove('centro-foco');
         if(controleNome) {
             controleNome.style.display = "none";
@@ -68,24 +68,24 @@ if (btnSalvarNome) {
 if (btnPerguntar) {
     btnPerguntar.addEventListener('click', () => {
         const pergunta = campoPergunta.value.toLowerCase();
-        let resposta = `Desculpe ${nomeDoProdutor || 'produtor'}, tente consultar itens como 'alface', 'tomate', 'batata', 'cenoura', 'flores', 'soja' ou 'milho'.`;
+        let resposta = `Olá ${nomeDoProdutor || 'produtor'}! Tente digitar um produto como 'soja', 'milho', 'alface', 'tomate', 'batata' ou 'flores'.`;
 
         if (pergunta.includes('soja')) {
-            resposta = "🌾 <strong>Cotação e Plantio de Soja:</strong> Janela ideal de <strong>setembro a janeiro</strong> no PR. Preço atualizado de referência: R$ 135,40 por saca.";
+            resposta = "🌾 <strong>IA Monitoramento (Soja):</strong> Janela perfeita de plantio no PR: <strong>setembro a dezembro</strong>. Cotação atualizada na praça: R$ 135,40/Saca.";
         } else if (pergunta.includes('milho')) {
-            resposta = "🌽 <strong>Cotação e Plantio de Milho Safrinha:</strong> Janela ideal entre <strong>janeiro e março</strong> no estado. Preço atualizado: R$ 58,20 por saca.";
+            resposta = "🌽 <strong>IA Monitoramento (Milho Safrinha):</strong> Janela perfeita de plantio: <strong>janeiro a março</strong>. Preço do mercado físico: R$ 58,20/Saca.";
         } else if (pergunta.includes('alface')) {
-            resposta = "🥬 <strong>Cotação CEASA-PR (Alface):</strong> Alface Crespa está saindo a R$ 50,00 a caixa de 7kg em Curitiba. O plantio ideal em estufas ocorre de forma saudável o ano todo!";
+            resposta = "🥬 <strong>IA Monitoramento (Alface):</strong> O ano todo é ótimo com proteção plástica. Preço de atacado CEASA: R$ 50,00 a caixa de 7kg.";
         } else if (pergunta.includes('tomate')) {
-            resposta = "🍅 <strong>Cotação CEASA-PR (Tomate):</strong> Tomate Longa Vida Extra está cotado em R$ 90,00 a caixa com 20kg. É considerado estável nas últimas coletas.";
+            resposta = "🍅 <strong>IA Monitoramento (Tomate):</strong> Época perfeita para plantar: <strong>agosto a novembro</strong>. Cotação de referência: R$ 90,00 a caixa de 20kg.";
         } else if (pergunta.includes('batata')) {
-            resposta = "🥔 <strong>Cotação CEASA-PR (Batata):</strong> Batata Comum Especial a R$ 150,00 o saco de 25kg. Apresentou leve tendência de baixa esta semana.";
+            resposta = "🥔 <strong>IA Monitoramento (Batata):</strong> Plantio ideal de <strong>agosto a dezembro</strong>. Preço médio CEASA: R$ 150,00 o saco de 25kg.";
         } else if (pergunta.includes('cenoura')) {
-            resposta = "🥕 <strong>Cotação CEASA-PR (Cenoura):</strong> Cenoura Ninfas Extra saindo a R$ 85,00 a caixa de 20kg, com tendência de alta no mercado atual.";
+            resposta = "🥕 <strong>IA Monitoramento (Cenoura):</strong> Momento perfeito de plantio: <strong>abril a julho</strong>. Cotação atualizada: R$ 85,00 a caixa de 20kg.";
         } else if (pergunta.includes('flor') || pergunta.includes('flores') || pergunta.includes('planta')) {
-            resposta = "💐 <strong>Plantas e Flores de Paisagismo (CEASA):</strong> Maço de Alstroemeria cotado a R$ 18,00. Já caixas de Mini-Anthurium para paisagismo saem por R$ 120,00 com 15 vasos.";
+            resposta = "💐 <strong>IA Monitoramento (Flores/Paisagismo):</strong> Outono (março a maio) é o momento perfeito para estruturação de plantas perenes. Maço de Alstroemeria está saindo a R$ 18,00 na CEASA Curitiba.";
         } else if (pergunta.includes('cotac') || pergunta.includes('preço') || pergunta.includes('ceasa')) {
-            resposta = "💰 <strong>Painel CEASA-PR ativo:</strong> Clique na aba 'Cotação Hortifrúti' para analisar a tabela completa com os preços consolidados de Curitiba e Cascavel.";
+            resposta = "💰 <strong>Painel de Cotações:</strong> Analisei os dados da CEASA e da FAEP. Veja a tabela de preços atualizados direto nas abas de navegação do site.";
         }
 
         textoAssistente.innerHTML = resposta;
@@ -94,7 +94,7 @@ if (btnPerguntar) {
 }
 
 /* ==========================================================================
-   3. NAVEGAÇÃO ABAS
+   3. NAVEGAÇÃO ENTRE ABAS
    ========================================================================== */
 const botoesAbas = document.querySelectorAll('.btn-aba');
 const conteudosAbas = document.querySelectorAll('.conteudo-aba');
@@ -109,7 +109,7 @@ botoesAbas.forEach(botao => {
 });
 
 /* ==========================================================================
-   4. CALCULADORA: GANHOS, PREJUÍZOS E METAS
+   4. CALCULADORA: CUSTOS, GANHOS, PREJUÍZOS E METAS
    ========================================================================== */
 const btnCalcular = document.querySelector('#btn-calcular');
 const inputAlimentacao = document.querySelector('#alimentacao');
@@ -136,7 +136,7 @@ if (btnCalcular) {
         const qVenda = parseFloat(inputQuantidadeVenda.value) || 0;
 
         if (pVenda <= 0) {
-            painelErro.textContent = "Erro: Insira um preço de venda unitário válido.";
+            painelErro.textContent = "Erro: Digite o preço unitário do produto com base na cotação para calcular.";
             painelErro.className = "erro-visivel";
             painelResultados.className = "resultado-oculto";
             return;
@@ -162,7 +162,7 @@ if (btnCalcular) {
             txtPrejuizos.textContent = `Prejuízo Calculado: R$ ${Math.abs(saldoFinal).toFixed(2).replace('.', ',')}`;
             txtPrejuizos.style.display = "block";
             txtGanhos.style.display = "none";
-            txtAlertaStatus.textContent = "Status: Alerta de Prejuízo! Avalie os custos na tabela CEASA ou reduza despesas.";
+            txtAlertaStatus.textContent = "Status: Produção Inviável com o volume atual! Reduza custos ou aumente a quantidade.";
             txtAlertaStatus.className = "status-negativo";
         }
 
@@ -171,7 +171,27 @@ if (btnCalcular) {
 }
 
 /* ==========================================================================
-   5. VITRINE DE PRODUTOS COMPLETA
+   5. FILTRO DE BUSCA INTERATIVO DA TABELA CEASA
+   ========================================================================== */
+const barraBuscaCeasa = document.querySelector('#busca-ceasa');
+if (barraBuscaCeasa) {
+    barraBuscaCeasa.addEventListener('keyup', () => {
+        const valorBusca = barraBuscaCeasa.value.toLowerCase();
+        const linhasTabela = document.querySelectorAll('.linha-busca');
+
+        linhasTabela.forEach(linha => {
+            const textoLinha = linha.textContent.toLowerCase();
+            if (textoLinha.includes(valorBusca)) {
+                linha.style.display = "";
+            } else {
+                linha.style.display = "none";
+            }
+        });
+    });
+}
+
+/* ==========================================================================
+   6. GUIA DE FORNECEDORES & VITRINE DE INSUMOS
    ========================================================================== */
 const listaInsumosTech = document.querySelector('#lista-insumos-tech');
 const seletorRegiao = document.querySelector('#regiao-produtor');
@@ -207,7 +227,7 @@ if (seletorRegiao) seletorRegiao.addEventListener('change', renderizarVitrine);
 renderizarVitrine();
 
 /* ==========================================================================
-   6. SIMULADOR DE QUALIDADE DE INSUMOS
+   7. SIMULADOR DE QUALIDADE DE INSUMOS
    ========================================================================== */
 const btnAnalisarInsumo = document.querySelector('#btn-analisar-insumo');
 const inputNomeInsumo = document.querySelector('#nome-insumo-simulado');
@@ -221,16 +241,16 @@ if (btnAnalisarInsumo) {
         const usuario = nomeDoProdutor || "Marcelo";
 
         if (nome === "" || nota === "") {
-            resultadoSimuladorInsumo.innerHTML = "<p class='status-negativo'>Por favor, preencha o nome do insumo e escolha uma avaliação.</p>";
+            resultadoSimuladorInsumo.innerHTML = "<p class='status-negativo'>Por favor, insira o nome do insumo e marque a avaliação por estrelas.</p>";
             resultadoSimuladorInsumo.className = "resultado-visivel";
             return;
         }
 
         let diagnostico = "";
         if (nota >= 4) {
-            diagnostico = `Olá ${usuario}! A análise do <strong>${nome}</strong> indica excelente custo-benefício para investimento seguro no campo.`;
+            diagnostico = `Olá ${usuario}! A análise do produto <strong>${nome}</strong> indica excelente custo-benefício para investimento no campo.`;
         } else {
-            diagnostico = `Atenção ${usuario}, o produto <strong>${nome}</strong> possui ressalvas no mercado agrícola. Estude alternativas locais com a cooperativa.`;
+            diagnostico = `Atenção ${usuario}, o produto <strong>${nome}</strong> apresenta histórico de baixo rendimento ou preço alto. Recomenda-se pesquisar outro lote.`;
         }
 
         resultadoSimuladorInsumo.innerHTML = `<div class="card-resultado"><p>${diagnostico}</p></div>`;
@@ -239,7 +259,7 @@ if (btnAnalisarInsumo) {
 }
 
 /* ==========================================================================
-   7. AVALIAÇÃO SITE
+   8. AVALIAÇÃO DA PLATAFORMA
    ========================================================================== */
 const btnEnviaNotaSite = document.querySelector('#btn-enviar-nota-site');
 const seletorNotaSite = document.querySelector('#nota-site');
