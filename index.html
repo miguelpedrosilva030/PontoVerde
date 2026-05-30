@@ -172,25 +172,28 @@
             <p>O SENAR-PR oferece treinamentos gratuitos e atendimento personalizado através da <strong>ATeG (Assistência Técnica e Gerencial)</strong> para melhorar a rentabilidade da sua propriedade rural.</p>
             <a href="https://www.sistemafaep.org.br/" target="_blank" rel="noopener noreferrer" class="link-externo">Consultar Cotações Oficiais da FAEP</a>
         </section>
-
-        <section id="avaliacao-plataforma">
-            <h2>⭐ Avalie o Nosso Site</h2>
-            <p>Como você avalia sua experiência de 0 a 10?</p>
-            <div class="container-estrelas-site" style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 10px;">
-                <select id="nota-site" style="width: auto; padding: 0.8rem; border-radius: 8px; border: 2px solid #ccc; font-size: 1.1rem;">
-                    <option value="">Selecione...</option>
-                    <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ 10 - Excelente</option>
-                    <option value="5">⭐⭐⭐⭐⭐ 5 - Regular</option>
-                    <option value="0">❌ 0 - Ruim</option>
-                </select>
-                <button type="button" id="btn-enviar-nota-site" style="width: auto; padding: 0.8rem 1.5rem;">Enviar Avaliação</button>
-            </div>
-            <div id="feedback-nota-site" class="resultado-oculto" style="margin-top: 1rem; font-weight: bold;"></div>
-        </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 PontoVerde - Desenvolvido para o Concurso Agrinho. Tecnologia a serviço do campo.</p>
+        <div class="container-rodape">
+            <div id="avaliacao-plataforma">
+                <h4>⭐ Avalie o Nosso Site</h4>
+                <div class="container-estrelas-site">
+                    <select id="nota-site">
+                        <option value="">Selecione...</option>
+                        <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ 10 - Excelente</option>
+                        <option value="5">⭐⭐⭐⭐⭐ 5 - Regular</option>
+                        <option value="0">❌ 0 - Ruim</option>
+                    </select>
+                    <button type="button" id="btn-enviar-nota-site">Enviar</button>
+                </div>
+                <div id="feedback-nota-site" class="resultado-oculto"></div>
+            </div>
+
+            <div class="creditos-rodape">
+                <p>&copy; 2026 PontoVerde - Desenvolvido para o Concurso Agrinho. Tecnologia a serviço do campo.</p>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
