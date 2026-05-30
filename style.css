@@ -16,7 +16,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; padding-bottom: 2rem; }
+body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; padding-bottom: 0; }
 
 /* ==========================================================================
    2. TELA DE BLOQUEIO AGRICULTURA
@@ -27,7 +27,6 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
     left: 0;
     width: 100%;
     height: 100%;
-    /* Fundo realístico de plantação sustentável paranaense */
     background: linear-gradient(135deg, rgba(27, 67, 50, 0.9) 0%, rgba(13, 31, 22, 0.93) 100%), 
                 url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
@@ -107,8 +106,8 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
     letter-spacing: 1px;
     box-shadow: 0 6px 20px rgba(255, 183, 3, 0.3); 
     transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+    display: inline-block;
     width: auto;
-    margin: 0 auto;
 }
 
 #btn-entrar-site:hover { 
@@ -120,7 +119,7 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
 #tela-entrada.ocultar { opacity: 0; visibility: hidden; }
 
 /* ==========================================================================
-   3. CHAT ASSISTENTE (COM BOTÃO DE FECHAR ATIVO)
+   3. CHAT ASSISTENTE (CORRIGIDO PARA FECHAR PERFEITAMENTE)
    ========================================================================== */
 #container-assistente {
     position: fixed;
@@ -147,26 +146,27 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
     background: var(--cor-branco); border: 2px solid var(--cor-secundaria); padding: 1.5rem 1rem 1rem 1rem;
     border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); margin-bottom: 10px;
     font-size: 0.95rem; max-height: 360px; overflow-y: auto; width: 100%;
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Estilo do Botão de Fechar Chat (X) */
+/* BOTÃO X DO ASSISTENTE - CORRIGIDO INTEGRALMENTE */
 #btn-fechar-chat {
-    position: absolute;
-    top: 2px;
-    right: 8px;
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 1.4rem;
-    font-weight: bold;
-    cursor: pointer;
-    width: auto;
-    padding: 0;
-    line-height: 1;
-    transition: color 0.2s;
+    position: absolute !important;
+    top: 5px !important;
+    right: 10px !important;
+    background: none !important;
+    border: none !important;
+    color: #cc0000 !important;
+    font-size: 1.6rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    z-index: 100500 !important;
+    display: inline-block !important;
 }
-#btn-fechar-chat:hover { color: var(--cor-erro); background: none; }
+#btn-fechar-chat:hover { color: #ff0000 !important; transform: scale(1.1); }
 
 #controle-nome { display: flex; gap: 5px; margin-top: 8px; }
 #nome-usuario { padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; width: 65%; }
@@ -187,7 +187,7 @@ body { font-family: var(--fonte-principal); background-color: var(--cor-fundo); 
 .sorriso { width: 22px; height: 11px; border-bottom: 3px solid var(--cor-primaria); border-radius: 0 0 11px 11px; position: absolute; bottom: 16px; left: 22px; }
 
 /* ==========================================================================
-   4. LAYOUT DO SITE
+   4. LAYOUT DO SITE E ELEMENTOS PRINCIPAIS
    ========================================================================== */
 header { background-color: var(--cor-primaria); color: var(--cor-branco); text-align: center; padding: 3rem 1rem; }
 header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
@@ -229,7 +229,92 @@ button:hover { background-color: #218376; }
 .badge-distancia { display: inline-block; background-color: var(--cor-primaria); color: var(--cor-branco); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
 .link-externo { display: inline-block; margin-top: 1rem; color: var(--cor-secundaria); text-decoration: none; font-weight: bold; }
 
-footer { background-color: var(--cor-primaria); color: var(--cor-branco); text-align: center; padding: 2rem 1rem; margin-top: 4rem; }
+/* ==========================================================================
+   5. NOVO RODAPÉ ORGANIZADO COM AVALIAÇÃO À ESQUERDA
+   ========================================================================== */
+footer { 
+    background-color: var(--cor-primaria); 
+    color: var(--cor-branco); 
+    padding: 2.5rem 2rem; 
+    margin-top: 5rem; 
+}
+
+.container-rodape {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+/* Caixa de Avaliação Alinhada na Esquerda */
+#avaliacao-plataforma {
+    flex: 1;
+    min-width: 280px;
+    text-align: left;
+}
+
+#avaliacao-plataforma h4 {
+    font-size: 1.1rem;
+    color: var(--cor-ouro);
+    margin-bottom: 0.6rem;
+}
+
+.container-estrelas-site {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.container-estrelas-site select {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    width: 160px;
+}
+
+.container-estrelas-site button {
+    width: auto;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    background-color: var(--cor-secundaria);
+    border-radius: 6px;
+}
+
+#feedback-nota-site {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Texto de Créditos Alinhado no Canto Direito */
+.creditos-rodape {
+    flex: 1;
+    min-width: 280px;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #b7e4c7;
+}
+
+/* Responsividade do Rodapé */
+@media (max-width: 768px) {
+    .container-rodape {
+        flex-direction: column;
+        text-align: center;
+    }
+    #avaliacao-plataforma, .creditos-rodape {
+        text-align: center;
+    }
+    .container-estrelas-site {
+        justify-content: center;
+    }
+}
 
 /* ANIMAÇÕES VISUAIS */
 @keyframes flutuar { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
