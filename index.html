@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PontoVerde - Gestão e Viabilidade Agrícola</title>
+    <title>PontoVerde - Inovação e Gestão Agrícola</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,38 +15,41 @@
             <p class="subtitulo-agro">Tecnologia, Gestão e Sustentabilidade para o Produtor Rural</p>
             <div class="linha-decorativa"></div>
             <p class="frase-efeito">O futuro da sua colheita começa com uma gestão inteligente de custos.</p>
-            <button type="button" id="btn-entrar-site">Entrar na Propriedade</button>
+            <button type="button" id="btn-entrar-site">Entrar</button>
         </div>
     </div>
 
     <div id="container-assistente">
         <div id="balao-assistente">
-            <button type="button" id="btn-fechar-chat" title="Fechar assistente e navegar livremente">&times;</button>
-            
+            <button type="button" id="btn-fechar-chat" title="Fechar assistente">&times;</button>
             <div id="chat-texto-container">
-                <p id="texto-assistente">Olá! Sou o seu assistente PontoVerde. Para começarmos, como posso chamar você?</p>
+                <p id="texto-assistente">Olá! Sou a Inteligência Artificial do PontoVerde. Para começarmos o monitoramento da sua safra, como posso chamar você?</p>
             </div>
-            
             <div id="controle-nome">
                 <input type="text" id="nome-usuario" placeholder="Digite seu nome...">
-                <button type="button" id="btn-salvar-nome">Conectar</button>
+                <button type="button" id="btn-salvar-nome">Conectar IA</button>
             </div>
-
             <div id="controle-duvidas" style="display: none; margin-top: 10px;">
                 <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-                <label for="campo-pergunta" style="font-size: 0.8rem; font-weight: bold; color: #1b4332; display: block; margin-bottom: 5px;">Digite sua dúvida sobre agricultura ou gestão:</label>
+                <label for="campo-pergunta" style="font-size: 0.8rem; font-weight: bold; display: block; margin-bottom: 5px;">Pergunte à IA sobre o momento de plantio, grãos ou hortifrúti:</label>
                 <div style="display: flex; gap: 5px;">
-                    <input type="text" id="campo-pergunta" placeholder="Ex: Como diminuir os custos?">
-                    <button type="button" id="btn-perguntar" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; width: auto;">Enviar</button>
+                    <input type="text" id="campo-pergunta" placeholder="Ex: Alface, Soja, Flores ou Cotação">
+                    <button type="button" id="btn-perguntar" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; width: auto;">Consultar</button>
                 </div>
-                <button type="button" id="btn-avancar-leitura" style="display: none; margin-top: 10px; background-color: #2a9d8f; font-size: 0.85rem; padding: 0.5rem; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Entendi! Pode continuar</button>
             </div>
         </div>
-        <div id="avatar-ponto" title="Clique em mim para abrir ou fechar as orientações!">
+        <div id="avatar-ponto" title="Clique para abrir ou fechar a IA">
             <div class="olho-esquerdo"></div>
             <div class="olho-direito"></div>
             <div class="sorriso"></div>
         </div>
+    </div>
+
+    <div class="barra-cotacoes">
+        <div class="item-cotacao" id="cot-soja">🌾 Soja (60kg): R$ 135,40 <span class="alta">+0.4%</span></div>
+        <div class="item-cotacao" id="cot-milho">🌽 Milho (60kg): R$ 58,20 <span class="baixa">-0.2%</span></div>
+        <div class="item-cotacao" id="cot-leite">🥛 Leite (Litro): R$ 2,15 <span class="alta">+1.1%</span></div>
+        <button type="button" id="btn-alternar-tema" title="Alternar Modo Escuro">🌙 Modo Escuro</button>
     </div>
 
     <header>
@@ -56,104 +59,206 @@
     </header>
 
     <main>
-        <section id="contexto">
-            <h2>Monitoramento de Custos de Produção</h2>
-            <p>
-                Inspirado nos levantamentos do projeto <strong>Campo Futuro (Sistema FAEP)</strong>, 
-                o PontoVerde ajuda o produtor rural no Paraná a entender seus gastos 
-                reais e a descobrir o seu ponto de equilíbrio para evitar prejuízos em sua atividade.
-            </p>
+        <section id="guia-uso-rapido">
+            <h2>📋 Guia de Uso Rápido</h2>
+            <p>Siga os passos abaixo para aproveitar ao máximo as nossas ferramentas de forma simples:</p>
+            <div class="passos-guia">
+                <div class="passo-item">
+                    <strong>1️⃣ Analise suas Finanças:</strong>
+                    <p>Clique na aba "Calculadora de Viabilidade". Insira os seus custos de produção e o preço unitário que você consultou nas tabelas de cotação. O sistema calculará o seu ponto de equilíbrio, seus ganhos e prejuízos operacionais automaticamente.</p>
+                </div>
+                <div class="passo-item">
+                    <strong>2️⃣ Consulte Preços de Vegetais e Plantas:</strong>
+                    <p>Clique na aba "Cotação Hortifrúti (CEASA)" para ver os preços diários praticados nas maiores distribuidoras do Paraná antes de definir o valor da sua venda.</p>
+                </div>
+                <div class="passo-item">
+                    <strong>3️⃣ Encontre Fornecedores Próximos:</strong>
+                    <p>Clique na aba "Guia de Insumos" e filtre pela sua região para comprar defensivos e sementes sem gastar muito com frete.</p>
+                </div>
+            </div>
         </section>
 
         <section id="central-ferramentas">
             <nav class="abas-navegacao">
-                <button class="btn-aba ativa" data-aba="tutorial">📖 Como Usar o Site</button>
-                <button class="btn-aba" data-aba="calculadora">Calculadora de Viabilidade</button>
-                <button class="btn-aba" data-aba="produtos">Guia de Insumos & Fornecedores</button>
+                <button class="btn-aba ativa" data-aba="calculadora">📊 Calculadora de Viabilidade</button>
+                <button class="btn-aba" data-aba="ceasa">🥕 Cotação Hortifrúti (CEASA)</button>
+                <button class="btn-aba" data-aba="produtos">🏬 Guia de Insumos & Fornecedores</button>
+                <button class="btn-aba" data-aba="simulador-insumo">🔬 Simulador de Insumos</button>
             </nav>
 
             <hr style="border: 0; border-top: 1px solid #ccc; margin-bottom: 1.5rem;">
 
-            <div id="aba-tutorial" class="conteudo-aba ativa">
-                <h2>Guia de Uso Rápido</h2>
-                <p>Siga os passos abaixo para aproveitar ao máximo as nossas ferramentas:</p>
-                <div class="cartao-passo">
-                    <h4>1️⃣ Analise suas Finanças</h4>
-                    <p>Clique na aba <strong>"Calculadora de Viabilidade"</strong>. Insira os seus custos de produção (insumos principais, energia/água, mão de obra) e o preço de venda da sua produção. O sistema calculará o seu ponto de equilíbrio automaticamente.</p>
-                </div>
-                <div class="cartao-passo">
-                    <h4>2️⃣ Encontre Fornecedores Próximos</h4>
-                    <p>Clique na aba <strong>"Guia de Insumos & Fornecedores"</strong> e selecione a sua região. O site mostrará as cooperativas e lojas mais perto da sua propriedade para ajudar a economizar no frete.</p>
-                </div>
-            </div>
-
-            <div id="aba-calculadora" class="conteudo-aba">
+            <div id="aba-calculadora" class="conteudo-aba ativa">
                 <h2>Calculadora de Viabilidade Financeira</h2>
                 <form id="formulario-custos" novalidate>
                     <fieldset>
                         <legend>Custos Operacionais Flutuantes</legend>
                         <div class="grupo-input">
                             <label for="alimentacao">Insumos Principais / Nutrição / Sementes (R$):</label>
-                            <input type="number" id="alimentacao" min="0" step="0.01" placeholder="Ex: 5000.00" required>
+                            <input type="number" id="alimentacao" placeholder="Ex: 50.00">
                         </div>
                         <div class="grupo-input">
                             <label for="energia">Energia Elétrica, Combustível e Água (R$):</label>
-                            <input type="number" id="energia" min="0" step="0.01" placeholder="Ex: 850.00" required>
+                            <input type="number" id="energia" placeholder="Ex: 20.00">
                         </div>
                         <div class="grupo-input">
                             <label for="mao-obra">Mão de Obra, Manutenção e Serviços (R$):</label>
-                            <input type="number" id="mao-obra" min="0" step="0.01" placeholder="Ex: 2300.00" required>
+                            <input type="number" id="mao-obra" placeholder="Ex: 20.00">
                         </div>
                     </fieldset>
+                    
                     <fieldset>
-                        <legend>Dados de Mercado (Cotação FAEP)</legend>
+                        <legend>Dados de Mercado (Cotação Base de Referência)</legend>
                         <div class="grupo-input">
                             <label for="preco-venda">Preço de Venda Unitário recebido (R$):</label>
-                            <input type="number" id="preco-venda" min="0" step="0.01" placeholder="Ex: 2.20" required>
+                            <input type="number" id="preco-venda" placeholder="Ex: 2.50">
+                        </div>
+                        <div class="grupo-input">
+                            <label for="quantidade-venda">Quantidade Total Planejada para Venda (Unidades/Sacas/Kg):</label>
+                            <input type="number" id="quantidade-venda" placeholder="Ex: 60">
                         </div>
                     </fieldset>
                     <button type="button" id="btn-calcular">Analisar Viabilidade</button>
                 </form>
 
                 <div id="mensagem-erro" class="erro-oculto"></div>
+                
                 <div id="resultado-calculo" class="resultado-oculto">
                     <h3>Análise do Ponto de Equilíbrio</h3>
                     <article class="card-resultado">
                         <p id="res-custo-total">Custo Operacional Total: R$ 0,00</p>
-                        <p id="res-ponto-equilibrio">Meta de Vendas Necessária: 0 unidades</p>
-                        <p id="res-alerta-status">Status de Viabilidade: Aguardando dados...</p>
+                        <p id="res-faturamento">Faturamento Bruto Esperado: R$ 0,00</p>
+                        <p id="res-ponto-equilibrio">Meta de Vendas Mínima: 0 unidades</p>
+                        <hr style="border:0; border-top: 1px dashed #ccc; margin: 10px 0;">
+                        <p id="res-ganhos" class="status-positivo">Ganhos Reais (Lucro Líquido): R$ 0,00</p>
+                        <p id="res-prejuizos" class="status-negativo">Prejuízo Calculado: R$ 0,00</p>
+                        <hr style="border:0; border-top: 1px dashed #ccc; margin: 10px 0;">
+                        <p id="res-alerta-status">Status: Aguardando dados...</p>
                     </article>
                 </div>
+            </div>
+
+            <div id="aba-ceasa" class="conteudo-aba">
+                <h2>📊 Cotação Diária de Preços - CEASA Paraná</h2>
+                <p>Valores médios de referência praticados nos atacados para vegetais, plantas e folhosas.</p>
+                
+                <div class="overflow-tabela" style="margin-top: 1.5rem;">
+                    <table class="tabela-preco-agro">
+                        <thead>
+                            <tr>
+                                <th>Produto / Variedade</th>
+                                <th>Embalagem Padrão</th>
+                                <th>Preço Curitiba (R$)</th>
+                                <th>Preço Cascavel (R$)</th>
+                                <th>Situação do Mercado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🍅 Tomate Longa Vida Extra Aa</td>
+                                <td>Caixa 20 kg</td>
+                                <td>R$ 90,00</td>
+                                <td>R$ 95,00</td>
+                                <td class="status-positivo">Estável</td>
+                            </tr>
+                            <tr>
+                                <td>🥬 Alface Crespa Grande</td>
+                                <td>Caixa 7 kg</td>
+                                <td>R$ 50,00</td>
+                                <td>R$ 52,00</td>
+                                <td class="status-positivo">Alta ↑</td>
+                            </tr>
+                            <tr>
+                                <td>🥬 Alface Lisa Hidropônica</td>
+                                <td>Caixa 7 kg</td>
+                                <td>R$ 55,00</td>
+                                <td>R$ 58,00</td>
+                                <td class="status-positivo">Estável</td>
+                            </tr>
+                            <tr>
+                                <td>🥔 Batata Comum Especial</td>
+                                <td>Saco 25 kg</td>
+                                <td>R$ 150,00</td>
+                                <td>R$ 155,00</td>
+                                <td class="status-negativo">Baixa ↓</td>
+                            </tr>
+                            <tr>
+                                <td>🥕 Cenoura Ninfas Extra A</td>
+                                <td>Caixa 20 kg</td>
+                                <td>R$ 85,00</td>
+                                <td>R$ 88,00</td>
+                                <td class="status-positivo">Alta ↑</td>
+                            </tr>
+                            <tr>
+                                <td>🎃 Abóbora Hokaido/Kabotiá</td>
+                                <td>Saco 20 kg</td>
+                                <td>R$ 45,00</td>
+                                <td>R$ 48,00</td>
+                                <td class="status-positivo">Estável</td>
+                            </tr>
+                            <tr>
+                                <td>🪵 Aipim/Mandioca Primeira</td>
+                                <td>Caixa 20 kg</td>
+                                <td>R$ 80,00</td>
+                                <td>R$ 82,00</td>
+                                <td class="status-positivo">Estável</td>
+                            </tr>
+                            <tr>
+                                <td>🥦 Brócolis Quatro Estações</td>
+                                <td>Dúzia 4,5 kg</td>
+                                <td>R$ 40,00</td>
+                                <td>R$ 43,00</td>
+                                <td class="status-negativo">Baixa ↓</td>
+                            </tr>
+                            <tr>
+                                <td>💐 Alstroemeria (Flores de Corte)</td>
+                                <td>Maço c/ 12 hastes</td>
+                                <td>R$ 18,00</td>
+                                <td>R$ 20,00</td>
+                                <td class="status-positivo">Estável</td>
+                            </tr>
+                            <tr>
+                                <td>🌿 Mini-Anthurium (Paisagismo)</td>
+                                <td>Caixa c/ 15 Vasos</td>
+                                <td>R$ 120,00</td>
+                                <td>R$ 125,00</td>
+                                <td class="status-positivo">Alta ↑</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.85rem; font-style: italic; opacity: 0.8;">Fonte de Informações Básicas: Coletas de dados informativas integradas ao modelo CEASA/PR.</p>
             </div>
 
             <div id="aba-produtos" class="conteudo-aba">
                 <h2>Guia de Fornecedores & Ampla Vitrine de Insumos</h2>
                 <p>Selecione a sua região para encontrar lojas físicas, cooperativas parceiras e insumos disponíveis.</p>
                 
-                <div class="cartao-localidade" style="background: #e9f5ed; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #2a9d8f;">
-                    <label for="regiao-produtor" style="font-weight: bold; color: #1b4332;">📍 Filtrar por Região no Paraná:</label>
-                    <select id="regiao-produtor" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 2px solid #ccc; margin-top: 0.5rem; font-size: 1rem;">
+                <div class="cartao-localidade">
+                    <label for="regiao-produtor" style="font-weight: bold;">📍 Filtrar por Região no Paraná:</label>
+                    <select id="regiao-produtor" style="margin-top: 0.5rem;">
                         <option value="todos">Mostrar Todos os Produtos Disponíveis</option>
                         <option value="sul">Região de Curitiba (RMC)</option>
                         <option value="campos-gerais">Campos Gerais (Castro/Ponta Grossa)</option>
                         <option value="oeste">Oeste Paranaense (Cascavel/Toledo)</option>
                     </select>
                 </div>
+                
+                <div id="lista-insumos-tech" style="margin-top: 1.5rem;"></div>
+            </div>
 
-                <h3>Opções de Produtos para Compra</h3>
-                <div id="lista-insumos-tech"></div>
-
-                <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
-
-                <h3>Simulador de Qualidade de Insumos:</h3>
-                <form id="form-avaliacao" style="margin-top: 1rem;" novalidate>
+            <div id="aba-simulador-insumo" class="conteudo-aba">
+                <h2>Simulador de Qualidade de Insumos</h2>
+                <p>Avalie previamente a viabilidade e a reputação de um insumo antes de fechar a compra com o fornecedor.</p>
+                
+                <div style="margin-top: 1.5rem;">
                     <div class="grupo-input">
-                        <label for="nome-produto">Nome do Insumo/Produto:</label>
-                        <input type="text" id="nome-produto" placeholder="Ex: Adubo NPK, Sementes Cobertura, Ração X">
+                        <label for="nome-insumo-simulado">Nome do Insumo/Produto:</label>
+                        <input type="text" id="nome-insumo-simulado" placeholder="Ex: Adubo Nitrogenado X ou Semente Marca Y">
                     </div>
                     <div class="grupo-input">
-                        <label for="nota-produto">Como você avalia a reputação ou qualidade deste produto?</label>
-                        <select id="nota-produto" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 2px solid #ccc; font-size: 1rem; background-color: #fff;">
+                        <label for="reputacao-insumo">Como você avalia a reputação ou qualidade deste produto?</label>
+                        <select id="reputacao-insumo">
                             <option value="">-- Escolha uma alternativa --</option>
                             <option value="5">⭐⭐⭐⭐⭐ Excelente (Muito recomendado no mercado)</option>
                             <option value="4">⭐⭐⭐⭐ Bom (Apresenta bons resultados práticos)</option>
@@ -161,16 +266,11 @@
                             <option value="2">⭐⭐ Ruim (Histórico de baixo rendimento ou preço alto)</option>
                         </select>
                     </div>
-                    <button type="button" id="btn-avaliar">Analisar Viabilidade do Insumo</button>
-                </form>
-                <div id="resultado-produto" class="resultado-oculto" style="margin-top: 1rem;"></div>
+                    <button type="button" id="btn-analisar-insumo">Analisar Viabilidade do Insumo</button>
+                    
+                    <div id="resultado-simulador-insumo" class="resultado-oculto" style="margin-top: 1.5rem;"></div>
+                </div>
             </div>
-        </section>
-
-        <section id="recursos-senar">
-            <h2>Dicas de Gestão e Assistência Técnico-Gerencial</h2>
-            <p>O SENAR-PR oferece treinamentos gratuitos e atendimento personalizado através da <strong>ATeG (Assistência Técnica e Gerencial)</strong> para melhorar a rentabilidade da sua propriedade rural.</p>
-            <a href="https://www.sistemafaep.org.br/" target="_blank" rel="noopener noreferrer" class="link-externo">Consultar Cotações Oficiais da FAEP</a>
         </section>
     </main>
 
@@ -189,7 +289,6 @@
                 </div>
                 <div id="feedback-nota-site" class="resultado-oculto"></div>
             </div>
-
             <div class="creditos-rodape">
                 <p>&copy; 2026 PontoVerde - Desenvolvido para o Concurso Agrinho. Tecnologia a serviço do campo.</p>
             </div>
