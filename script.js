@@ -1,23 +1,28 @@
 /* ==========================================================================
-   1. CONTROLE DE ANIMAÇÃO DA TELA DE ABERTURA E FOCO DO ASSISTENTE
+   1. TELA DE ABERTURA E MODO ESCURO
    ========================================================================== */
 const telaEntrada = document.querySelector('#tela-entrada');
 const btnEntrarSite = document.querySelector('#btn-entrar-site');
 const containerAssistente = document.querySelector('#container-assistente');
 const textoAssistente = document.querySelector('#texto-assistente');
+const btnAlternarTema = document.querySelector('#btn-alternar-tema');
 
 if (btnEntrarSite && telaEntrada) {
     btnEntrarSite.addEventListener('click', () => {
         telaEntrada.classList.add('ocultar');
-        if (containerAssistente) {
-            containerAssistente.classList.add('centro-foco');
-        }
-        textoAssistente.innerHTML = "Olá, produtor! Seja bem-vindo à nossa propriedade digital. Para que eu possa te atender de forma personalizada, digite o seu nome abaixo para começarmos:";
+        if (containerAssistente) containerAssistente.classList.add('centro-foco');
+    });
+}
+
+if (btnAlternarTema) {
+    btnAlternarTema.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        btnAlternarTema.textContent = document.body.classList.contains('dark-mode') ? "☀️ Modo Claro" : "🌙 Modo Escuro";
     });
 }
 
 /* ==========================================================================
-   2. ASSISTENTE PESSOAL - ABAS, PERGUNTAS E FECHAMENTO DO CHAT CORRIGIDO
+   2. INTELIGÊNCIA ARTIFICIAL: COTAÇÕES E MOMENTO DE PLANTIO
    ========================================================================== */
 const btnSalvarNome = document.querySelector('#btn-salvar-nome');
 const inputNomeUsuario = document.querySelector('#nome-usuario');
@@ -25,119 +30,71 @@ const controleNome = document.querySelector('#controle-nome');
 const controleDuvidas = document.querySelector('#controle-duvidas');
 const btnPerguntar = document.querySelector('#btn-perguntar');
 const campoPergunta = document.querySelector('#campo-pergunta');
-const btnAvancarLeitura = document.querySelector('#btn-avancar-leitura');
-const avatarPonto = document.querySelector('#avatar-ponto');
 const balaoAssistente = document.querySelector('#balao-assistente');
 const btnFecharChat = document.querySelector('#btn-fechar-chat');
+const avatarPonto = document.querySelector('#avatar-ponto');
 
 let nomeDoProdutor = "";
-let aguardandoLeitura = false;
 
-// CORREÇÃO DIRETA: Fecha o chat limpando as classes e sumindo o elemento
-if (btnFecharChat && balaoAssistente) {
-    btnFecharChat.addEventListener('click', (evento) => {
-        evento.stopPropagation(); // Evita conflito com cliques de fundo
+if (btnFecharChat) {
+    btnFecharChat.addEventListener('click', (e) => {
+        e.stopPropagation();
         balaoAssistente.style.display = "none";
-        if (containerAssistente) {
-            containerAssistente.classList.remove('centro-foco');
-        }
+        containerAssistente.classList.remove('centro-foco');
     });
 }
 
-// Reabrir e gerenciar o avatar redondo
-if (avatarPonto && balaoAssistente) {
+if (avatarPonto) {
     avatarPonto.addEventListener('click', () => {
-        if (balaoAssistente.style.display === "none") {
-            balaoAssistente.style.display = "block";
-            if (nomeDoProdutor !== "") {
-                resetarEstadoLeitura();
-                textoAssistente.innerHTML = gerarTextoApresentacaoCompleta();
-                aguardandoLeitura = true;
-                btnAvancarLeitura.style.display = "block";
-            }
-        } else {
-            balaoAssistente.style.display = "none";
-            if (containerAssistente) {
-                containerAssistente.classList.remove('centro-foco');
-            }
-        }
+        balaoAssistente.style.display = balaoAssistente.style.display === "none" ? "block" : "none";
     });
 }
 
 if (btnSalvarNome) {
     btnSalvarNome.addEventListener('click', () => {
         const nomeInformado = inputNomeUsuario.value.trim();
-        if (nomeInformado === "") {
-            textoAssistente.innerHTML = "Por favor, digite seu nome antes de prosseguirmos!";
-            return;
-        }
-        
+        if (nomeInformado === "") return;
         nomeDoProdutor = nomeInformado;
-        textoAssistente.innerHTML = "Registro feito com sucesso, " + nomeDoProdutor + "! Agora, você precisa da minha ajuda para gerenciar sua propriedade hoje? Se quiser fechar minhas dicas para mexer livremente no site, clique no (X) acima!";
-        
-        if (containerAssistente) {
-            containerAssistente.classList.remove('centro-foco');
+        textoAssistente.innerHTML = `Conexão estabelecida, <strong>${nomeDoProdutor}</strong>! Oi sou o PontoVerde eu ajudarei você em tudo. Pode pergunte sobre soja, alface, batata, cenoura ou plantas de corte!`;
+        containerAssistente.classList.remove('centro-foco');
+        if(controleNome) {
+            controleNome.style.display = "none";
+            controleNome.remove();
         }
-
-        controleNome.style.display = "none"; 
         controleDuvidas.style.display = "block";
     });
 }
 
-function gerarTextoApresentacaoCompleta() {
-    return "Olá " + (nomeDoProdutor || "produtor") + "! O PontoVerde foi feito para te dar total controle de mercado. Aqui você encontra: <br><br>" +
-           "<strong>1. Calculadora de Viabilidade:</strong> Descubra a meta exata de vendas para cobrir as contas da fazenda.<br>" +
-           "<strong>2. Guia de Insumos:</strong> Encontre as cooperativas e lojas mais próximas da sua região no Paraná.<br>" +
-           "<strong>3. Simulador de Produtos:</strong> Escolha a alternativa ideal antes de fazer compras para o campo.";
-}
-
-function buscarRespostaAgro(pergunta) {
-    const texto = pergunta.toLowerCase();
-    if (texto.includes("ponto de equilibrio") || texto.includes("equilibrio") || texto.includes("meta")) {
-        return "O ponto de equilíbrio é a meta mínima que sua propriedade precisa vender para pagar todos os custos operacionais. Use a nossa calculadora na aba ao lado para descobrir o seu valor.";
-    }
-    if (texto.includes("custo") || texto.includes("gasto") || texto.includes("caro") || texto.includes("economizar")) {
-        return "No campo, existem os custos fixos e flutuantes. Uma ótima forma de economizar é comprar insumos em cooperativas locais da sua região para diminuir o frete. Veja nossa aba Guia de Fornecedores.";
-    }
-    if (texto.includes("senar") || texto.includes("ateg") || texto.includes("ajuda") || texto.includes("curso")) {
-        return "O SENAR do Paraná tem o programa ATeG (Assistência Técnica e Gerencial). Eles enviam um técnico especializado de forma gratuita até a sua propriedade para acompanhar a sua produção.";
-    }
-    return "Entendi a sua dúvida! No setor agropecuário, cada detalhe importa para o lucro. Recomendo usar a nossa Calculadora de Viabilidade para checar seus números.";
-}
-
 if (btnPerguntar) {
     btnPerguntar.addEventListener('click', () => {
-        const pergunta = campoPergunta.value.trim();
-        if (pergunta === "") return;
+        const pergunta = campoPergunta.value.toLowerCase();
+        let resposta = `Desculpe ${nomeDoProdutor || 'produtor'}, tente consultar itens como 'alface', 'tomate', 'batata', 'cenoura', 'flores', 'soja' ou 'milho'.`;
 
-        resetarEstadoLeitura();
-        textoAssistente.className = "pensando";
-        textoAssistente.innerHTML = "Analisando dados agrícolas...";
+        if (pergunta.includes('soja')) {
+            resposta = "🌾 <strong>Cotação e Plantio de Soja:</strong> Janela ideal de <strong>setembro a janeiro</strong> no PR. Preço atualizado de referência: R$ 135,40 por saca.";
+        } else if (pergunta.includes('milho')) {
+            resposta = "🌽 <strong>Cotação e Plantio de Milho Safrinha:</strong> Janela ideal entre <strong>janeiro e março</strong> no estado. Preço atualizado: R$ 58,20 por saca.";
+        } else if (pergunta.includes('alface')) {
+            resposta = "🥬 <strong>Cotação CEASA-PR (Alface):</strong> Alface Crespa está saindo a R$ 50,00 a caixa de 7kg em Curitiba. O plantio ideal em estufas ocorre de forma saudável o ano todo!";
+        } else if (pergunta.includes('tomate')) {
+            resposta = "🍅 <strong>Cotação CEASA-PR (Tomate):</strong> Tomate Longa Vida Extra está cotado em R$ 90,00 a caixa com 20kg. É considerado estável nas últimas coletas.";
+        } else if (pergunta.includes('batata')) {
+            resposta = "🥔 <strong>Cotação CEASA-PR (Batata):</strong> Batata Comum Especial a R$ 150,00 o saco de 25kg. Apresentou leve tendência de baixa esta semana.";
+        } else if (pergunta.includes('cenoura')) {
+            resposta = "🥕 <strong>Cotação CEASA-PR (Cenoura):</strong> Cenoura Ninfas Extra saindo a R$ 85,00 a caixa de 20kg, com tendência de alta no mercado atual.";
+        } else if (pergunta.includes('flor') || pergunta.includes('flores') || pergunta.includes('planta')) {
+            resposta = "💐 <strong>Plantas e Flores de Paisagismo (CEASA):</strong> Maço de Alstroemeria cotado a R$ 18,00. Já caixas de Mini-Anthurium para paisagismo saem por R$ 120,00 com 15 vasos.";
+        } else if (pergunta.includes('cotac') || pergunta.includes('preço') || pergunta.includes('ceasa')) {
+            resposta = "💰 <strong>Painel CEASA-PR ativo:</strong> Clique na aba 'Cotação Hortifrúti' para analisar a tabela completa com os preços consolidados de Curitiba e Cascavel.";
+        }
+
+        textoAssistente.innerHTML = resposta;
         campoPergunta.value = "";
-
-        setTimeout(() => {
-            textoAssistente.className = "";
-            textoAssistente.innerHTML = buscarRespostaAgro(pergunta);
-            aguardandoLeitura = true;
-            btnAvancarLeitura.style.display = "block";
-        }, 1200);
-    });
-}
-
-function resetarEstadoLeitura() {
-    aguardandoLeitura = false;
-    btnAvancarLeitura.style.display = "none";
-}
-
-if (btnAvancarLeitura) {
-    btnAvancarLeitura.addEventListener('click', () => {
-        textoAssistente.innerHTML = "Estou pronto para ajudar, " + (nomeDoProdutor || "amigo") + ". Pode mandar sua próxima dúvida!";
-        resetarEstadoLeitura();
     });
 }
 
 /* ==========================================================================
-   3. CONTROLE DE ABAS (Navegação Interna)
+   3. NAVEGAÇÃO ABAS
    ========================================================================== */
 const botoesAbas = document.querySelectorAll('.btn-aba');
 const conteudosAbas = document.querySelectorAll('.conteudo-aba');
@@ -147,150 +104,152 @@ botoesAbas.forEach(botao => {
         botoesAbas.forEach(b => b.classList.remove('ativa'));
         conteudosAbas.forEach(c => c.classList.remove('ativa'));
         botao.classList.add('ativa');
-        const abaAlvo = botao.getAttribute('data-aba');
-        document.querySelector(`#aba-${abaAlvo}`).classList.add('ativa');
+        document.querySelector(`#aba-${botao.getAttribute('data-aba')}`).classList.add('ativa');
     });
 });
 
 /* ==========================================================================
-   4. VITRINE DE PRODUTOS E LOCALIDADES (BANCO DE DADOS LOCAL)
+   4. CALCULADORA: GANHOS, PREJUÍZOS E METAS
    ========================================================================== */
-const listaInsumosTech = document.querySelector('#lista-insumos-tech');
-const seletorRegiao = document.querySelector('#regiao-produtor');
-
-const bancoInsumosELojas = [
-    { nome: "Defensivos Biológicos e Protetores de Cultivo", regiao: "sul", loja: "Distribuidora Agro Pinhais & RMC", endereco: "Marginal da BR-277 - Pinhais/PR", distanciaSimulada: 12, descricao: "Proteção contra pragas e doenças para lavouras.", statusInsumo: "Disponível para Compra" },
-    { nome: "Adubo Organomineral de Alta Performance (50kg)", regiao: "sul", loja: "Agropecuária Central Contenda / Lapa", endereco: "Av. Gov. Moisés Lupion, 320 - Contenda/PR", distanciaSimulada: 18, descricao: "Fertilizante balanceado para nutrição do solo.", statusInsumo: "Disponível para Compra" },
-    { nome: "Sementes de Milho Híbrido Tecnológico (Saca)", regiao: "campos-gerais", loja: "Cooperativa Foco Agrícola - Castro", endereco: "PR-340, Km 12 - Castro/PR", distanciaSimulada: 140, descricao: "Sementes certificadas de alta germinação.", statusInsumo: "Disponível para Compra" },
-    { nome: "Suplemento de Nutrição Concentrado", regiao: "oeste", loja: "Agro Comercial Cascavel & Cooperativas", endereco: "Av. Brasil, 4500 - Cascavel/PR", distanciaSimulada: 480, descricao: "Nutrição e minerais essenciais para ganho de peso.", statusInsumo: "Disponível para Compra" }
-];
-
-function renderizarGuiaInsumos() {
-    if (!listaInsumosTech || !seletorRegiao) return;
-    const regiaoSelecionada = seletorRegiao.value;
-    listaInsumosTech.innerHTML = "";
-
-    const produtosFiltrados = bancoInsumosELojas.filter(item => regiaoSelecionada === "todos" || item.regiao === regiaoSelecionada);
-
-    produtosFiltrados.forEach(item => {
-        listaInsumosTech.innerHTML += `
-            <article class="card-insumo">
-                <h4>📦 ${item.nome}</h4>
-                <p>${item.descricao}</p>
-                <span class="tag-indicacao tag-bom">${item.statusInsumo}</span>
-                <div class="container-loja">
-                    <p><strong>🏬 Onde comprar:</strong> ${item.loja}</p>
-                    <p><strong>📍 Endereço:</strong> ${item.endereco}</p>
-                    <p><span class="badge-distancia">Aprox. ${item.distanciaSimulada} km de você</span></p>
-                </div>
-            </article>
-        `;
-    });
-}
-if (seletorRegiao) seletorRegiao.addEventListener('change', renderizarGuiaInsumos);
-renderizarGuiaInsumos();
-
-/* ==========================================================================
-   5. SIMULADOR DE QUALIDADE DE INSUMOS
-   ========================================================================= */
-const btnAvaliar = document.querySelector('#btn-avaliar');
-const inputNomeProduto = document.querySelector('#nome-produto');
-const inputNotaProduto = document.querySelector('#nota-produto');
-const painelResultadoProduto = document.querySelector('#resultado-produto');
-
-if (btnAvaliar) {
-    btnAvaliar.addEventListener('click', () => {
-        const nome = inputNomeProduto.value.trim();
-        const notaSelecionada = inputNotaProduto.value;
-
-        if (nome === "" || notaSelecionada === "") {
-            painelResultadoProduto.innerHTML = `<p class="status-negativo">Erro: Informe os dados.</p>`;
-            painelResultadoProduto.className = "resultado-visivel";
-            return;
-        }
-
-        const nota = parseInt(notaSelecionada);
-        let veredito = "";
-        const usuarioAtual = nomeDoProdutor || "Produtor";
-
-        if (nota >= 4) {
-            veredito = "Olá " + usuarioAtual + "! A análise do " + nome + " indica excelente custo-benefício para investimento no campo.";
-        } else {
-            veredito = "Atenção " + usuarioAtual + "! O item " + nome + " exige maior cautela nos preços antes de fechar a compra.";
-        }
-
-        painelResultadoProduto.innerHTML = `<div class="card-resultado"><p>${veredito}</p></div>`;
-        painelResultadoProduto.className = "resultado-visivel";
-    });
-}
-
-/* ==========================================================================
-   6. CALCULADORA FINANCEIRA DE PRODUÇÃO
-   ========================================================================== */
+const btnCalcular = document.querySelector('#btn-calcular');
 const inputAlimentacao = document.querySelector('#alimentacao');
 const inputEnergia = document.querySelector('#energia');
 const inputMaoObra = document.querySelector('#mao-obra');
 const inputPrecoVenda = document.querySelector('#preco-venda');
-const btnCalcular = document.querySelector('#btn-calcular');
+const inputQuantidadeVenda = document.querySelector('#quantidade-venda');
+
 const painelResultados = document.querySelector('#resultado-calculo');
 const painelErro = document.querySelector('#mensagem-erro');
 const txtCustoTotal = document.querySelector('#res-custo-total');
+const txtFaturamento = document.querySelector('#res-faturamento');
 const txtPontoEquilibrio = document.querySelector('#res-ponto-equilibrio');
+const txtGanhos = document.querySelector('#res-ganhos');
+const txtPrejuizos = document.querySelector('#res-prejuizos');
 const txtAlertaStatus = document.querySelector('#res-alerta-status');
 
 if (btnCalcular) {
     btnCalcular.addEventListener('click', () => {
-        const custoAlimentacao = parseFloat(inputAlimentacao.value);
-        const custoEnergia = parseFloat(inputEnergia.value);
-        const custoMaoObra = parseFloat(inputMaoObra.value);
-        const precoVendaUnitario = parseFloat(inputPrecoVenda.value);
+        const cAlim = parseFloat(inputAlimentacao.value) || 0;
+        const cEnerg = parseFloat(inputEnergia.value) || 0;
+        const cMao = parseFloat(inputMaoObra.value) || 0;
+        const pVenda = parseFloat(inputPrecoVenda.value) || 0;
+        const qVenda = parseFloat(inputQuantidadeVenda.value) || 0;
 
-        if (isNaN(custoAlimentacao) || custoAlimentacao < 0 || isNaN(custoEnergia) || custoEnergia < 0 || isNaN(custoMaoObra) || custoMaoObra < 0 || isNaN(precoVendaUnitario) || precoVendaUnitario <= 0) {
-            painelErro.textContent = "Erro: Preencha todos os campos corretamente.";
+        if (pVenda <= 0) {
+            painelErro.textContent = "Erro: Insira um preço de venda unitário válido.";
             painelErro.className = "erro-visivel";
             painelResultados.className = "resultado-oculto";
             return;
         }
 
         painelErro.className = "erro-oculto";
-        const custoOperacionalTotal = custoAlimentacao + custoEnergia + custoMaoObra;
-        const pontoEquilibrioVolume = Math.ceil(custoOperacionalTotal / precoVendaUnitario);
-        const usuarioAtual = nomeDoProdutor || "Produtor";
+        const custoTotal = cAlim + cEnerg + cMao;
+        const faturamentoBruto = pVenda * qVenda;
+        const saldoFinal = faturamentoBruto - custoTotal;
+        const pontoEquilibrio = Math.ceil(custoTotal / pVenda);
 
-        txtCustoTotal.textContent = `Custo Operacional Total: R$ ${custoOperacionalTotal.toFixed(2).replace('.', ',')}`;
-        txtPontoEquilibrio.textContent = `Meta de Vendas Mínima: ${pontoEquilibrioVolume.toLocaleString('pt-BR')} unidades.`;
-        
-        if (pontoEquilibrioVolume > 4000) {
-            txtAlertaStatus.textContent = usuarioAtual + ", custos elevados identificados. Busque fornecedores locais para economizar.";
-            txtAlertaStatus.className = "status-negativo";
-        } else {
-            txtAlertaStatus.textContent = "Status: Produção Viável e Saudável, " + usuarioAtual + ".";
+        txtCustoTotal.textContent = `Custo Operacional Total: R$ ${custoTotal.toFixed(2).replace('.', ',')}`;
+        txtFaturamento.textContent = `Faturamento Bruto Esperado: R$ ${faturamentoBruto.toFixed(2).replace('.', ',')}`;
+        txtPontoEquilibrio.textContent = `Meta de Vendas Mínima: ${pontoEquilibrio} unidades.`;
+
+        if (saldoFinal >= 0) {
+            txtGanhos.textContent = `Ganhos Reais (Lucro Líquido): R$ ${saldoFinal.toFixed(2).replace('.', ',')}`;
+            txtGanhos.style.display = "block";
+            txtPrejuizos.style.display = "none";
+            txtAlertaStatus.textContent = "Status: Produção Viável e Saudável!";
             txtAlertaStatus.className = "status-positivo";
+        } else {
+            txtPrejuizos.textContent = `Prejuízo Calculado: R$ ${Math.abs(saldoFinal).toFixed(2).replace('.', ',')}`;
+            txtPrejuizos.style.display = "block";
+            txtGanhos.style.display = "none";
+            txtAlertaStatus.textContent = "Status: Alerta de Prejuízo! Avalie os custos na tabela CEASA ou reduza despesas.";
+            txtAlertaStatus.className = "status-negativo";
         }
+
         painelResultados.className = "resultado-visivel";
     });
 }
 
 /* ==========================================================================
-   7. AVALIAÇÃO DA PLATAFORMA (ENVIAR NOTA NO RODAPÉ)
+   5. VITRINE DE PRODUTOS COMPLETA
    ========================================================================== */
-const btnEnviarNotaSite = document.querySelector('#btn-enviar-nota-site');
-const seletorNotaSite = document.querySelector('#nota-site');
-const feedbackNotaSite = document.querySelector('#feedback-nota-site');
+const listaInsumosTech = document.querySelector('#lista-insumos-tech');
+const seletorRegiao = document.querySelector('#regiao-produtor');
 
-if (btnEnviarNotaSite) {
-    btnEnviarNotaSite.addEventListener('click', () => {
-        const nota = seletorNotaSite.value;
-        if (nota === "") {
-            feedbackNotaSite.innerHTML = "Selecione uma nota.";
-            feedbackNotaSite.style.color = "#ffb703";
-            feedbackNotaSite.className = "resultado-visivel";
+const bancoInsumos = [
+    { nome: "Defensivos Biológicos e Protetores de Cultivo", regiao: "sul", loja: "Distribuidora Agro Pinhais & RMC", endereco: "Marginal da BR-277 - Pinhais/PR", distancia: 12, desc: "Proteção contra pragas e doenças para lavouras." },
+    { nome: "Adubo Organomineral de Alta Performance (50kg)", regiao: "sul", loja: "Agropecuária Central Contenda / Lapa", endereco: "Av. Gov. Moisés Lupion, 320 - Contenda/PR", distancia: 18, desc: "Fertilizante balanceado para nutrição do solo." },
+    { nome: "Sementes de Milho Híbrido Tecnológico (Saca)", regiao: "campos-gerais", loja: "Cooperativa Foco Agrícola - Castro", endereco: "PR-340, Km 12 - Castro/PR", distancia: 140, desc: "Sementes certificadas de alta germinação." },
+    { nome: "Suplemento de Nutrição Concentrado", regiao: "oeste", loja: "Agro Comercial Cascavel & Cooperativas", endereco: "Av. Brasil, 4500 - Cascavel/PR", distancia: 480, desc: "Nutrição e minerais essenciais para ganho de peso." }
+];
+
+function renderizarVitrine() {
+    if (!listaInsumosTech) return;
+    const filtro = seletorRegiao.value;
+    listaInsumosTech.innerHTML = "";
+
+    bancoInsumos.filter(i => filtro === "todos" || i.regiao === filtro).forEach(item => {
+        listaInsumosTech.innerHTML += `
+            <article class="card-insumo">
+                <h4>📦 ${item.nome}</h4>
+                <p>${item.desc}</p>
+                <p class="status-positivo">✔ Disponível para Compra</p>
+                <div class="container-loja">
+                    <p><strong>🏬 Onde comprar:</strong> ${item.loja}</p>
+                    <p><strong>📍 Endereço:</strong> ${item.endereco}</p>
+                    <p><span class="badge-distancia">Aprox. ${item.distancia} km de você</span></p>
+                </div>
+            </article>
+        `;
+    });
+}
+if (seletorRegiao) seletorRegiao.addEventListener('change', renderizarVitrine);
+renderizarVitrine();
+
+/* ==========================================================================
+   6. SIMULADOR DE QUALIDADE DE INSUMOS
+   ========================================================================== */
+const btnAnalisarInsumo = document.querySelector('#btn-analisar-insumo');
+const inputNomeInsumo = document.querySelector('#nome-insumo-simulado');
+const selectReputacao = document.querySelector('#reputacao-insumo');
+const resultadoSimuladorInsumo = document.querySelector('#resultado-simulador-insumo');
+
+if (btnAnalisarInsumo) {
+    btnAnalisarInsumo.addEventListener('click', () => {
+        const nome = inputNomeInsumo.value.trim();
+        const nota = selectReputacao.value;
+        const usuario = nomeDoProdutor || "Marcelo";
+
+        if (nome === "" || nota === "") {
+            resultadoSimuladorInsumo.innerHTML = "<p class='status-negativo'>Por favor, preencha o nome do insumo e escolha uma avaliação.</p>";
+            resultadoSimuladorInsumo.className = "resultado-visivel";
             return;
         }
 
-        const usuarioAtual = nomeDoProdutor || "Produtor";
-        feedbackNotaSite.style.color = "#38b000";
-        feedbackNotaSite.innerHTML = "Obrigado, " + usuarioAtual + "! Nota registrada: " + nota + "/10.";
-        feedbackNotaSite.className = "resultado-visivel";
+        let diagnostico = "";
+        if (nota >= 4) {
+            diagnostico = `Olá ${usuario}! A análise do <strong>${nome}</strong> indica excelente custo-benefício para investimento seguro no campo.`;
+        } else {
+            diagnostico = `Atenção ${usuario}, o produto <strong>${nome}</strong> possui ressalvas no mercado agrícola. Estude alternativas locais com a cooperativa.`;
+        }
+
+        resultadoSimuladorInsumo.innerHTML = `<div class="card-resultado"><p>${diagnostico}</p></div>`;
+        resultadoSimuladorInsumo.className = "resultado-visivel";
+    });
+}
+
+/* ==========================================================================
+   7. AVALIAÇÃO SITE
+   ========================================================================== */
+const btnEnviaNotaSite = document.querySelector('#btn-enviar-nota-site');
+const seletorNotaSite = document.querySelector('#nota-site');
+const feedbackNotaSite = document.querySelector('#feedback-nota-site');
+
+if (btnEnviaNotaSite) {
+    btnEnviaNotaSite.addEventListener('click', () => {
+        if (seletorNotaSite.value !== "") {
+            feedbackNotaSite.innerHTML = "Obrigado por ajudar a aprimorar o PontoVerde!";
+            feedbackNotaSite.className = "resultado-visivel status-positivo";
+        }
     });
 }
