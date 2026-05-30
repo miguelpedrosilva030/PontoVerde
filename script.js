@@ -8,21 +8,16 @@ const textoAssistente = document.querySelector('#texto-assistente');
 
 if (btnEntrarSite && telaEntrada) {
     btnEntrarSite.addEventListener('click', () => {
-        // Esconde a tela agro com desvanecimento suave
         telaEntrada.classList.add('ocultar');
-        
-        // Coloca o assistente bem focado e centralizado na tela
         if (containerAssistente) {
             containerAssistente.classList.add('centro-foco');
         }
-        
-        // Atualiza a primeira saudação
         textoAssistente.innerHTML = "Olá, produtor! Seja bem-vindo à nossa propriedade digital. Para que eu possa te atender de forma personalizada, digite o seu nome abaixo para começarmos:";
     });
 }
 
 /* ==========================================================================
-   2. ASSISTENTE PESSOAL - ABAS, PERGUNTAS E BOTÃO DE FECHAR CHAT (NOVO!)
+   2. ASSISTENTE PESSOAL - ABAS, PERGUNTAS E FECHAMENTO DO CHAT CORRIGIDO
    ========================================================================== */
 const btnSalvarNome = document.querySelector('#btn-salvar-nome');
 const inputNomeUsuario = document.querySelector('#nome-usuario');
@@ -38,23 +33,22 @@ const btnFecharChat = document.querySelector('#btn-fechar-chat');
 let nomeDoProdutor = "";
 let aguardandoLeitura = false;
 
-// Funcionalidade para Fechar/Ocultar o balão de chat (Liberar a tela)
+// CORREÇÃO DIRETA: Fecha o chat limpando as classes e sumindo o elemento
 if (btnFecharChat && balaoAssistente) {
-    btnFecharChat.addEventListener('click', () => {
+    btnFecharChat.addEventListener('click', (evento) => {
+        evento.stopPropagation(); // Evita conflito com cliques de fundo
         balaoAssistente.style.display = "none";
-        // Caso o usuário feche enquanto estiver no centro, remove o foco para liberar
         if (containerAssistente) {
             containerAssistente.classList.remove('centro-foco');
         }
     });
 }
 
-// Reabrir ou fechar o balão ao clicar diretamente no Avatar redondo
+// Reabrir e gerenciar o avatar redondo
 if (avatarPonto && balaoAssistente) {
     avatarPonto.addEventListener('click', () => {
         if (balaoAssistente.style.display === "none") {
             balaoAssistente.style.display = "block";
-            // Se o nome já foi salvo, traz a apresentação de ferramentas integrada
             if (nomeDoProdutor !== "") {
                 resetarEstadoLeitura();
                 textoAssistente.innerHTML = gerarTextoApresentacaoCompleta();
@@ -79,11 +73,8 @@ if (btnSalvarNome) {
         }
         
         nomeDoProdutor = nomeInformado;
-        
-        // Pergunta se precisa de ajuda citando o nome do produtor rural
         textoAssistente.innerHTML = "Registro feito com sucesso, " + nomeDoProdutor + "! Agora, você precisa da minha ajuda para gerenciar sua propriedade hoje? Se quiser fechar minhas dicas para mexer livremente no site, clique no (X) acima!";
         
-        // Remove a centralização e volta o robô para o canto inferior direito
         if (containerAssistente) {
             containerAssistente.classList.remove('centro-foco');
         }
@@ -96,30 +87,22 @@ if (btnSalvarNome) {
 function gerarTextoApresentacaoCompleta() {
     return "Olá " + (nomeDoProdutor || "produtor") + "! O PontoVerde foi feito para te dar total controle de mercado. Aqui você encontra: <br><br>" +
            "<strong>1. Calculadora de Viabilidade:</strong> Descubra a meta exata de vendas para cobrir as contas da fazenda.<br>" +
-           "<strong>2. Guia de Insumos:</strong> Encontre as cooperativas e lojas mais próximas da sua região no Paraná para poupar no frete.<br>" +
-           "<strong>3. Simulador de Produtos:</strong> Escolha a alternativa ideal para consumo com preço acessível e descubra o diagnóstico técnico antes de comprar.";
+           "<strong>2. Guia de Insumos:</strong> Encontre as cooperativas e lojas mais próximas da sua região no Paraná.<br>" +
+           "<strong>3. Simulador de Produtos:</strong> Escolha a alternativa ideal antes de fazer compras para o campo.";
 }
 
 function buscarRespostaAgro(pergunta) {
     const texto = pergunta.toLowerCase();
-
     if (texto.includes("ponto de equilibrio") || texto.includes("equilibrio") || texto.includes("meta")) {
-        return "O ponto de equilíbrio é a meta mínima que sua propriedade precisa vender para pagar todos os custos operacionais. Tudo o que você vender acima desse valor vira lucro limpo. Use a nossa calculadora na aba ao lado para descobrir o seu valor.";
+        return "O ponto de equilíbrio é a meta mínima que sua propriedade precisa vender para pagar todos os custos operacionais. Use a nossa calculadora na aba ao lado para descobrir o seu valor.";
     }
     if (texto.includes("custo") || texto.includes("gasto") || texto.includes("caro") || texto.includes("economizar")) {
-        return "No campo, existem os custos fixos e flutuantes (como sementes, adubo e diesel). Uma ótima forma de economizar é comprar insumos em cooperativas locais da sua região para diminuir o frete. Veja nossa aba Guia de Fornecedores para encontrar opções parceiras.";
+        return "No campo, existem os custos fixos e flutuantes. Uma ótima forma de economizar é comprar insumos em cooperativas locais da sua região para diminuir o frete. Veja nossa aba Guia de Fornecedores.";
     }
     if (texto.includes("senar") || texto.includes("ateg") || texto.includes("ajuda") || texto.includes("curso")) {
-        return "O SENAR do Paraná tem o programa ATeG (Assistência Técnica e Gerencial). Eles enviam um técnico especializado de forma gratuita até a sua propriedade para acompanhar a sua produção todo mês e te ajudar a lucrar mais. Entre em contato com o Sindicato Rural da sua cidade.";
+        return "O SENAR do Paraná tem o programa ATeG (Assistência Técnica e Gerencial). Eles enviam um técnico especializado de forma gratuita até a sua propriedade para acompanhar a sua produção.";
     }
-    if (texto.includes("adubo") || texto.includes("fertilizante") || texto.includes("calcario")) {
-        return "A nutrição do solo é fundamental. Antes de comprar adubo, faça uma análise de solo para saber o que a terra precisa. Usar calcário para corrigir a acidez costuma ser o primeiro passo barato para fazer a plantação render mais.";
-    }
-    if (texto.includes("ajuda") || texto.includes("tudo") || texto.includes("site") || texto.includes("oferece")) {
-        return gerarTextoApresentacaoCompleta();
-    }
-
-    return "Entendi a sua dúvida! No setor agropecuário, cada detalhe importa para o lucro. Recomendo usar a nossa Calculadora de Viabilidade para checar seus números ou olhar nosso Guia de Insumos para simular as melhores opções.";
+    return "Entendi a sua dúvida! No setor agropecuário, cada detalhe importa para o lucro. Recomendo usar a nossa Calculadora de Viabilidade para checar seus números.";
 }
 
 if (btnPerguntar) {
@@ -163,7 +146,6 @@ botoesAbas.forEach(botao => {
     botao.addEventListener('click', () => {
         botoesAbas.forEach(b => b.classList.remove('ativa'));
         conteudosAbas.forEach(c => c.classList.remove('ativa'));
-        
         botao.classList.add('ativa');
         const abaAlvo = botao.getAttribute('data-aba');
         document.querySelector(`#aba-${abaAlvo}`).classList.add('ativa');
@@ -177,53 +159,18 @@ const listaInsumosTech = document.querySelector('#lista-insumos-tech');
 const seletorRegiao = document.querySelector('#regiao-produtor');
 
 const bancoInsumosELojas = [
-    { 
-        nome: "Defensivos Biológicos e Protetores de Cultivo", 
-        regiao: "sul",
-        loja: "Distribuidora e Soluções Agro Pinhais & RMC",
-        endereco: "Marginal da BR-277, Km 4 - Pinhais/PR",
-        distanciaSimulada: 12,
-        descricao: "Proteção contra pragas e doenças para lavouras e cultivos diversos.",
-        statusInsumo: "Disponível para Compra"
-    },
-    { 
-        nome: "Adubo Organomineral de Alta Performance (Saca 50kg)", 
-        regiao: "sul",
-        loja: "Agropecuária Central Contenda / Lapa",
-        endereco: "Av. Governador Moisés Lupion, 320 - Contenda/PR",
-        distanciaSimulada: 18,
-        descricao: "Fertilizante balanceado para nutrição do solo e aumento de produtividade.",
-        statusInsumo: "Disponível para Compra"
-    },
-    { 
-        nome: "Sementes de Milho Híbrido Tecnológico (Saca)", 
-        regiao: "campos-gerais",
-        loja: "Cooperativa Foco Agrícola - Unidade Castro",
-        endereco: "PR-340, Km 12 - Castro/PR",
-        distanciaSimulada: 140,
-        descricao: "Sementes certificadas de alta germinação com resistência climática.",
-        statusInsumo: "Disponível para Compra"
-    },
-    { 
-        nome: "Suplemento de Nutrição Concentrado de Alta Qualidade", 
-        regiao: "oeste",
-        loja: "Agro Comercial Cascavel & Cooperativas",
-        endereco: "Av. Brasil, 4500 - Cascavel/PR",
-        distanciaSimulada: 480,
-        descricao: "Nutrição e minerais essenciais para ganho de peso saudável e produtividade animal.",
-        statusInsumo: "Disponível para Compra"
-    }
+    { nome: "Defensivos Biológicos e Protetores de Cultivo", regiao: "sul", loja: "Distribuidora Agro Pinhais & RMC", endereco: "Marginal da BR-277 - Pinhais/PR", distanciaSimulada: 12, descricao: "Proteção contra pragas e doenças para lavouras.", statusInsumo: "Disponível para Compra" },
+    { nome: "Adubo Organomineral de Alta Performance (50kg)", regiao: "sul", loja: "Agropecuária Central Contenda / Lapa", endereco: "Av. Gov. Moisés Lupion, 320 - Contenda/PR", distanciaSimulada: 18, descricao: "Fertilizante balanceado para nutrição do solo.", statusInsumo: "Disponível para Compra" },
+    { nome: "Sementes de Milho Híbrido Tecnológico (Saca)", regiao: "campos-gerais", loja: "Cooperativa Foco Agrícola - Castro", endereco: "PR-340, Km 12 - Castro/PR", distanciaSimulada: 140, descricao: "Sementes certificadas de alta germinação.", statusInsumo: "Disponível para Compra" },
+    { nome: "Suplemento de Nutrição Concentrado", regiao: "oeste", loja: "Agro Comercial Cascavel & Cooperativas", endereco: "Av. Brasil, 4500 - Cascavel/PR", distanciaSimulada: 480, descricao: "Nutrição e minerais essenciais para ganho de peso.", statusInsumo: "Disponível para Compra" }
 ];
 
 function renderizarGuiaInsumos() {
     if (!listaInsumosTech || !seletorRegiao) return;
-    
     const regiaoSelecionada = seletorRegiao.value;
     listaInsumosTech.innerHTML = "";
 
-    const produtosFiltrados = bancoInsumosELojas.filter(item => {
-        return regiaoSelecionada === "todos" || item.regiao === regiaoSelecionada;
-    });
+    const produtosFiltrados = bancoInsumosELojas.filter(item => regiaoSelecionada === "todos" || item.regiao === regiaoSelecionada);
 
     produtosFiltrados.forEach(item => {
         listaInsumosTech.innerHTML += `
@@ -240,8 +187,7 @@ function renderizarGuiaInsumos() {
         `;
     });
 }
-
-seletorRegiao.addEventListener('change', renderizarGuiaInsumos);
+if (seletorRegiao) seletorRegiao.addEventListener('change', renderizarGuiaInsumos);
 renderizarGuiaInsumos();
 
 /* ==========================================================================
@@ -258,39 +204,28 @@ if (btnAvaliar) {
         const notaSelecionada = inputNotaProduto.value;
 
         if (nome === "" || notaSelecionada === "") {
-            painelResultadoProduto.innerHTML = `<p class="status-negativo">Erro: Informe o nome do produto e escolha uma alternativa.</p>`;
+            painelResultadoProduto.innerHTML = `<p class="status-negativo">Erro: Informe os dados.</p>`;
             painelResultadoProduto.className = "resultado-visivel";
             return;
         }
 
         const nota = parseInt(notaSelecionada);
         let veredito = "";
-        let classeVeredito = "";
-        const usuarioAtual = nomeDoProdutor ? nomeDoProdutor : "Produtor";
+        const usuarioAtual = nomeDoProdutor || "Produtor";
 
-        if (nota === 5) {
-            veredito = "Olá " + usuarioAtual + "! A análise do " + nome + " indica classificação Excelente! O investimento é altamente seguro e evita o desperdício.";
-            classeVeredito = "tag-bom";
-        } else if (nota === 4) {
-            veredito = "Olá " + usuarioAtual + "! A análise do " + nome + " indica classificação Boa. Produto confiável amplamente utilizado no Paraná.";
-            classeVeredito = "tag-bom";
+        if (nota >= 4) {
+            veredito = "Olá " + usuarioAtual + "! A análise do " + nome + " indica excelente custo-benefício para investimento no campo.";
         } else {
-            veredito = "Atenção " + usuarioAtual + "! O item " + nome + " exige maior cautela no preço ou na dosagem para não comprometer sua rentabilidade.";
-            classeVeredito = "tag-regular";
+            veredito = "Atenção " + usuarioAtual + "! O item " + nome + " exige maior cautela nos preços antes de fechar a compra.";
         }
 
-        painelResultadoProduto.innerHTML = `
-            <div class="card-resultado">
-                <p>${veredito}</p>
-                <span class="tag-indicacao ${classeVeredito}">Simulação Concluída</span>
-            </div>
-        `;
+        painelResultadoProduto.innerHTML = `<div class="card-resultado"><p>${veredito}</p></div>`;
         painelResultadoProduto.className = "resultado-visivel";
     });
 }
 
 /* ==========================================================================
-   6. LÓGICA DE CÁLCULO DA CALCULADORA DE PRODUTIVIDADE
+   6. CALCULADORA FINANCEIRA DE PRODUÇÃO
    ========================================================================== */
 const inputAlimentacao = document.querySelector('#alimentacao');
 const inputEnergia = document.querySelector('#energia');
@@ -320,25 +255,24 @@ if (btnCalcular) {
         painelErro.className = "erro-oculto";
         const custoOperacionalTotal = custoAlimentacao + custoEnergia + custoMaoObra;
         const pontoEquilibrioVolume = Math.ceil(custoOperacionalTotal / precoVendaUnitario);
-        const usuarioAtual = nomeDoProdutor ? nomeDoProdutor : "Produtor";
+        const usuarioAtual = nomeDoProdutor || "Produtor";
 
         txtCustoTotal.textContent = `Custo Operacional Total: R$ ${custoOperacionalTotal.toFixed(2).replace('.', ',')}`;
-        txtPontoEquilibrio.textContent = `Meta de Vendas Mínima: ${pontoEquilibrioVolume.toLocaleString('pt-BR')} unidades para cobrir o custo.`;
+        txtPontoEquilibrio.textContent = `Meta de Vendas Mínima: ${pontoEquilibrioVolume.toLocaleString('pt-BR')} unidades.`;
         
         if (pontoEquilibrioVolume > 4000) {
-            txtAlertaStatus.textContent = usuarioAtual + ", a meta para cobrir despesas está elevada. Verifique os fornecedores locais na aba ao lado para reduzir custos com frete.";
+            txtAlertaStatus.textContent = usuarioAtual + ", custos elevados identificados. Busque fornecedores locais para economizar.";
             txtAlertaStatus.className = "status-negativo";
         } else {
-            txtAlertaStatus.textContent = "Status: Produção Viável e Saudável! Retorno financeiro positivo projetado, " + usuarioAtual + ".";
+            txtAlertaStatus.textContent = "Status: Produção Viável e Saudável, " + usuarioAtual + ".";
             txtAlertaStatus.className = "status-positivo";
         }
-        
         painelResultados.className = "resultado-visivel";
     });
 }
 
 /* ==========================================================================
-   7. AVALIAÇÃO DA PLATAFORMA (0 A 10)
+   7. AVALIAÇÃO DA PLATAFORMA (ENVIAR NOTA NO RODAPÉ)
    ========================================================================== */
 const btnEnviarNotaSite = document.querySelector('#btn-enviar-nota-site');
 const seletorNotaSite = document.querySelector('#nota-site');
@@ -348,15 +282,15 @@ if (btnEnviarNotaSite) {
     btnEnviarNotaSite.addEventListener('click', () => {
         const nota = seletorNotaSite.value;
         if (nota === "") {
-            feedbackNotaSite.innerHTML = "Por favor, selecione uma nota antes de enviar.";
-            feedbackNotaSite.style.color = "var(--cor-erro)";
+            feedbackNotaSite.innerHTML = "Selecione uma nota.";
+            feedbackNotaSite.style.color = "#ffb703";
             feedbackNotaSite.className = "resultado-visivel";
             return;
         }
 
-        const usuarioAtual = nomeDoProdutor ? nomeDoProdutor : "Produtor";
-        feedbackNotaSite.style.color = "var(--cor-sucesso)";
-        feedbackNotaSite.innerHTML = "Obrigado pelo feedback, " + usuarioAtual + "! Você avaliou o PontoVerde com nota " + nota + "/10. Isso ajuda muito nosso projeto!";
+        const usuarioAtual = nomeDoProdutor || "Produtor";
+        feedbackNotaSite.style.color = "#38b000";
+        feedbackNotaSite.innerHTML = "Obrigado, " + usuarioAtual + "! Nota registrada: " + nota + "/10.";
         feedbackNotaSite.className = "resultado-visivel";
     });
 }
